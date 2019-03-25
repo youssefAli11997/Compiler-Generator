@@ -18,9 +18,10 @@ class InputToRegexParser {
 
 public:
     static void readFile(string path);
+    static map<string, RegularExpression> regularDefinitions;
+    static void finalizeTokens();
 
 private:
-    static map<string, RegularExpression> regularDefinitions;
     static vector<Token> tokens;
     static vector<string> keywords;
     static vector<string> punctuationSymbols;

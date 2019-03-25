@@ -11,6 +11,9 @@ inline bool operator<(DFAState a, DFAState b)
     return a.id > b.id;
 }
 int main() {
+    //input parsing and tokens identification code
+    InputToRegexParser::readFile("../lexical_input");
+    InputToRegexParser::finalizeTokens();
 /*
     //InputToRegexParser::readFile("../lexical_input");
     DFAState a;
@@ -71,6 +74,7 @@ map<DFAState, int>z;
 
 */
      /************ Testing NFA Builder *************/
+     /*
      NFABuilder builder;
      vector<string> tokens;
      tokens.push_back("abb.+.a.");
@@ -79,5 +83,6 @@ map<DFAState, int>z;
      NFAState nfaStartState = builder.build(tokens);
      cout << nfaStartState.getID() << endl;
      cout << EPSILON_CHAR << endl;
+     */
     return 0;
 }

@@ -16,6 +16,7 @@ private:
     string name;
     RegularExpression regularExpression;
     int priority;
+    string intToString(int x);
 
 public:
     Token(string givenName, RegularExpression re, int pri);

@@ -14,6 +14,7 @@ using namespace std;
 class RegularExpression {
 public:
     vector<string> value;
+    void normalize();
     string toString();
 
 };

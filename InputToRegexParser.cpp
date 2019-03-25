@@ -47,11 +47,13 @@ void InputToRegexParser::parseLine(string line) {
         RegularExpression RE;
         string name;
         if(words[0][words[0].length()-1] == '='){
-            RE.value = vector<string>(words.begin()+1, words.end()); //  TO BE EDITED
+            RE.value = vector<string>(words.begin()+1, words.end());
+            RE.normalize();
             name = words[0].substr(0, words[0].length()-1);
         }
         else if(words[1] == "="){
-            RE.value = vector<string>(words.begin()+2, words.end()); //  TO BE EDITED
+            RE.value = vector<string>(words.begin()+2, words.end());
+            RE.normalize();
             name = words[0];
         }
 
@@ -68,11 +70,13 @@ void InputToRegexParser::parseLine(string line) {
         RegularExpression RE;
         string name;
         if(words[0][words[0].length()-1] == ':'){
-            RE.value = vector<string>(words.begin()+1, words.end()); //  TO BE EDITED
+            RE.value = vector<string>(words.begin()+1, words.end());
+            RE.normalize();
             name = words[0].substr(0, words[0].length()-1);
         }
         else if(words[1] == ":"){
-            RE.value = vector<string>(words.begin()+2, words.end()); //  TO BE EDITED
+            RE.value = vector<string>(words.begin()+2, words.end());
+            RE.normalize();
             name = words[0];
         }
 
@@ -130,4 +134,31 @@ void InputToRegexParser::parseLine(string line) {
         for(int i=0; i<punctuationSymbols.size(); i++)
             cout<<punctuationSymbols[i]<<endl;
     }
+}
+
+void InputToRegexParser::finalizeTokens() {
+    //keywords
+    for(int i=0; i<keywords.size(); i++){
+        vector<string> v;
+        v.push_back(keywords[i]);
+        RegularExpression re;
+        re.value = v;
+        tokens.push_back(Token(keywords[i], re, 0));
+    }
+
+    //punctuation
+    for(int i=0; i<punctuationSymbols.size(); i++){
+        vector<string> v;
+        v.push_back(punctuationSymbols[i]);
+        RegularExpression re;
+        re.value = v;
+        tokens.push_back(Token(punctuationSymbols[i], re, 0));
+    }
+
+    cout<<"********************************\n";
+    for(int i=0; i<tokens.size(); i++){
+        cout<<tokens[i].toString()<<endl;
+    }
+
+
 }

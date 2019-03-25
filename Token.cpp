@@ -23,5 +23,19 @@ int Token::getPriority() const {
 }
 
 string Token::toString(){
-    return this->name + " val: " + this->regularExpression.toString();
+    return this->name + " val: " + this->regularExpression.toString()
+    + " pri: " + intToString(priority);
+}
+
+string Token::intToString(int x){
+    string s;
+    if(x == 0)
+        return "0";
+
+    while(x > 0){
+        s += " ";
+        s[s.size()-1] = (char)(x%10 + '0');
+        x /= 10;
+    }
+    return s;
 }
