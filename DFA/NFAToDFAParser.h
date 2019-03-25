@@ -13,7 +13,7 @@ public:
     void transferNFAToDFA(map<DFAState, vector<pair<DFAState, char> > > graph, DFAState startState);
     map<DFAState, vector<pair<DFAState, char> > > getDFA();
     DFAState getStartState();
-    set<pair<DFAState, string>> getEndStates();
+    set<pair<DFAState, Token>> getEndStates();
 private:
     set<DFAState> makeEpsilonClousre(DFAState state, map<DFAState, vector<pair<DFAState, char>>> graph, set<DFAState> &epsilonSet);
     void generateGraph(map<set<DFAState>, vector<pair<set<DFAState>, char> > > tempGraph, DFAState startState);

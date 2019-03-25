@@ -5,13 +5,14 @@
 #ifndef COMPILER_GENERATOR_STATE_H
 #define COMPILER_GENERATOR_STATE_H
 
+#include <Token.h>
 #include "bits/stdc++.h"
 using namespace std;
 class DFAState {
     public:
     int id = 0; // Id of this DFAState.
     bool end = false;  // To indicate if this acceptable state.
-    vector<string> tokens; // Vector to store all tokens if this state is accepted.
+    vector<Token> tokens; // Vector to store all tokens if this state is accepted.
 
     DFAState() {
         id = 0;
@@ -21,7 +22,7 @@ class DFAState {
         id = x;
     }
 
-    DFAState(int id, bool end, vector<string> tokens) {
+    DFAState(int id, bool end, vector<Token> tokens) {
         this->id = id;
         this->end = end;
         this->tokens  = tokens;

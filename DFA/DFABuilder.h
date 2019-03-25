@@ -20,7 +20,7 @@ public:
 private:
     NFAState startState;
     map<DFAState, vector< pair<DFAState, char> > > graph;
-    void convertInputToGraph(NFAState state);
+    DFAState convertInputToGraph(NFAState state);
     };
 
 

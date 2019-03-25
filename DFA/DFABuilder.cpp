@@ -3,38 +3,45 @@
 //
 
 #include "DFABuilder.h"
+#include "NFAToDFAParser.h"
+
 int visited[1000000];
-inline bool operator<(DFAState a, DFAState b)
-{
+
+inline bool operator<(DFAState a, DFAState b) {
     return a.id > b.id;
 }
+
 DFAGraph DFABuilder::buildDFA() {
-    return DFAGraph();
+    DFAState dfaStartState = convertInputToGraph(startState);
+    NFAToDFAParser nfaToDFAParser;
+    nfaToDFAParser.transferNFAToDFA(graph, dfaStartState);
+    DFAGraph dfaGraph;
+    dfaGraph.graph = nfaToDFAParser.getDFA();
+    dfaGraph.startState = dfaStartState;
+    return dfaGraph;
 }
-void DFABuilder::convertInputToGraph(NFAState state){
+
+DFAState DFABuilder::convertInputToGraph(NFAState state) {
 
     visited[state.getID()] = 1;
-    vector< pair<DFAState, char> >  destinations;
-    for(int i = 0; i < state.getNextStates().size(); i++){
+    vector<pair<DFAState, char> > destinations;
+    for (int i = 0; i < state.getNextStates().size(); i++) {
 
         NFAState *s = state.getNextStates()[i].second;
-          char input = state.getNextStates()[i].first;
-         /* prio<Tokens> tokens;
-          // TO DO Complete
-
-         DFAState x(s->id, s->matchingState, NULL, NULL);
-        destinations.push_back(make_pair(x, input);
-        if(visited[state.nextStates[i].second->id] == 1)
+        char input = state.getNextStates()[i].first;
+        vector<Token> tokens;
+        tokens.push_back(s->getToken());
+        DFAState dfaState(s->getID(), s->isMatching(), tokens);
+        destinations.push_back(make_pair(dfaState, input));
+        if (visited[s->getID()] == 1)
             continue;
-        */
-
-
-
+        convertInputToGraph(*s);
     }
-    /*
-    DFAState source(state.id, state.matchingState, state.token);
+    vector<Token> tokens;
+    tokens.push_back(state.getToken());
+    DFAState source(state.getID(), state.isMatching(), tokens);
     graph[source] = destinations;
 
-     */
+    return source;
 
 }

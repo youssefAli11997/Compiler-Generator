@@ -14,7 +14,7 @@ int main() {
     //input parsing and tokens identification code
     InputToRegexParser::readFile("../lexical_input");
     InputToRegexParser::finalizeTokens();
-/*
+
     //InputToRegexParser::readFile("../lexical_input");
     DFAState a;
     a.id = 1;
@@ -29,6 +29,7 @@ int main() {
     DFAState f;
     f.id = 6;
     f.end = true;
+/*
     f.tokens.push_back("id");
     map<DFAState, vector<pair<DFAState, char> > > x, y;
     vector<pair<DFAState, char> >aa;
@@ -66,13 +67,13 @@ int main() {
             cout<<"Start DFAState"<<endl;
         cout<<endl;
     }
-
+*/
 map<DFAState, int>z;
     z[a] = 1;
     z[b] = 1;
     cout<<z.size();
 
-*/
+
      /************ Testing NFA Builder *************/
      /*
      NFABuilder builder;

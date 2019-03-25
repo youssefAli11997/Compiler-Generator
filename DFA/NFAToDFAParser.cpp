@@ -6,11 +6,15 @@
 #include "bits/stdc++.h"
 using namespace std;
 map<DFAState, vector<pair<DFAState, char>> > newGraph;
-set<pair<DFAState, string>> newEndStates;
+set<pair<DFAState, Token>> newEndStates;
 DFAState newStartState;
 inline bool operator<(DFAState a, DFAState b)
 {
     return a.id > b.id;
+}
+inline bool operator<(Token a, Token b)
+{
+    return a.getPriority() > b.getPriority();
 }
 
 
@@ -126,7 +130,7 @@ map<DFAState, vector<pair<DFAState, char> > > NFAToDFAParser:: getDFA(){
     return newGraph;
 };
 
-set<pair<DFAState, string>> NFAToDFAParser::getEndStates(){
+set<pair<DFAState, Token>> NFAToDFAParser::getEndStates(){
     return newEndStates;
 };
 

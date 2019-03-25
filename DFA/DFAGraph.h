@@ -12,6 +12,10 @@ class DFAGraph {
 public:
     DFAState startState;
     map<DFAState, vector<pair<DFAState, char> > > graph;
+/*    DFAGraph(DFAState startState, map<DFAState, vector<pair<DFAState, char> > > graph) {
+        this->graph = graph;
+        this->startState = startState;
+    }*/
 
 
 };
