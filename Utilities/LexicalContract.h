@@ -1,0 +1,11 @@
+//
+// Created by hp on 25/03/02019.
+//
+
+#ifndef COMPILERS_LEXICALCONRACT_H
+#define COMPILERS_LEXICALCONRACT_H
+
+#define DOT_OPERATOR 31
+#define EPSILON 27
+
+#endif //COMPILERS_LEXICALCONRACT_H

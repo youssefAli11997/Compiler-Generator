@@ -4,10 +4,10 @@
 
 #include "InfixToPostfixConverter.h"
 
-map<char, int> InfixToPostfixConverter::precedence = {{'(',1}, {'|',2}, {'.',3}, {'*',4}, {'+',5}};  // greater has higher precedence
+map<char, int> InfixToPostfixConverter::precedence = {{'(',1}, {'|',2}, {DOT_OPERATOR,3}, {'*',4}, {'+',5}};  // greater has higher precedence
 
 
-string InfixToPostfixConverter::infixToPostfix(string infix){
+string InfixToPostfixConverter::convert(string infix){
     string postfix = "";
     string newInfix = addExplicitConcatOp(infix);
     stack<char> stack;
@@ -17,7 +17,7 @@ string InfixToPostfixConverter::infixToPostfix(string infix){
         if(ch == '('){
             stack.push(ch);
         }else if(ch == ')'){
-            while(stack.top() == '('){
+            while(stack.top()!='('){
                 postfix += stack.top();
                 stack.pop();
             }
@@ -50,7 +50,7 @@ string InfixToPostfixConverter::addExplicitConcatOp(string regex){
         next = regex[i+1];
         newRegex += current;
         if(current!='(' && next!=')' && !isRegexOperator(next) && !isBinaryOperator(current)){
-            newRegex += '.';
+            newRegex += DOT_OPERATOR;
         }
     }
     newRegex += regex[i];   // last char

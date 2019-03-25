@@ -9,10 +9,11 @@
 using namespace std;
 
 #define MAX_PRECEDENCE 100
+#define DOT_OPERATOR 31
 
 class InfixToPostfixConverter {
 public:
-    static string infixToPostfix(string infix);
+    static string convert(string infix);
 
 private:
     static string addExplicitConcatOp(string regex);
