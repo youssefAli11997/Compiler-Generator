@@ -4,12 +4,16 @@
 
 #include "NFABuilder.h"
 
-NFAState NFABuilder::build(vector<string> tokens){
+NFAState NFABuilder::build(vector<Token> tokens){
 
     vector<NFAFragment> tokensFragments;
+    vector<string> dummyTokens;
+    dummyTokens.push_back("abb.+.a.");
+    dummyTokens.push_back("aa.b.");
+    dummyTokens.push_back("ab|");
 
     for(int i=0; i<tokens.size();i++){
-        string str = tokens[i]; //= InfixToPostfix.getPostfix(tokens[i].pattern);
+        string str = dummyTokens[i]; //= InfixToPostfix.getPostfix(tokens[i].pattern);
         stack<NFAFragment> stack;
         char c;
         for (int j = 0; j < str.size(); j++) {

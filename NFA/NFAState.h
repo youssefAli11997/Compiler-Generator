@@ -6,6 +6,7 @@
 #define COMPILERS_NFASTATE_H
 
 #include "bits/stdc++.h"
+#include "Token.h"
 using namespace std;
 
 class NFAState {
@@ -15,16 +16,16 @@ private:
     int id;
     bool matching = false;
     vector< pair<char,NFAState*>> nextStates;
-    string token;
+    Token token = Token("",RegularExpression(),0);    // dummy Token will be edited
 
 public:
     NFAState();
     NFAState(int id);
-    string getToken() const;
+    Token getToken() const;
     bool isMatching() const;
     vector< pair<char,NFAState*>> getNextStates() const;
     int getID() const;
-    void setToken(string);
+    void setToken(Token);
     void addNextState(char, NFAState*);
     void setNextStates(vector< pair<char,NFAState*>>);
     void setMatching(bool matching);

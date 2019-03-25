@@ -14,7 +14,7 @@ using namespace std;
 
 class NFABuilder {
     public:
-        NFAState build(vector<string>);
+        NFAState build(vector<Token>);
 
     private:
         void connect(vector<pair<char,NFAState*> > &, NFAState* &);

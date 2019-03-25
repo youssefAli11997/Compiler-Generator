@@ -23,16 +23,12 @@ add_executable(Compilers
         CMakeLists.txt
         DFAOptimizer.cpp
         DFAOptimizer.h
-        FiniteAutomata.cpp
-        FiniteAutomata.h
         InputToRegexParser.cpp
         InputToRegexParser.h
         main.cpp
-        RegexToNFAParser.cpp
-        RegexToNFAParser.h
         RegularExpression.cpp
         RegularExpression.h
         DFA/DFAState.cpp
         DFA/DFAState.h
         Token.h
-        Token.cpp)
+        Token.cpp InfixToPostfixConverter.cpp InfixToPostfixConverter.h)

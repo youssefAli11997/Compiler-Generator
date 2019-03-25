@@ -14,7 +14,7 @@ NFAState::NFAState(int id){
     this->id = id;
 }
 
-string NFAState::getToken() const{
+Token NFAState::getToken() const{
     return token;
 }
 
@@ -30,7 +30,7 @@ int NFAState::getID() const{
     return id;
 }
 
-void NFAState::setToken(string token){
+void NFAState::setToken(Token token){
     this->token = token;
 }
 
