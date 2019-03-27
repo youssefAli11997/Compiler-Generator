@@ -80,11 +80,10 @@ void RegularExpression::normalize() {
     }
 }
 
-string RegularExpression::toString() {
+string RegularExpression::toString() const {
     string re = "";
     for(int i=0; i<value.size(); i++)
         re += value[i] + " ";
-    re += "\n";
 
     return re;
 }

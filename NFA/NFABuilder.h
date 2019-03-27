@@ -8,9 +8,10 @@
 #include "bits/stdc++.h"
 #include "NFAState.h"
 #include "NFAFragment.h"
-using namespace std;
+#include "Utilities/LexicalContract.h"
+#include "Utilities/InfixToPostfixConverter.h"
 
-#define EPSILON_CHAR '@'
+using namespace std;
 
 class NFABuilder {
     public:

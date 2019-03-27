@@ -6,10 +6,11 @@
 #define COMPILERS_REGEXCONVERTER_H
 
 #include "bits/stdc++.h"
+#include "LexicalContract.h"
+
 using namespace std;
 
 #define MAX_PRECEDENCE 100
-#define DOT_OPERATOR 31
 
 class InfixToPostfixConverter {
 public:
@@ -21,6 +22,7 @@ private:
     static int getPrecedence(char op);
     static bool isRegexOperator(char c);
     static bool isBinaryOperator(char c);
+    static string removeBlanks(string s);
 };
 
 

@@ -7,19 +7,15 @@
 NFAState NFABuilder::build(vector<Token> tokens){
 
     vector<NFAFragment> tokensFragments;
-    vector<string> dummyTokens;
-    dummyTokens.push_back("abb.+.a.");
-    dummyTokens.push_back("aa.b.");
-    dummyTokens.push_back("ab|");
-
     for(int i=0; i<tokens.size();i++){
-        string str = dummyTokens[i]; //= InfixToPostfix.getPostfix(tokens[i].pattern);
+        string infixRegex = tokens[i].getRegularExpression().toString();
+        string postfixRegex = InfixToPostfixConverter::convert(infixRegex);
         stack<NFAFragment> stack;
         char c;
-        for (int j = 0; j < str.size(); j++) {
-            c = str[j];
+        for (int j = 0; j < postfixRegex.size(); j++) {
+            c = postfixRegex[j];
             switch(c){
-                case '.':{
+                case DOT_OPERATOR:{
                     NFAFragment e2 = stack.top();
                     stack.pop();
                     NFAFragment e1 = stack.top();
@@ -87,38 +83,38 @@ vector<pair<char,NFAState*> > NFABuilder::concatVectors(vector<pair<char,NFAStat
 
 NFAFragment NFABuilder::alternate(NFAFragment &e1, NFAFragment &e2){
     NFAState* stateptr = new NFAState();
-    stateptr->addNextState(EPSILON_CHAR, e1.startState);
-    stateptr->addNextState(EPSILON_CHAR, e2.startState);
+    stateptr->addNextState(EPSILON, e1.startState);
+    stateptr->addNextState(EPSILON, e2.startState);
     vector<pair<char,NFAState*> > out = concatVectors(e1.outStates, e2.outStates);
     return NFAFragment(stateptr,out);
 }
 
 NFAFragment NFABuilder::kleeneClosure(NFAFragment &e){
     NFAState* state = new NFAState();
-    state->addNextState(EPSILON_CHAR, e.startState);
+    state->addNextState(EPSILON, e.startState);
     NFAState* dummyState = new NFAState();
-    state->addNextState(EPSILON_CHAR, dummyState);
+    state->addNextState(EPSILON, dummyState);
     connect(e.outStates, state);
     vector<pair<char,NFAState*> > v;
-    v.push_back(make_pair(EPSILON_CHAR,dummyState));
+    v.push_back(make_pair(EPSILON,dummyState));
     return NFAFragment(state, v);
 }
 
 NFAFragment NFABuilder::positiveClosure(NFAFragment &e){
     NFAState* state = new NFAState();
-    state->addNextState(EPSILON_CHAR, e.startState);
+    state->addNextState(EPSILON, e.startState);
     NFAState* dummyState = new NFAState();
-    state->addNextState(EPSILON_CHAR, dummyState);
+    state->addNextState(EPSILON, dummyState);
     connect(e.outStates, state);
     vector<pair<char,NFAState*> > v;
-    v.push_back(make_pair(EPSILON_CHAR,dummyState));
+    v.push_back(make_pair(EPSILON,dummyState));
     return NFAFragment(e.startState, v);
 }
 
 NFAState NFABuilder::alternateAll(vector<NFAFragment> &fragments){
     NFAState state(0);   // NFA start state has id = 0
     for(int i=0;i<fragments.size();i++){
-        state.addNextState(EPSILON_CHAR,fragments[i].startState);
+        state.addNextState(EPSILON,fragments[i].startState);
     }
     return state;
 }

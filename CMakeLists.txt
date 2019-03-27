@@ -31,4 +31,4 @@ add_executable(Compilers
         DFA/DFAState.cpp
         DFA/DFAState.h
         Token.h
-        Token.cpp InfixToPostfixConverter.cpp InfixToPostfixConverter.h)
+        Token.cpp Utilities/InfixToPostfixConverter.cpp Utilities/InfixToPostfixConverter.h Utilities/LexicalContract.h)

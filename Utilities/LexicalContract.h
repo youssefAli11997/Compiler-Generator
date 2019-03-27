@@ -7,5 +7,6 @@
 
 #define DOT_OPERATOR 31
 #define EPSILON 27
+#define BLANK(c) ((c == ' ') || (c == '\t') || (c == '\n'))
 
 #endif //COMPILERS_LEXICALCONRACT_H

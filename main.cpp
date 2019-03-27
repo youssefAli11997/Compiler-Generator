@@ -4,17 +4,31 @@
 #include "NFA/NFABuilder.h"
 #include "bits/stdc++.h"
 #include "DFAState.h"
+#include "Utilities/InfixToPostfixConverter.h"
 using namespace std;
 
 inline bool operator<(DFAState a, DFAState b)
 {
     return a.id > b.id;
 }
+
 int main() {
     //input parsing and tokens identification code
-    InputToRegexParser::readFile("../lexical_input");
-    InputToRegexParser::finalizeTokens();
 
+    InputToRegexParser::readFile("../simple_lexical_input");
+    InputToRegexParser::finalizeTokens();
+    vector<Token> tokens = InputToRegexParser::getTokens();
+    NFABuilder builder;
+    NFAState nfaStartState = builder.build(tokens);
+    cout << nfaStartState.getID() << endl;
+    /*
+    InfixToPostfixConverter::convert("a(bb)+a");
+    cout << endl;
+     */
+/*
+=======
+
+>>>>>>> e35ce108ca55384b16d3fa0acd392bf3bebdaa91
     //InputToRegexParser::readFile("../lexical_input");
     DFAState a;
     a.id = 1;
@@ -49,7 +63,7 @@ int main() {
     ee.push_back(make_pair(f, '@'));
     ee.push_back(make_pair(b, '@'));
     x[e] = ee;
-
+*/
 /*
     NFAToDFAParser *parser;
     vector<pair<DFAState, string>> ggg;
@@ -68,22 +82,21 @@ int main() {
         cout<<endl;
     }
 */
+/*
 map<DFAState, int>z;
     z[a] = 1;
     z[b] = 1;
     cout<<z.size();
+    */
 
-
-     /************ Testing NFA Builder *************/
      /*
+          //          Testing NFA Builder
      NFABuilder builder;
-     vector<string> tokens;
-     tokens.push_back("abb.+.a.");
-     tokens.push_back("aa.b.");
-     tokens.push_back("ab|");
+     vector<Token> tokens;
      NFAState nfaStartState = builder.build(tokens);
      cout << nfaStartState.getID() << endl;
-     cout << EPSILON_CHAR << endl;
+     cout << EPSILON << endl;
      */
+
     return 0;
 }

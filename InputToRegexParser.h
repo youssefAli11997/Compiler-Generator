@@ -20,6 +20,7 @@ public:
     static void readFile(string path);
     static map<string, RegularExpression> regularDefinitions;
     static void finalizeTokens();
+    static vector<Token> getTokens();
 
 private:
     static vector<Token> tokens;

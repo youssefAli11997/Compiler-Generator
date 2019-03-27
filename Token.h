@@ -19,6 +19,7 @@ private:
     string intToString(int x);
 
 public:
+    Token();
     Token(string givenName, RegularExpression re, int pri);
     const string getName() const;
     const RegularExpression getRegularExpression() const;

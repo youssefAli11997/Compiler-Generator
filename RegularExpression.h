@@ -15,7 +15,7 @@ class RegularExpression {
 public:
     vector<string> value;
     void normalize();
-    string toString();
+    string toString() const;
 
 };
 

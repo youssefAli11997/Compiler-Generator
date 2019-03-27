@@ -162,3 +162,7 @@ void InputToRegexParser::finalizeTokens() {
 
 
 }
+
+vector<Token> InputToRegexParser::getTokens(){
+    return tokens;
+}

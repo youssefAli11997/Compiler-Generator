@@ -23,7 +23,7 @@ int Token::getPriority() const {
 }
 
 string Token::toString(){
-    return this->name + " val: " + this->regularExpression.toString()
+    return this->name + " val: " + this->regularExpression.toString() + "\n"
     + " pri: " + intToString(priority);
 }
 
