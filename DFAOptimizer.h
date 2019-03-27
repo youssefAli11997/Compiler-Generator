@@ -1,0 +1,14 @@
+//
+// Created by youss on 3/15/2019.
+//
+
+#ifndef COMPILER_GENERATOR_DFAOPTIMIZER_H
+#define COMPILER_GENERATOR_DFAOPTIMIZER_H
+
+
+class DFAOptimizer {
+
+};
+
+
+#endif //COMPILER_GENERATOR_DFAOPTIMIZER_H

@@ -1,0 +1,14 @@
+//
+// Created by youss on 3/15/2019.
+//
+
+#ifndef COMPILER_GENERATOR_REGEXTONFAPARSER_H
+#define COMPILER_GENERATOR_REGEXTONFAPARSER_H
+
+
+class RegexToNFAParser {
+
+};
+
+
+#endif //COMPILER_GENERATOR_REGEXTONFAPARSER_H
