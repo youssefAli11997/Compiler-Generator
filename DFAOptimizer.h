@@ -10,7 +10,7 @@
 
 class DFAOptimizer {
     public:
-        vector<vector<DFAState>> getOptimizedGraph(DFAGraph graph);
+        DFAGraph getOptimizedGraph(DFAGraph graph);
     private:
         DFAGraph currentWorkingGraph;
         vector<DFAState> acceptanceStates;
@@ -22,6 +22,8 @@ class DFAOptimizer {
         bool matchEqu(DFAState state1, DFAState state2, vector<vector<DFAState>> sets);
         bool checkMatchingEquivalence(vector<vector<DFAState>> set1, vector<vector<DFAState>> set2);
         vector<vector<DFAState>> equivalenceSets;
+        DFAGraph turnIntoDFAGraph();
+        DFAState getRepresentative(DFAState state);
 };
 
 

@@ -9,12 +9,51 @@ inline bool operator<(DFAState a, DFAState b)
     return a.id > b.id;
 }
 
-vector<vector<DFAState>> DFAOptimizer::getOptimizedGraph(DFAGraph graph) {
+DFAGraph DFAOptimizer::getOptimizedGraph(DFAGraph graph) {
     this->currentWorkingGraph = graph;
     getAllPossibleInputsInDFA();
     splitStates();
     getEquivalentStates();
-    return equivalenceSets;
+    return turnIntoDFAGraph();
+}
+
+bool compareTokens(Token a, Token b) {
+    return a.getName() < b.getName();
+}
+
+DFAGraph DFAOptimizer::turnIntoDFAGraph() {
+    map<DFAState, vector<pair<DFAState, char> > > graph;
+    for(vector<DFAState> currentSet:equivalenceSets){
+        DFAState representativeState = currentSet[0];
+        vector<pair<DFAState,char>> transitions;
+        for(pair<DFAState,char> transition:currentWorkingGraph.graph[representativeState]){
+            DFAState nextRep = getRepresentative(transition.first);
+            transitions.push_back(make_pair(nextRep, transition.second));
+        }
+        if(representativeState.end == true){
+            set<Token, decltype(&compareTokens)> tokens(&compareTokens);
+            for(DFAState state: currentSet){
+                for(Token token:state.tokens){
+                    tokens.insert(token);
+                }
+            }
+            representativeState.tokens = vector<Token>(tokens.begin(),tokens.end());
+        }
+        graph[representativeState] = transitions;
+    }
+    DFAState startState = getRepresentative(currentWorkingGraph.startState);
+    return DFAGraph(graph, startState);
+}
+
+DFAState DFAOptimizer::getRepresentative(DFAState state) {
+    for(vector<DFAState> set:equivalenceSets){
+        for(DFAState currentState:set){
+            if(currentWorkingGraph.isMatching(currentState,state)){
+                return set[0];
+            }
+        }
+    }
+    return DFAState(DFAState::NULL_STATE);
 }
 
 void DFAOptimizer::splitStates() {

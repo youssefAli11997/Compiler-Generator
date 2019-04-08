@@ -7,6 +7,7 @@
 
 #include <Token.h>
 #include "bits/stdc++.h"
+
 using namespace std;
 class DFAState {
     public:

@@ -99,17 +99,17 @@ int main() {
     ee.push_back(make_pair(b, 'a'));
     ee.push_back(make_pair(c, 'b'));
     x[e] = ee;
-    DFAGraph graph = DFAGraph();
-    graph.graph = x;
+    DFAGraph graph(x,a);
     DFAOptimizer optimizer;
-    vector<vector<DFAState>> sets = optimizer.getOptimizedGraph(graph);
-    for(vector<DFAState> set:sets){
-        cout << "{ ";
-        for(DFAState state:set){
-            cout<< state.id << " ";
+    DFAGraph optimized = optimizer.getOptimizedGraph(graph);
+    for(pair<DFAState, vector<pair<DFAState, char>>> keyVal: optimized.graph){
+        cout << keyVal.first.id << "  ";
+        for(pair<DFAState, char> transition: keyVal.second){
+            cout << transition.second << " " << transition.first.id << " ";
         }
-        cout << "} ";
+        cout<< "\n";
     }
+    cout << "Start State: " << optimized.startState.id << "\n";
 /*
     NFAToDFAParser *parser;
     vector<pair<DFAState, string>> ggg;
