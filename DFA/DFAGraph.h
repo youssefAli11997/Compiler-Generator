@@ -16,8 +16,8 @@ public:
         this->graph = graph;
         this->startState = startState;
     }*/
-
-
+    DFAState getNextState(DFAState currentState, char input);
+    bool isMatching(DFAState state1, DFAState state2);
 };
 
 

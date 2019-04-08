@@ -10,6 +10,7 @@
 using namespace std;
 class DFAState {
     public:
+    static const int NULL_STATE = -999;
     int id = 0; // Id of this DFAState.
     bool end = false;  // To indicate if this acceptable state.
     vector<Token> tokens; // Vector to store all tokens if this state is accepted.
@@ -28,6 +29,7 @@ class DFAState {
         this->tokens  = tokens;
     }
 
+    bool isNullState();
     // set<int> groupOfId;
 };
 
