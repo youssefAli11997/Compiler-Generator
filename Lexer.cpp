@@ -4,6 +4,7 @@
 
 #include "Lexer.h"
 #include "InputToRegexParser.h"
+#include "SymbolTable.h"
 #include <iostream>
 #include <fstream>
 
@@ -48,18 +49,17 @@ void Lexer::parseWord(string word) {
     cout<<"word: "<<word<<endl;
     bool splitted = false;
     bool ok = false;
-    for(int i=0; i<InputToRegexParser::punctuationSymbols.size(); i++){
-        if(word == InputToRegexParser::punctuationSymbols[i]){
+    for(int i=0; i<InputToRegexParser::modifiedPunctuationSymbols.size(); i++){
+        if(word == InputToRegexParser::modifiedPunctuationSymbols[i]){
             lexemes.push_back(word);
             return;
         }
-        string delimiter = InputToRegexParser::punctuationSymbols[i];
+        string delimiter = InputToRegexParser::modifiedPunctuationSymbols[i];
         //if(delimiter == ",")cout<<"delimiter: "<<delimiter<<endl;
         //cout<<";"<<endl;
         string lexeme;
         int pos = 0;
         while((pos = word.find(delimiter)) != string::npos){
-            if(delimiter == "(")cout<<"posssssssss:  --> "<<pos<<endl;
             if(pos > 0)
                 lexeme = word.substr(0, (unsigned int)pos);
             else
@@ -78,9 +78,7 @@ void Lexer::parseWord(string word) {
                 lexemes.push_back(delimiter);
                 word.erase(0, pos + count + delimiter.length());
             }
-            if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!!a\n";
 
-            if(lexeme == "sum")cout<<"okkkkkkkkkk!!!\n";
             if(lexemeHasNoPunctuation(lexeme))
                 lexemes.push_back(lexeme);
             if(pos > 0) {
@@ -90,28 +88,49 @@ void Lexer::parseWord(string word) {
 
         }
         if(lexemes.empty() || (lexemes[lexemes.size()-1] != word && ok)) {
-            if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!!b\n";
             if(lexemeHasNoPunctuation(word))
                 lexemes.push_back(word);
             ok = true;
         }
     }
-    if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!! "<<splitted<<"\n";
     if(!splitted && !ok)
         lexemes.push_back(word);
 }
 
 bool Lexer::lexemeHasNoPunctuation(string lexeme) {
-    for(int i=0; i<InputToRegexParser::punctuationSymbols.size(); i++){
-        if(lexeme.find(InputToRegexParser::punctuationSymbols[i]) != string::npos){
+    for(int i=0; i<InputToRegexParser::modifiedPunctuationSymbols.size(); i++){
+        if(lexeme.find(InputToRegexParser::modifiedPunctuationSymbols[i]) != string::npos){
             return false;
         }
     }
     return true;
 }
 
-void Lexer::runLexicalAnalysis() {
+void Lexer::runLexicalAnalysis(DFAGraph graph) {
+    ofstream file_output ("../lexer_output");
+    cout<<"hererererere!!\n";
     for(int i=0; i<lexemes.size(); i++){
-
+        cout<<"lx:  "<<lexemes[i]<<endl;
+        if(lexemes[i] == "" || lexemes[i] == " ")continue;
+        DFAState currentState = graph.startState;
+        for(int j=0; j<lexemes[i].length(); j++){
+            currentState = graph.getNextState(currentState, lexemes[i][j]);
+        }
+        cout<<"end? : "<<currentState.end<<endl;
+        if(currentState.end == true){
+            Token token = currentState.getHighestPriorityToken();
+            if(token.getPriority() == 0){
+                file_output<<token.getName()<<endl;
+            }
+            else{
+                file_output<<"id"<<endl;
+                SymbolTable::addIdentifier(lexemes[i]);
+            }
+        }
+        else{
+            file_output<<"ERROR("<<lexemes[i]<<" cannot be matched with any token)"<<endl;
+        }
     }
+
+    file_output.close();
 }

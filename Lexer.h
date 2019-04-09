@@ -4,6 +4,8 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
+#include <DFA/DFAGraph.h>
 
 #ifndef COMPILERS_LEXER_H
 #define COMPILERS_LEXER_H
@@ -14,7 +16,7 @@ class Lexer {
 
 public:
     static void readFile(string path);
-    static void runLexicalAnalysis();
+    static void runLexicalAnalysis(DFAGraph graph);
 
 private:
     static vector<string> lexemes;

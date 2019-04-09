@@ -32,6 +32,8 @@ class DFAState {
 
     bool isNullState();
     // set<int> groupOfId;
+
+    Token getHighestPriorityToken();
 };
 
 

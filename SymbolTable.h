@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -13,8 +14,10 @@ using namespace std;
 class SymbolTable {
 
 public:
-    void addIdentifier(string name); // To be edited (add more arguments) later
+    static void addIdentifier(string name); // To be edited (add more arguments) later
 
+private:
+    static vector<string> ids;
 };
 
 

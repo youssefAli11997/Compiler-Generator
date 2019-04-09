@@ -7,6 +7,7 @@ map<string, RegularExpression> InputToRegexParser::regularDefinitions;
 vector<Token> InputToRegexParser::tokens;
 vector<string> InputToRegexParser::keywords;
 vector<string> InputToRegexParser::punctuationSymbols;
+vector<string> InputToRegexParser::modifiedPunctuationSymbols;
 int InputToRegexParser::regExCounter = 0;
 
 void InputToRegexParser::readFile(string path){
@@ -17,6 +18,22 @@ void InputToRegexParser::readFile(string path){
     while(getline(file_input, line)){
         parseLine(line);
     }
+
+    cout<<"show meeeeeeeeeeeeee111\n";
+    for(int i=0; i<punctuationSymbols.size(); i++){
+        string modified = "";
+        for(int j=0; j<punctuationSymbols[i].length(); j++){
+            if(punctuationSymbols[i][j] == '\\')
+                continue;
+            modified += punctuationSymbols[i][j];
+        }
+        modifiedPunctuationSymbols.push_back(modified);
+    }
+    cout<<"****************************************\n";
+    for(int i=0; i<modifiedPunctuationSymbols.size(); i++){
+        cout<<modifiedPunctuationSymbols[i]<<endl;
+    }
+    cout<<"****************************************\n";
 
     file_input.close();
 }
@@ -29,29 +46,12 @@ void InputToRegexParser::parseLine(string line) {
     while((pos = line.find(delimiter)) != string::npos){
         word = line.substr(0, pos);
         if(word.length() > 0 && word != " ") {
-            string modifiedWord;
-            for(int r=0; r<word.length(); r++){
-                //cout<<"word[r]: "<<word[r]<<endl;
-                if(r < word.length()-1 && word[r] == '\\')
-                    continue;
-                //cout<<"word[r]: "<<word[r]<<endl;
-                modifiedWord += word[r];
-            }
-            //cout<<"modified word: "<<modifiedWord<<endl;
-            words.push_back(modifiedWord);
+            words.push_back(word);
         }
         line.erase(0, pos + delimiter.length());
         //cout<<"'"<<line<<"'\n";
     }
-
-    string modifiedLine;
-    for(int r=0; r<line.length(); r++){
-        if(r < word.length()-1 && line[r] == '\\')
-            continue;
-        modifiedLine += line[r];
-    }
-
-    words.push_back(modifiedLine);
+    words.push_back(line);
 
     //for(int i=0; i<words.size(); i++)
     //    cout<<words[i]<<endl;

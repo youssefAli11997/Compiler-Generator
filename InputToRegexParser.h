@@ -22,6 +22,7 @@ public:
     static void finalizeTokens();
     static vector<Token> getTokens();
     static vector<string> punctuationSymbols;
+    static vector<string> modifiedPunctuationSymbols;
 
 private:
     static vector<Token> tokens;

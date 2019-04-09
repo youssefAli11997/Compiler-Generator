@@ -3,3 +3,9 @@
 //
 
 #include "SymbolTable.h"
+
+vector<string> SymbolTable::ids;
+
+void SymbolTable::addIdentifier(string name) {
+    ids.push_back(name);
+}
