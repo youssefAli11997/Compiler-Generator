@@ -4,8 +4,6 @@
 
 #include "Token.h"
 
-
-
 Token::Token(string givenName, RegularExpression re, int pri){
     this->name = givenName;
     this->regularExpression = re;

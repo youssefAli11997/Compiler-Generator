@@ -17,6 +17,8 @@ inline bool operator<(DFAState a, DFAState b)
 
 int main() {
     //input parsing and tokens identification code
+    InputToRegexParser::readFile("../rules_input");
+    InputToRegexParser::finalizeTokens();
 
     /*InputToRegexParser::readFile("../simple_lexical_input");
     InputToRegexParser::finalizeTokens();
@@ -32,7 +34,7 @@ int main() {
 =======
 
 >>>>>>> e35ce108ca55384b16d3fa0acd392bf3bebdaa91
-    //InputToRegexParser::readFile("../lexical_input");
+    //InputToRegexParser::readFile("../rules_input");
     DFAState a;
     a.id = 1;
     DFAState b;

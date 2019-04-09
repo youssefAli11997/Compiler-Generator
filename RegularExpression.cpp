@@ -45,7 +45,7 @@ void RegularExpression::normalize() {
 
                 vector<string> temp;
                 if(i>0)
-                    temp = vector<string>(value.begin(), value.begin()+i-1);
+                    temp = vector<string>(value.begin(), value.begin()+i);
                 temp.push_back(s);
                 cout<<i+1<<" "<<value.size()<<endl;
                 for(int j=i+1; j<value.size(); j++){

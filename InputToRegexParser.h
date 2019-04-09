@@ -21,11 +21,11 @@ public:
     static map<string, RegularExpression> regularDefinitions;
     static void finalizeTokens();
     static vector<Token> getTokens();
+    static vector<string> punctuationSymbols;
 
 private:
     static vector<Token> tokens;
     static vector<string> keywords;
-    static vector<string> punctuationSymbols;
     static int regExCounter;
 
     static void parseLine(string line);
