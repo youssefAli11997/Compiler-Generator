@@ -148,6 +148,7 @@ map<DFAState, int>z;
      */
 
      Lexer::readFile("../lexer_input");
+     Lexer::runLexicalAnalysis();
 
-    return 0;
+     return 0;
 }

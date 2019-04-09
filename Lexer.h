@@ -14,6 +14,7 @@ class Lexer {
 
 public:
     static void readFile(string path);
+    static void runLexicalAnalysis();
 
 private:
     static vector<string> lexemes;

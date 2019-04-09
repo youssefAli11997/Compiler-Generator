@@ -109,3 +109,9 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
     }
     return true;
 }
+
+void Lexer::runLexicalAnalysis() {
+    for(int i=0; i<lexemes.size(); i++){
+
+    }
+}
