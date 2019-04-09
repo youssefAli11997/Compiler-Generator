@@ -34,4 +34,4 @@ add_executable(Compiler_Generator
         RegularExpression.cpp
         RegularExpression.h
         Token.cpp
-        Token.h Lexer.cpp Lexer.h)
+        Token.h Lexer.cpp Lexer.h SymbolTable.cpp SymbolTable.h)

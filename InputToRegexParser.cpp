@@ -24,16 +24,34 @@ void InputToRegexParser::readFile(string path){
 void InputToRegexParser::parseLine(string line) {
     vector<string> words;
     string delimiter = " ";
-    string word = "";
+    string word;
     int pos = 0;
     while((pos = line.find(delimiter)) != string::npos){
         word = line.substr(0, pos);
-        if(word.length() > 0 && word != " ")
-            words.push_back(word);
+        if(word.length() > 0 && word != " ") {
+            string modifiedWord;
+            for(int r=0; r<word.length(); r++){
+                //cout<<"word[r]: "<<word[r]<<endl;
+                if(r < word.length()-1 && word[r] == '\\')
+                    continue;
+                //cout<<"word[r]: "<<word[r]<<endl;
+                modifiedWord += word[r];
+            }
+            //cout<<"modified word: "<<modifiedWord<<endl;
+            words.push_back(modifiedWord);
+        }
         line.erase(0, pos + delimiter.length());
         //cout<<"'"<<line<<"'\n";
     }
-    words.push_back(line);
+
+    string modifiedLine;
+    for(int r=0; r<line.length(); r++){
+        if(r < word.length()-1 && line[r] == '\\')
+            continue;
+        modifiedLine += line[r];
+    }
+
+    words.push_back(modifiedLine);
 
     //for(int i=0; i<words.size(); i++)
     //    cout<<words[i]<<endl;

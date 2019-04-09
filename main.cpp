@@ -7,6 +7,7 @@
 #include "Utilities/InfixToPostfixConverter.h"
 #include "DFAGraph.h"
 #include "DFAOptimizer.h"
+#include "Lexer.h"
 
 using namespace std;
 
@@ -145,6 +146,8 @@ map<DFAState, int>z;
      cout << nfaStartState.getID() << endl;
      cout << EPSILON << endl;
      */
+
+     Lexer::readFile("../lexer_input");
 
     return 0;
 }

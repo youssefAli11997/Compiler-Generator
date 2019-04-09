@@ -47,31 +47,65 @@ void Lexer::parseLine(string line) {
 void Lexer::parseWord(string word) {
     cout<<"word: "<<word<<endl;
     bool splitted = false;
+    bool ok = false;
     for(int i=0; i<InputToRegexParser::punctuationSymbols.size(); i++){
         if(word == InputToRegexParser::punctuationSymbols[i]){
             lexemes.push_back(word);
             return;
         }
         string delimiter = InputToRegexParser::punctuationSymbols[i];
+        //if(delimiter == ",")cout<<"delimiter: "<<delimiter<<endl;
+        //cout<<";"<<endl;
         string lexeme;
         int pos = 0;
-        bool ok = false;
         while((pos = word.find(delimiter)) != string::npos){
-            lexeme = word.substr(0, (unsigned int)pos);
-            if(lexeme.length() > 0 && lexeme != " ") {
-                ok = true;
-                splitted = true;
-                lexemes.push_back(lexeme);
+            if(delimiter == "(")cout<<"posssssssss:  --> "<<pos<<endl;
+            if(pos > 0)
+                lexeme = word.substr(0, (unsigned int)pos);
+            else
+                lexeme = word.substr((unsigned int)pos+1, word.length());
+
+            int pos2 = 0, count = 0;
+            while((pos2 = lexeme.find(delimiter)) == 0){
                 lexemes.push_back(delimiter);
+                lexeme = lexeme.substr((unsigned int)pos2+1, lexeme.length());
+                count++;
             }
-            word.erase(0, pos + delimiter.length());
+
+            cout<<"lexeme: "<<lexeme<<endl;
+            splitted = true;
+            if(pos == 0){
+                lexemes.push_back(delimiter);
+                word.erase(0, pos + count + delimiter.length());
+            }
+            if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!!a\n";
+
+            if(lexeme == "sum")cout<<"okkkkkkkkkk!!!\n";
+            if(lexemeHasNoPunctuation(lexeme))
+                lexemes.push_back(lexeme);
+            if(pos > 0) {
+                lexemes.push_back(delimiter);
+                word.erase(0, pos + delimiter.length());
+            }
 
         }
-        if(lexemes.size() == 0 || (lexemes[lexemes.size()-1] != word && ok)) {
-            lexemes.push_back(word);
-            ok = false;
+        if(lexemes.empty() || (lexemes[lexemes.size()-1] != word && ok)) {
+            if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!!b\n";
+            if(lexemeHasNoPunctuation(word))
+                lexemes.push_back(word);
+            ok = true;
         }
     }
-    if(!splitted)
+    if(word == "(())sum" || word == "))sum" || word == "((int")cout<<"here!! "<<splitted<<"\n";
+    if(!splitted && !ok)
         lexemes.push_back(word);
+}
+
+bool Lexer::lexemeHasNoPunctuation(string lexeme) {
+    for(int i=0; i<InputToRegexParser::punctuationSymbols.size(); i++){
+        if(lexeme.find(InputToRegexParser::punctuationSymbols[i]) != string::npos){
+            return false;
+        }
+    }
+    return true;
 }

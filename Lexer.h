@@ -19,7 +19,7 @@ private:
     static vector<string> lexemes;
     static void parseLine(string line);
     static void parseWord(string word);
-
+    static bool lexemeHasNoPunctuation(string lexeme);
 };
 
 
