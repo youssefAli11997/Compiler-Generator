@@ -57,10 +57,14 @@ void NFAToDFAParser:: transferNFAToDFA(map<DFAState, vector< pair<DFAState, char
                     continue;
                 temp = edges[destination[j].second];
                 if(dp[destination[j].first.id].size() != 0){
-                 //   fill(dp[]);
-                }
+                 /*
+                    for(auto u = d[])
 
-                makeEpsilonClousre(destination[j].first, graph, temp);
+                    */
+                }
+                //else
+                    makeEpsilonClousre(destination[j].first, graph, temp);
+
                 edges[destination[j].second] = temp;
             }
         }

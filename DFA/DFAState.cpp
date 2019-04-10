@@ -17,11 +17,14 @@ bool DFAState::isNullState() {
 
 Token DFAState::getHighestPriorityToken() {
     int maxPri = tokens[0].getPriority(), idx = 0;
-    for(int i=0; i<tokens.size(); i++){
+    cout<<"here: \n";
+    for(int i=1; i<tokens.size(); i++){
+        cout<<tokens[i].getName()<<" "<<tokens[i].getPriority()<<endl;
         if(tokens[i].getPriority() < maxPri){
             maxPri = tokens[i].getPriority();
             idx = i;
         }
     }
+    cout<<tokens[idx].getName()<<endl;
     return tokens[idx];
 }
