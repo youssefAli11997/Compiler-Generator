@@ -108,7 +108,6 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
 
 void Lexer::runLexicalAnalysis(DFAGraph graph) {
     ofstream file_output ("../lexer_output");
-    cout<<"hererererere!!\n";
     for(int i=0; i<lexemes.size(); i++){
         cout<<"lx:  "<<lexemes[i]<<endl;
         if(lexemes[i] == "" || lexemes[i] == " ")continue;
@@ -116,7 +115,6 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
         for(int j=0; j<lexemes[i].length(); j++){
             currentState = graph.getNextState(currentState, lexemes[i][j]);
         }
-        cout<<"end? : "<<currentState.end<<endl;
         if(currentState.end == true){
             Token token = currentState.getHighestPriorityToken();
             if(token.getPriority() == 0){
