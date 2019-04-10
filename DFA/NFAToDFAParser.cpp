@@ -4,10 +4,12 @@
 #include "DFAState.h"
 #include "NFAToDFAParser.h"
 #include "bits/stdc++.h"
+#include "Utilities/LexicalContract.h"
 using namespace std;
 map<DFAState, vector<pair<DFAState, char>> > newGraph;
 set<pair<DFAState, Token>> newEndStates;
 DFAState newStartState;
+set<DFAState> dp[1000000];
 inline bool operator<(DFAState a, DFAState b)
 {
     return a.id > b.id;
@@ -23,7 +25,7 @@ set<DFAState> NFAToDFAParser:: makeEpsilonClousre(DFAState state, map<DFAState, 
     vector<pair<DFAState, char>> destination;
     destination = graph[state];
     for(auto i = 0; i < destination.size(); i++){
-        if(epsilonSet.find(destination[i].first) == epsilonSet.end() && destination[i].second == '@'){
+        if(epsilonSet.find(destination[i].first) == epsilonSet.end() && destination[i].second == EPSILON){
             makeEpsilonClousre(destination[i].first, graph, (epsilonSet));
         }
     }
@@ -51,9 +53,13 @@ void NFAToDFAParser:: transferNFAToDFA(map<DFAState, vector< pair<DFAState, char
             destination = graph[*i];
             for (int j = 0; j < destination.size(); j++) {
                 set<DFAState> temp;
-                if(destination[j].second == '@')
+                if(destination[j].second == EPSILON)
                     continue;
                 temp = edges[destination[j].second];
+                if(dp[destination[j].first.id].size() != 0){
+                 //   fill(dp[]);
+                }
+
                 makeEpsilonClousre(destination[j].first, graph, temp);
                 edges[destination[j].second] = temp;
             }
@@ -86,7 +92,7 @@ void NFAToDFAParser::putInTempGraph(map<char, set<DFAState>>edges, map<set<DFASt
 }
 
 void NFAToDFAParser::generateGraph(map<set<DFAState>, vector<pair<set<DFAState>, char> > > tempGraph, DFAState startState){
-    map<set<DFAState>,int> ids;
+    map<set<DFAState>, int> ids;
     int counter = 1;
     for(auto i = tempGraph.begin(); i != tempGraph.end(); i++)  // Hash States To New ID.
         if(!ids[(*i).first])

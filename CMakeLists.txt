@@ -1,20 +1,21 @@
-cmake_minimum_required(VERSION 3.13)
-project(Compiler_Generator)
+cmake_minimum_required(VERSION 3.10)
+project(Compilers)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories(.)
 include_directories(DFA)
 include_directories(NFA)
 include_directories(Utilities)
 
-add_executable(Compiler_Generator
+add_executable(Compilers
         DFA/DFABuilder.cpp
         DFA/DFABuilder.h
         DFA/DFAGraph.cpp
         DFA/DFAGraph.h
         DFA/DFAState.cpp
         DFA/DFAState.h
+        "DFA/NFA Example.txt"
         DFA/NFAToDFAParser.cpp
         DFA/NFAToDFAParser.h
         NFA/NFABuilder.cpp
@@ -30,8 +31,16 @@ add_executable(Compiler_Generator
         DFAOptimizer.h
         InputToRegexParser.cpp
         InputToRegexParser.h
+        Lexer.cpp
+        Lexer.h
+        lexer_input
+        lexer_output
         main.cpp
         RegularExpression.cpp
         RegularExpression.h
+        rules_input
+        simple_lexical_input
+        SymbolTable.cpp
+        SymbolTable.h
         Token.cpp
-        Token.h Lexer.cpp Lexer.h SymbolTable.cpp SymbolTable.h)
+        Token.h)

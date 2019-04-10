@@ -17,7 +17,7 @@ DFAGraph DFABuilder::buildDFA() {
     nfaToDFAParser.transferNFAToDFA(graph, dfaStartState);
     DFAGraph dfaGraph;
     dfaGraph.graph = nfaToDFAParser.getDFA();
-    dfaGraph.startState = dfaStartState;
+    dfaGraph.startState = nfaToDFAParser.getStartState();
     return dfaGraph;
 }
 
