@@ -158,6 +158,22 @@ bool DFAOptimizer::matchEqu(DFAState state1, DFAState state2, vector<vector<DFAS
                 return false;
         }
     }
+    if(state1.end && state2.end){
+        if(!matchingTokens(state1.tokens,state2.tokens)){
+            return false;
+        }
+    }
     return match;
+}
+
+bool DFAOptimizer::matchingTokens(vector<Token> tokens1, vector<Token> tokens2) {
+    set<Token, decltype(&compareTokens)> testSet(&compareTokens);
+    for(Token tok: tokens1)
+        testSet.insert(tok);
+    for(Token tok: tokens2)
+        testSet.insert(tok);
+    if(testSet.size() == tokens1.size() == tokens2.size())
+        return true;
+    return false;
 }
 
