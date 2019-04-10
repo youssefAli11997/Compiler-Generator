@@ -30,7 +30,11 @@ int main() {
    cout << nfaStartState.getID() << endl;
 
 
-
+/*
+   InfixToPostfixConverter::convert("\\(");
+   InfixToPostfixConverter::convert("\\)");
+   cout << endl;
+*/
     /*
    InfixToPostfixConverter::convert("\\=\\=");
    cout << endl;

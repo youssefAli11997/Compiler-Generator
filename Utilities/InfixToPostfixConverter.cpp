@@ -13,17 +13,25 @@ string InfixToPostfixConverter::convert(string infix){
     string formattedInfix = addExplicitConcatOp(removeBlanks(infix));
     stack<char> stack;
     char ch;
+    bool escaped = false;
     for(int i=0;i<formattedInfix.size();i++){
         ch = formattedInfix[i];
-        if(ch == '('){
+        if(ch == ESCAPE){
+            if(!escaped)
+                escaped = true;
             stack.push(ch);
-        }else if(ch == ')'){
+        }
+        else if(ch == '(' && !escaped){
+            stack.push(ch);
+        }else if(ch == ')' && !escaped){
             while(stack.top()!='('){
                 postfix += stack.top();
                 stack.pop();
             }
             stack.pop();
         }else{
+            if(escaped)
+                escaped = false;
             while(!stack.empty()){
                 char top = stack.top();
                 if(getPrecedence(top) >= getPrecedence(ch)){
