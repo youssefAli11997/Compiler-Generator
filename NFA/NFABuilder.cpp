@@ -8,50 +8,56 @@ NFAState NFABuilder::build(vector<Token> tokens){
 
     vector<NFAFragment> tokensFragments;
     for(int i=0; i<tokens.size();i++){
+
         string infixRegex = tokens[i].getRegularExpression().toString();
         string postfixRegex = InfixToPostfixConverter::convert(infixRegex);
         stack<NFAFragment> stack;
         char c;
+        bool escaped = false;
         for (int j = 0; j < postfixRegex.size(); j++) {
             c = postfixRegex[j];
-            switch(c){
-                case DOT_OPERATOR:{
-                    NFAFragment e2 = stack.top();
-                    stack.pop();
-                    NFAFragment e1 = stack.top();
-                    stack.pop();
-                    connect(e1.outStates,e2.startState);
-                    stack.push(NFAFragment(e1.startState,e2.outStates));
-                    break;
-                }
-                case '|':{
-                    NFAFragment e2 = stack.top();
-                    stack.pop();
-                    NFAFragment e1 = stack.top();
-                    stack.pop();
-                    NFAFragment frag = alternate(e1,e2);
-                    stack.push(frag);
-                    break;
-                }
-                case '*':{
-                    NFAFragment e = stack.top();
-                    stack.pop();
-                    NFAFragment frag = kleeneClosure(e);
-                    stack.push(frag);
-                    break;
-                }
-                case '+':{
-                    NFAFragment e = stack.top();
-                    stack.pop();
-                    NFAFragment frag = positiveClosure(e);
-                    stack.push(frag);
-                    break;
-                }
-                default:{
+            if(c==ESCAPE){
+                if(!escaped)
+                    escaped = true;
+            }else{
+                if(escaped){
+                    if(c=='L'){
+                        c = EPSILON;
+                    }
                     NFAState* stateptr = new NFAState();
                     stateptr->addNextState(c, new NFAState());
                     stack.push(NFAFragment(stateptr,stateptr->getNextStates()));
-                    break;
+                    escaped = false;
+                }else{
+                    if(c==DOT_OPERATOR){
+                        NFAFragment e2 = stack.top();
+                        stack.pop();
+                        NFAFragment e1 = stack.top();
+                        stack.pop();
+                        connect(e1.outStates,e2.startState);
+                        stack.push(NFAFragment(e1.startState,e2.outStates));
+                    }else if(c=='|'){
+                        NFAFragment e2 = stack.top();
+                        stack.pop();
+                        NFAFragment e1 = stack.top();
+                        stack.pop();
+                        NFAFragment frag = alternate(e1,e2);
+                        stack.push(frag);
+                    }else if(c=='*'){
+                        NFAFragment e = stack.top();
+                        stack.pop();
+                        NFAFragment frag = kleeneClosure(e);
+                        stack.push(frag);
+                    }else if(c=='+'){
+                        NFAFragment e = stack.top();
+                        stack.pop();
+                        NFAFragment frag = positiveClosure(e);
+                        stack.push(frag);
+                    }else{
+                        NFAState* stateptr = new NFAState();
+                        stateptr->addNextState(c, new NFAState());
+                        stack.push(NFAFragment(stateptr,stateptr->getNextStates()));
+                    }
                 }
             }
         }

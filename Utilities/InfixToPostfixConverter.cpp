@@ -50,7 +50,7 @@ string InfixToPostfixConverter::addExplicitConcatOp(string regex){
         current = regex[i];
         next = regex[i+1];
         newRegex += current;
-        if(current!='(' && next!=')' && !isRegexOperator(next) && !isBinaryOperator(current)){
+        if(current!='(' && next!=')' && !isRegexOperator(next) && !isBinaryOperator(current) && current!=ESCAPE){
             newRegex += DOT_OPERATOR;
         }
     }

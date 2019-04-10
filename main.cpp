@@ -18,6 +18,24 @@ inline bool operator<(DFAState a, DFAState b)
 }
 
 int main() {
+
+
+   InputToRegexParser::readFile("../simple_lexical_input");
+   InputToRegexParser::finalizeTokens();
+   vector<Token> tokens = InputToRegexParser::getTokens();
+   NFABuilder builder;
+   NFAState nfaStartState = builder.build(tokens);
+   cout << nfaStartState.getID() << endl;
+
+
+
+    /*
+   InfixToPostfixConverter::convert("\\=\\=");
+   cout << endl;
+*/
+
+
+    /*
     //input parsing and tokens identification code
     InputToRegexParser::readFile("../rules_input");
     InputToRegexParser::finalizeTokens();
@@ -45,4 +63,5 @@ int main() {
     Lexer::runLexicalAnalysis(optimized);
 
     return 0;
+     */
 }
