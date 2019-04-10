@@ -23,8 +23,10 @@ int main() {
    InputToRegexParser::readFile("../simple_lexical_input");
    InputToRegexParser::finalizeTokens();
    vector<Token> tokens = InputToRegexParser::getTokens();
+   cout<<"begin\n";
    NFABuilder builder;
    NFAState nfaStartState = builder.build(tokens);
+   cout<<"end\n";
    cout << nfaStartState.getID() << endl;
 
 

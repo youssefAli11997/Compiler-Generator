@@ -21,6 +21,7 @@ void InputToRegexParser::readFile(string path){
 
     cout<<"show meeeeeeeeeeeeee111\n";
     for(int i=0; i<punctuationSymbols.size(); i++){
+        if(punctuationSymbols[i] == "" || punctuationSymbols[i] == " ")continue;
         string modified = "";
         for(int j=0; j<punctuationSymbols[i].length(); j++){
             if(punctuationSymbols[i][j] == '\\')
@@ -51,7 +52,14 @@ void InputToRegexParser::parseLine(string line) {
         line.erase(0, pos + delimiter.length());
         //cout<<"'"<<line<<"'\n";
     }
-    words.push_back(line);
+    if(line != "" && line != " " && line != "\n")
+        words.push_back(line);
+
+    // trim right whitespaces
+    for(int i=0; i<words.size(); i++){
+        words[i].erase(words[i].find_last_not_of(" \n\r\t")+1);
+        if(words[0] == "{")cout<<"key:  "<<words[i]<<endl;
+    }
 
     //for(int i=0; i<words.size(); i++)
     //    cout<<words[i]<<endl;
@@ -111,6 +119,7 @@ void InputToRegexParser::parseLine(string line) {
         if(words[0][0] == '{' && words[0].length() > 1){
              keywords.push_back(words[0].substr(1, words[0].length()-1));
              for(int i=1; i<words.size(); i++){
+                 if(words[i].empty() || words[i] == " ")continue;
                  if(i == words.size()-1){
                      keywords.push_back(words[i].substr(0, words[i].length()-1));
                  } else keywords.push_back(words[i]);
@@ -118,6 +127,7 @@ void InputToRegexParser::parseLine(string line) {
         }
         else if(words[0] == "{"){
             for(int i=1; i<words.size(); i++) {
+                if(words[i].empty() || words[i] == " ")continue;
                 if(i == words.size()-1){
                     keywords.push_back(words[i].substr(0, words[i].length()-1));
                 } else keywords.push_back(words[i]);
@@ -135,6 +145,7 @@ void InputToRegexParser::parseLine(string line) {
         if(words[0][0] == '[' && words[0].length() > 1){
             punctuationSymbols.push_back(words[0].substr(1, words[0].length()-1));
             for(int i=1; i<words.size(); i++){
+                if(words[i].empty() || words[i] == " ")continue;
                 if(i == words.size()-1){
                     punctuationSymbols.push_back(words[i].substr(0, words[i].length()-1));
                 } else punctuationSymbols.push_back(words[i]);
@@ -157,6 +168,7 @@ void InputToRegexParser::parseLine(string line) {
 void InputToRegexParser::finalizeTokens() {
     //keywords
     for(int i=0; i<keywords.size(); i++){
+        if(keywords[i] == "" || keywords[i] == " ")continue;
         vector<string> v;
         v.push_back(keywords[i]);
         RegularExpression re;
@@ -166,6 +178,7 @@ void InputToRegexParser::finalizeTokens() {
 
     //punctuation
     for(int i=0; i<punctuationSymbols.size(); i++){
+        if(punctuationSymbols[i] == "" || punctuationSymbols[i] == " ")continue;
         vector<string> v;
         v.push_back(punctuationSymbols[i]);
         RegularExpression re;
