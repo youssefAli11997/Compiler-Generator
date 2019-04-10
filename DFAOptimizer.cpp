@@ -85,6 +85,8 @@ void DFAOptimizer::getEquivalentStates() {
         for(vector<DFAState> group : lastEquivalence){
             vector<vector<DFAState>> newGroups;
             vector<DFAState> newGroup;
+            if(group.size() == 0)
+                continue;
             newGroup.push_back(group.front());
             newGroups.push_back(newGroup);
             for(int i = 1 ; i < group.size() ; i ++){
@@ -163,6 +165,7 @@ bool DFAOptimizer::matchEqu(DFAState state1, DFAState state2, vector<vector<DFAS
             return false;
         }
     }
+
     return match;
 }
 

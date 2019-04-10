@@ -52,6 +52,11 @@ int main() {
     NFAState nfaStartState = builder.build(tokens);
     cout<<"end!!! tarek\n";
 
+    cout<<"tokens list: \n";
+    for(int i=0; i<tokens.size(); i++){
+        cout<<tokens[i].toString()<<endl;
+    }
+
     cout<<"begin!!! shazly\n";
     DFABuilder dfaBuilder(nfaStartState);
     DFAGraph dfaGraph = dfaBuilder.buildDFA();

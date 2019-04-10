@@ -53,18 +53,21 @@ void NFAToDFAParser:: transferNFAToDFA(map<DFAState, vector< pair<DFAState, char
             destination = graph[*i];
             for (int j = 0; j < destination.size(); j++) {
                 set<DFAState> temp;
-                if(destination[j].second == EPSILON)
+                if (destination[j].second == EPSILON)
                     continue;
                 temp = edges[destination[j].second];
-                if(dp[destination[j].first.id].size() != 0){
-                 /*
-                    for(auto u = d[])
-
-                    */
+                if (dp[destination[j].first.id].size() != 0) {
+                       for(auto u = dp[destination[j].first.id].begin(); u != dp[destination[j].first.id].end(); u++){
+                           temp.insert(*u);
+                       }
                 }
-                //else
-                    makeEpsilonClousre(destination[j].first, graph, temp);
+                else{
+                makeEpsilonClousre(destination[j].first, graph, temp);
+                       for(auto u = temp.begin(); u != temp.end(); u++){
+                           dp[destination[j].first.id].insert(*u);
+                       }
 
+                }
                 edges[destination[j].second] = temp;
             }
         }
@@ -116,13 +119,13 @@ void NFAToDFAParser::generateGraph(map<set<DFAState>, vector<pair<set<DFAState>,
 
 DFAState NFAToDFAParser::getCombninedState(set<DFAState> states, map<set<DFAState>, int > ids, DFAState startState){
     DFAState newState(ids[states]);
-    bool endState = false;
+    bool endState = false, start = false;
     for(auto i = states.begin(); i != states.end(); i++){
         endState |= (*i).end;
         if((*i).end) // We Will have one end DFAState So We will push one token to the new DFAState.
             newState.tokens.push_back((*i).tokens[0]);
         if((*i).id == startState.id)
-            newStartState = newState;
+            start = true;
     }
     if(newState.end) {
         for (int j = 0; j < newState.tokens.size(); j++) {
@@ -130,6 +133,9 @@ DFAState NFAToDFAParser::getCombninedState(set<DFAState> states, map<set<DFAStat
         }
     }
     newState.end = endState;
+
+    if(start)
+        newStartState = newState;
     return newState;
 }
 
