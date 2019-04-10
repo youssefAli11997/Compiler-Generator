@@ -30,8 +30,12 @@ add_executable(Compiler_Generator
         DFAOptimizer.h
         InputToRegexParser.cpp
         InputToRegexParser.h
+        Lexer.cpp
+        Lexer.h
         main.cpp
         RegularExpression.cpp
         RegularExpression.h
+        SymbolTable.cpp
+        SymbolTable.h
         Token.cpp
-        Token.h Lexer.cpp Lexer.h SymbolTable.cpp SymbolTable.h)
+        Token.h)

@@ -24,6 +24,7 @@ class DFAOptimizer {
         vector<vector<DFAState>> equivalenceSets;
         DFAGraph turnIntoDFAGraph();
         DFAState getRepresentative(DFAState state);
+        bool matchingTokens(vector<Token> tokens1, vector<Token> tokens2);
 };
 
 

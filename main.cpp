@@ -55,11 +55,27 @@ int main() {
     cout<<"begin!!! shazly\n";
     DFABuilder dfaBuilder(nfaStartState);
     DFAGraph dfaGraph = dfaBuilder.buildDFA();
+    cout << "Graph ------------------------------\n";
+    for(pair<DFAState, vector<pair<DFAState, char>>> entry: dfaGraph.graph){
+        cout << "State: " << entry.first.id << "\n";
+        for(pair<DFAState, char> trans: entry.second){
+            cout << "   Next :" << trans.first.id << " on: " << trans.second << "\n";
+        }
+    }
+    cout << "-------------------------------";
     cout<<"end!!! shazly\n";
 
     cout<<"begin!!! mashaal\n";
     DFAOptimizer optimizer;
     DFAGraph optimized = optimizer.getOptimizedGraph(dfaGraph);
+    cout << "Optimized Graph ------------------------------\n";
+    for(pair<DFAState, vector<pair<DFAState, char>>> entry: optimized.graph){
+        cout << "State: " << entry.first.id << "\n";
+        for(pair<DFAState, char> trans: entry.second){
+            cout << "   Next :" << trans.first.id << " on: " << trans.second << "\n";
+        }
+    }
+    cout << "-------------------------------";
     cout<<"end!!! mashaal\n";
 
     Lexer::readFile("../lexer_input");
