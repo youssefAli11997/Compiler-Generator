@@ -80,12 +80,20 @@ void DFAOptimizer::getEquivalentStates() {
     lastEquivalence.push_back(nonAcceptanceStates);
     lastEquivalence.push_back(acceptanceStates);
     bool changed = true;
+    vector<vector<DFAState> > newLastEqu;
+    for(vector<DFAState> group: lastEquivalence){
+        if(group.size() == 0)
+            continue;
+        newLastEqu.push_back(group);
+    }
+    lastEquivalence = newLastEqu;
     while(changed){
         vector<vector<DFAState>> newEquivalence;
         for(vector<DFAState> group : lastEquivalence){
             vector<vector<DFAState>> newGroups;
             vector<DFAState> newGroup;
             if(group.size() == 0)
+
                 continue;
             newGroup.push_back(group.front());
             newGroups.push_back(newGroup);
@@ -105,8 +113,8 @@ void DFAOptimizer::getEquivalentStates() {
                     newGroups.push_back(groupToBeAdded);
                 }
             }
-            for(vector<DFAState> group: newGroups){
-                newEquivalence.push_back(group);
+            for(vector<DFAState> g: newGroups){
+                newEquivalence.push_back(g);
             }
         }
         changed = !checkMatchingEquivalence(lastEquivalence,newEquivalence);
@@ -175,7 +183,7 @@ bool DFAOptimizer::matchingTokens(vector<Token> tokens1, vector<Token> tokens2) 
         testSet.insert(tok);
     for(Token tok: tokens2)
         testSet.insert(tok);
-    if(testSet.size() == tokens1.size() == tokens2.size())
+    if(testSet.size() == tokens1.size()&& testSet.size() == tokens2.size())
         return true;
     return false;
 }

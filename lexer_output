@@ -1,25 +1,2 @@
 id
 id
-,
-id
-,
-id
-,
-id
-;
-ERROR(	while cannot be matched with any token)
-\(
-ERROR(pass!=10 cannot be matched with any token)
-\)
-{
-ERROR(pass=pass+1& cannot be matched with any token)
-}
-id
-\(
-ERROR(count==0 cannot be matched with any token)
-\)
-ERROR(mnt=10 cannot be matched with any token)
-;
-id
-ERROR(mnt=30 cannot be matched with any token)
-;
