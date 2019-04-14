@@ -121,8 +121,9 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
                 file_output<<token.getName()<<endl;
             }
             else{
-                file_output<<"id"<<endl;
-                SymbolTable::addIdentifier(lexemes[i]);
+                file_output<<token.getName()<<endl;
+                if(token.getName() == "id")
+                    SymbolTable::addIdentifier(lexemes[i]);
             }
         }
         else{
