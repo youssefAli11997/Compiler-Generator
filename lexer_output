@@ -1,1 +1,4 @@
-ERROR(pass=10& cannot be matched with any token)
+addop
+addop
+relop
+assign

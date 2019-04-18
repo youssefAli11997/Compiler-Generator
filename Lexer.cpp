@@ -96,7 +96,12 @@ void Lexer::parseWord(string word) {
     if(!splitted && !ok)
         lexemes.push_back(word);
 }
-
+string getStringFromIndexXToEnd(string str, int x){
+    string answer = "";
+    for(int i = x+1; i < str.size(); i++)
+        answer += str[i];
+    return answer;
+}
 bool Lexer::lexemeHasNoPunctuation(string lexeme) {
     for(int i=0; i<InputToRegexParser::modifiedPunctuationSymbols.size(); i++){
         if(lexeme.find(InputToRegexParser::modifiedPunctuationSymbols[i]) != string::npos){
@@ -108,12 +113,20 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
 
 void Lexer::runLexicalAnalysis(DFAGraph graph) {
     ofstream file_output ("../lexer_output");
+    int lastAcceptedIndex = -1;
+    Token* lastAcceptedToken;
     for(int i=0; i<lexemes.size(); i++){
+        lastAcceptedIndex = -1;
         cout<<"lx:  "<<lexemes[i]<<endl;
         if(lexemes[i] == "" || lexemes[i] == " ")continue;
         DFAState currentState = graph.startState;
         for(int j=0; j<lexemes[i].length(); j++){
             currentState = graph.getNextState(currentState, lexemes[i][j]);
+            if(currentState.end){
+                Token temp = (currentState.getHighestPriorityToken());
+                lastAcceptedToken = &temp;
+                lastAcceptedIndex = j;
+            }
         }
         if(currentState.end == true){
             Token token = currentState.getHighestPriorityToken();
@@ -127,7 +140,21 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
             }
         }
         else{
-            file_output<<"ERROR("<<lexemes[i]<<" cannot be matched with any token)"<<endl;
+            if(lastAcceptedIndex == -1)
+                file_output<<"ERROR("<<lexemes[i]<<" cannot be matched with any token)"<<endl;
+            else{
+                string restString = getStringFromIndexXToEnd(lexemes[i], lastAcceptedIndex);
+                lexemes.insert(lexemes.begin() + i + 1, restString);
+                if(lastAcceptedToken->getPriority() == 0){
+                    file_output<<lastAcceptedToken->getName()<<endl;
+                }
+                else{
+                    file_output<<lastAcceptedToken->getName()<<endl;
+                    if(lastAcceptedToken->getName() == "id")
+                        SymbolTable::addIdentifier(lexemes[i].substr(0, lexemes[i].length() - restString.length()));
+                }
+                lastAcceptedIndex = -1;
+            }
         }
     }
 
