@@ -6,7 +6,7 @@
 #define COMPILERS_DFABUILDER_H
 
 #include <DFAState.h>
-#include "NFA/NFAState.h"
+#include "lexerGenerator/NFA/NFAState.h"
 #include "DFAGraph.h"
 
 class DFABuilder {

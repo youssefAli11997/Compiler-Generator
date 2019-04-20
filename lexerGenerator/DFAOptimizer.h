@@ -6,7 +6,7 @@
 #define COMPILER_GENERATOR_DFAOPTIMIZER_H
 
 
-#include <DFA/DFAGraph.h>
+#include <lexerGenerator/DFA/DFAGraph.h>
 
 class DFAOptimizer {
     public:

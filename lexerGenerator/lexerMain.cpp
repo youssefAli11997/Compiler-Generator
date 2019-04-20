@@ -1,11 +1,11 @@
 #include <iostream>
-#include <DFA/NFAToDFAParser.h>
-#include <DFA/DFABuilder.h>
+#include <lexerGenerator/DFA/NFAToDFAParser.h>
+#include <lexerGenerator/DFA/DFABuilder.h>
 #include "InputToRegexParser.h"
-#include "NFA/NFABuilder.h"
+#include "lexerGenerator/NFA/NFABuilder.h"
 #include "bits/stdc++.h"
 #include "DFAState.h"
-#include "Utilities/InfixToPostfixConverter.h"
+#include "lexerGenerator/Utilities/InfixToPostfixConverter.h"
 #include "DFAGraph.h"
 #include "DFAOptimizer.h"
 #include "Lexer.h"
@@ -16,6 +16,10 @@ inline bool operator<(DFAState a, DFAState b)
 {
     return a.id > b.id;
 }
+
+//#define LEXER
+
+#ifdef LEXER
 
 int main() {
 
@@ -43,7 +47,7 @@ int main() {
 
 
     //input parsing and tokens identification code
-    InputToRegexParser::readFile("../rules_input");
+    InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
 
     cout<<"begin!!! tarek\n";
@@ -83,9 +87,11 @@ int main() {
     cout << "-------------------------------";
     cout<<"end!!! mashaal\n";
 
-    Lexer::readFile("../lexer_input");
+    Lexer::readFile("../lexerGenerator/lexer_input");
     Lexer::runLexicalAnalysis(optimized);
 
     return 0;
 
 }
+
+#endif

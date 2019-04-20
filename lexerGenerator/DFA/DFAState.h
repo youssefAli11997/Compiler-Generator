@@ -5,7 +5,7 @@
 #ifndef COMPILER_GENERATOR_STATE_H
 #define COMPILER_GENERATOR_STATE_H
 
-#include <Token.h>
+#include <lexerGenerator/Token.h>
 #include "bits/stdc++.h"
 
 using namespace std;

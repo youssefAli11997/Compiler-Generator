@@ -6,7 +6,7 @@
 #define COMPILERS_NFASTATE_H
 
 #include "bits/stdc++.h"
-#include "Token.h"
+#include "lexerGenerator/Token.h"
 using namespace std;
 
 class NFAState {

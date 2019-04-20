@@ -112,7 +112,7 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
 }
 
 void Lexer::runLexicalAnalysis(DFAGraph graph) {
-    ofstream file_output ("../lexer_output");
+    ofstream file_output ("../lexerGenerator/lexer_output");
     int lastAcceptedIndex = -1;
     Token* lastAcceptedToken;
     for(int i=0; i<lexemes.size(); i++){

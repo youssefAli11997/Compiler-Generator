@@ -4,43 +4,43 @@ project(Compilers)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(.)
-include_directories(DFA)
-include_directories(NFA)
-include_directories(Utilities)
+include_directories(lexerGenerator/DFA)
+include_directories(lexerGenerator/NFA)
+include_directories(lexerGenerator/Utilities)
 
 add_executable(Compilers
-        DFA/DFABuilder.cpp
-        DFA/DFABuilder.h
-        DFA/DFAGraph.cpp
-        DFA/DFAGraph.h
-        DFA/DFAState.cpp
-        DFA/DFAState.h
-        "DFA/NFA Example.txt"
-        DFA/NFAToDFAParser.cpp
-        DFA/NFAToDFAParser.h
-        NFA/NFABuilder.cpp
-        NFA/NFABuilder.h
-        NFA/NFAFragment.cpp
-        NFA/NFAFragment.h
-        NFA/NFAState.cpp
-        NFA/NFAState.h
-        Utilities/InfixToPostfixConverter.cpp
-        Utilities/InfixToPostfixConverter.h
-        Utilities/LexicalContract.h
-        DFAOptimizer.cpp
-        DFAOptimizer.h
-        InputToRegexParser.cpp
-        InputToRegexParser.h
-        Lexer.cpp
-        Lexer.h
-        lexer_input
-        lexer_output
-        main.cpp
-        RegularExpression.cpp
-        RegularExpression.h
-        rules_input
-        simple_lexical_input
-        SymbolTable.cpp
-        SymbolTable.h
-        Token.cpp
-        Token.h)
+        lexerGenerator/DFA/DFABuilder.cpp
+        lexerGenerator/DFA/DFABuilder.h
+        lexerGenerator/DFA/DFAGraph.cpp
+        lexerGenerator/DFA/DFAGraph.h
+        lexerGenerator/DFA/DFAState.cpp
+        lexerGenerator/DFA/DFAState.h
+        "lexerGenerator/DFA/NFA Example.txt"
+        lexerGenerator/DFA/NFAToDFAParser.cpp
+        lexerGenerator/DFA/NFAToDFAParser.h
+        lexerGenerator/NFA/NFABuilder.cpp
+        lexerGenerator/NFA/NFABuilder.h
+        lexerGenerator/NFA/NFAFragment.cpp
+        lexerGenerator/NFA/NFAFragment.h
+        lexerGenerator/NFA/NFAState.cpp
+        lexerGenerator/NFA/NFAState.h
+        lexerGenerator/Utilities/InfixToPostfixConverter.cpp
+        lexerGenerator/Utilities/InfixToPostfixConverter.h
+        lexerGenerator/Utilities/LexicalContract.h
+        lexerGenerator/DFAOptimizer.cpp
+        lexerGenerator/DFAOptimizer.h
+        lexerGenerator/InputToRegexParser.cpp
+        lexerGenerator/InputToRegexParser.h
+        lexerGenerator/Lexer.cpp
+        lexerGenerator/Lexer.h
+        lexerGenerator/lexer_input
+        lexerGenerator/lexer_output
+        lexerGenerator/lexerMain.cpp
+        lexerGenerator/RegularExpression.cpp
+        lexerGenerator/RegularExpression.h
+        lexerGenerator/rules_input
+        lexerGenerator/simple_lexical_input
+        lexerGenerator/SymbolTable.cpp
+        lexerGenerator/SymbolTable.h
+        lexerGenerator/Token.cpp
+        lexerGenerator/Token.h parserGenerator/GrammarScanner.cpp parserGenerator/GrammarScanner.h parserGenerator/LL1Parser.cpp parserGenerator/LL1Parser.h parserGenerator/NonTerminal.cpp parserGenerator/NonTerminal.h parserGenerator/ParserContract.h parserGenerator/ParseTable.cpp parserGenerator/ParseTable.h parserGenerator/ParseTableBuilder.cpp parserGenerator/ParseTableBuilder.h parserGenerator/Production.cpp parserGenerator/Production.h parserGenerator/Symbol.cpp parserGenerator/Symbol.h parserGenerator/Terminal.cpp parserGenerator/Terminal.h parserGenerator/parserMain.cpp)

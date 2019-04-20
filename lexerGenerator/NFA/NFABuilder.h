@@ -8,8 +8,8 @@
 #include "bits/stdc++.h"
 #include "NFAState.h"
 #include "NFAFragment.h"
-#include "Utilities/LexicalContract.h"
-#include "Utilities/InfixToPostfixConverter.h"
+#include "lexerGenerator/Utilities/LexicalContract.h"
+#include "lexerGenerator/Utilities/InfixToPostfixConverter.h"
 
 using namespace std;
 

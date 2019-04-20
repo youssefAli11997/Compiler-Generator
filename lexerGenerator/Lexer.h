@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <DFA/DFAGraph.h>
+#include <lexerGenerator/DFA/DFAGraph.h>
 
 #ifndef COMPILERS_LEXER_H
 #define COMPILERS_LEXER_H
