@@ -14,7 +14,11 @@ ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, set<NonT
     extractAllSymbols();
     computeFirstSets();
     //computerFollowSets();
-    return ParseTable();
+    return buildParseTable();
+}
+
+ParseTable ParseTableBuilder::buildParseTable() {
+    return ParseTable() ;
 }
 
 void ParseTableBuilder::computeFirstSets() {
@@ -39,6 +43,7 @@ void ParseTableBuilder::extractAllSymbols() {
                 allSymbols.insert(sym);
             }
         }
+        allSymbols.insert(nTer);
     }
     for(Terminal ter: Terminals)
         allSymbols.insert(ter);
@@ -56,7 +61,7 @@ set<Terminal*> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTermina
         set<Terminal*> terRes;
         for(Symbol sym:prd.getSymbols()){
             Symbol * symbol = &sym;
-            if(dynamic_cast<Terminal*>(symbol) == nullptr){
+            if(dynamic_cast<NonTerminal*>(symbol) == nullptr){
                 Terminal* terPtr = dynamic_cast<Terminal*> (symbol);
                 terRes.insert(terPtr);
                 break;
