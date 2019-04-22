@@ -17,9 +17,11 @@ class Terminal;
 class NonTerminal: public Symbol{
 private:
     set<Terminal*> followSet;
-    vector<Production> productions;
+
 
 public:
+    vector<Production> productions;
+    NonTerminal(): Symbol(){};
     NonTerminal(string name): Symbol(name){};
     set<Terminal*> getFollowSet();
     void addToFollowSet(Terminal* t);

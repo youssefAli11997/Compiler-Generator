@@ -21,6 +21,8 @@ protected:
     set<Terminal*> firstSet;
 
 public:
+    bool firComputed;
+    Symbol();
     Symbol(string name);
     string getName();
     set<Terminal*> getFirstSet();

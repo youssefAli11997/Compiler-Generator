@@ -13,9 +13,11 @@ using namespace std;
 // the RHS of a production rule; consisting of symbols.
 class Production {
 private:
-    vector<Symbol> symbols;
+
 public:
+    vector<Symbol> symbols;
     vector<Symbol> getSymbols();
+    set<Terminal> getFirstSet();
 };
 
 

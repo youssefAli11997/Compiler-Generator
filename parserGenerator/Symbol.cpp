@@ -6,6 +6,8 @@
 #include "Symbol.h"
 #include "Terminal.h"
 
+Symbol::Symbol() {}
+
 Symbol::Symbol(string name){
     this->name = name;
 }

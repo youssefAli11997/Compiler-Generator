@@ -6,6 +6,8 @@
 #include "Symbol.h"
 #include "Production.h"
 #include "NonTerminal.h"
+#include "ParseTableBuilder.h"
+#include "ParserContract.h"
 
 #define PARSER
 
@@ -13,7 +15,7 @@
 
 int main() {
 
-    std::cout << "Hello, Phase 2!" << std::endl;
+    /*std::cout << "Hello, Phase 2!" << std::endl;
 
     stack<Symbol*> stack;
     Terminal t("t");
@@ -40,6 +42,61 @@ int main() {
         }
     }
 
+    return 0;*/
+    NonTerminal e("E");
+    NonTerminal e_("E-");
+    NonTerminal t("T");
+    NonTerminal t_("T-");
+    NonTerminal f("F");
+    Terminal p1 ("(");
+    Terminal p2 (")");
+    Terminal id("id");
+    Terminal plus("+");
+    Terminal ast("*");
+    Terminal ep(to_string(EPSILON));
+    Production te_;
+    Production te__;
+    Production epp;
+    Production id_;
+    Production ft_;
+    Production ft__;
+    Production e__;
+    te_.symbols = {t, e_};
+    te__.symbols = {plus, t, e_};
+    epp.symbols = {ep};
+    ft_.symbols = {f, t_};
+    ft__.symbols = {ast, f, t_};
+    e__.symbols = {p1, e, p2};
+    id_.symbols = {id};
+    e.productions = {te_};
+    e_.productions = {te__, epp};
+    t.productions = {ft_};
+    t_.productions = {ft__, epp};
+    f.productions = {e__, id_};
+    vector<NonTerminal> non = {e, e_, t, t_, f};
+    set<NonTerminal> nonS;
+    for(NonTerminal n:non)
+        nonS.insert(n);
+    vector<Terminal> term = {ep, id, p1, p2, plus, ast};
+    set<Terminal> terS;
+    for(Terminal t:term)
+        terS.insert(t);
+    ParseTableBuilder pr;
+    pr.getParseTable(e, nonS, terS);
+    for(NonTerminal nontemo: nonS){
+        cout << "Fir (" + nontemo.getName() + "): ";
+        for(Terminal* temo: nontemo.getFirstSet()){
+            cout << temo->getName() + " ";
+        }
+        cout<< "\n";
+        for(Production prd:nontemo.productions){
+            for(Terminal t :prd.getFirstSet()){
+                cout << t.getName() + " ";
+            }
+            cout << "\n";
+        }
+        cout<< "\n";
+    }
     return 0;
 }
 

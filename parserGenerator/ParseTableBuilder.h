@@ -9,12 +9,18 @@
 
 class ParseTableBuilder {
 private:
+    NonTerminal startSymbol;
     set<NonTerminal> nonTerminals;
     set<Terminal> Terminals;
+    set<Symbol> allSymbols;
+    void extractAllSymbols();
+    void initComputedFlag();
+    set<Terminal*> computeNonTerminalFirst(NonTerminal nonTerminal);
     void computeFirstSets();
     void computerFollowSets();
+    ParseTable buildParseTable();
 public:
-    ParseTable getParseTable();
+    ParseTable getParseTable(NonTerminal startSymbolPtr, set<NonTerminal> nonTerminals, set<Terminal> Terminals);
 };
 
 
