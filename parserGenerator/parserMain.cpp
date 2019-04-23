@@ -16,7 +16,8 @@
 
 int main() {
     /*GrammarScanner::parseInput("../parserGenerator/parser_input");*/
-    NonTerminal e("E");
+
+    /*NonTerminal e("E");
     NonTerminal e_("E-");
     NonTerminal t("T");
     NonTerminal t_("T-");
@@ -50,6 +51,38 @@ int main() {
     vector<Terminal> term = {ep, id, p1, p2, plus, ast};
     ParseTableBuilder pr;
     pr.getParseTable(e, non, term);
+    */
+    NonTerminal S("S");
+    NonTerminal A("A");
+
+    Terminal b("b");
+    Terminal e("e");
+    Terminal a("a");
+    Terminal c("c");
+    Terminal d("d");
+    Terminal ep(to_string(EPSILON));
+
+    Production AbS_;
+    Production e_;
+    Production epp_;
+    Production a_;
+    Production cAd_;
+
+
+    AbS_.symbols = {&A, &b, &S};
+    e_.symbols = {&e};
+    epp_.symbols = {&ep};
+    a_.symbols = {&a};
+    cAd_.symbols = {&c, &A, &d};
+
+    S.productions = {&AbS_, &e_, &epp_};
+    A.productions = {&a_, &cAd_};
+
+    vector<NonTerminal> non = {S, A};
+    vector<Terminal> term = {b, e, a, c, d, ep};
+    ParseTableBuilder pr;
+    ParseTable table = pr.getParseTable(S, non, term);
+
     cout << "first --------------------" << "\n";
     for(pair<Symbol,set<Terminal>> keyVal:pr.firstSets){
         cout << "("+keyVal.first.getName() + "): {";
@@ -66,6 +99,8 @@ int main() {
         }
         cout <<"}\n";
     }
+
+    table.printTable();
     return 0;
 }
 

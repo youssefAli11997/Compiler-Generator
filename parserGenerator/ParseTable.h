@@ -40,11 +40,13 @@ private:
     NonTerminal* startSymbolPtr;
 
 public:
+    void setStartSymbolPtr(NonTerminal*);
     NonTerminal* getStartSymbolPtr();
     int getEntryType(NonTerminal,Terminal);
     Production* getProduction(NonTerminal,Terminal);
     void addSyncEntry(NonTerminal,Terminal);
     void addProductionEntry(NonTerminal,Terminal,Production*);
+    void printTable();
 };
 
 
