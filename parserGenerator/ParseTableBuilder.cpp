@@ -2,6 +2,7 @@
 // Created by hp on 20/04/02019.
 //
 
+#include <iostream>
 #include "ParseTableBuilder.h"
 #include "ParserContract.h"
 #include "Terminal.h"
@@ -22,17 +23,17 @@ ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, vector<N
 
 void ParseTableBuilder::getAllSymbols() {
     for(int i = 0 ; i < terminals.size() ; i ++){
-        allSymbols.push_back(terminals[i]);
+        allSymbols.push_back(&terminals[i]);
     }
     for(int i = 0 ; i < nonTerminals.size() ; i ++){
-        allSymbols.push_back(nonTerminals[i]);
+        allSymbols.push_back(&nonTerminals[i]);
     }
 }
 
 void ParseTableBuilder::initiateAllSets() {
     for(int i = 0 ; i < allSymbols.size() ; i++){
         set<Terminal> empty;
-        firstSets[allSymbols[i]] = empty;
+        firstSets[*allSymbols[i]] = empty;
     }
     for(int i = 0 ; i < nonTerminals.size() ; i++){
         set<Terminal> empty;
@@ -57,9 +58,9 @@ void ParseTableBuilder::computerFollowSets() {
         for(NonTerminal loop: nonTerminals) {
             for (Production prod: loop.productions) {
                 for (int i = 0; i < prod.symbols.size(); i++) {
-                    if (prod.symbols[i].getName() == nonTerminal.getName()){
+                    if (prod.symbols[i]->getName() == nonTerminal.getName()){
                         if((i+1) < prod.symbols.size()){
-                            for(Terminal t:firstSets[prod.symbols[i+1]]){
+                            for(Terminal t:firstSets[*prod.symbols[i+1]]){
                                 if(t.getName() == to_string(EPSILON)){
                                     continue;
                                 }
@@ -75,7 +76,7 @@ void ParseTableBuilder::computerFollowSets() {
         for(NonTerminal loop: nonTerminals) {
             for (Production prod: loop.productions) {
                 for (int i = 0; i < prod.symbols.size(); i++) {
-                    if (prod.symbols[i].getName() == nonTerminal.getName()){
+                    if (prod.symbols[i]->getName() == nonTerminal.getName()){
                         if((i+1) == prod.symbols.size()){
                             for(Terminal t:followSets[loop]){
                                 followSets[nonTerminal].insert(t);
@@ -83,7 +84,7 @@ void ParseTableBuilder::computerFollowSets() {
                         }
                         else if((i+1) < prod.symbols.size()){
                             bool containEp = false;
-                            for(Terminal t : firstSets[prod.symbols[i+1]]){
+                            for(Terminal t : firstSets[*prod.symbols[i+1]]){
                                 if(t.getName() == to_string(EPSILON)){
                                     containEp = true;
                                     break;
@@ -119,15 +120,13 @@ set<Terminal> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTerminal
     for(int i = 0 ; i < nonTerminal.productions.size() ; i ++){
         set<Terminal> terRes;
         for(int j = 0 ; j < nonTerminal.productions[i].symbols.size() ; j++){
-            Symbol * symbol = &nonTerminal.productions[i].symbols[j];
-            if(dynamic_cast<NonTerminal*>(symbol) == nullptr){
-                Terminal* terPtr = dynamic_cast<Terminal*> (symbol);
-                terRes.insert(*terPtr);
+            Symbol * symbol = nonTerminal.productions[i].symbols[j];
+            if(Terminal* d = dynamic_cast<Terminal*>(symbol)){
+                terRes.insert(*d);
                 break;
             }
-            else{
-                NonTerminal* nonTerPtr = dynamic_cast<NonTerminal*> (symbol);
-                NonTerminal nonTer = *nonTerPtr;
+            else if(NonTerminal* d = dynamic_cast<NonTerminal*>(symbol)){
+                NonTerminal nonTer = *d;
                 set<Terminal> terminals;
                 if(firstSets[nonTer].empty()) {
                     terminals = computeNonTerminalFirst(nonTer);
@@ -144,6 +143,8 @@ set<Terminal> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTerminal
                 for(Terminal t: terminals)
                     terRes.insert(t);
                 break;
+            }else{
+                cout << "can't cast in computeNonTerminalFirst()\n" << endl;
             }
         }
         if(terRes.size() ==  0){

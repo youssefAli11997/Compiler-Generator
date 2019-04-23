@@ -15,7 +15,7 @@ private:
     NonTerminal startSymbol;
     vector<NonTerminal> nonTerminals;
     vector<Terminal> terminals;
-    vector<Symbol> allSymbols;
+    vector<Symbol*> allSymbols;
     set<Terminal> computeNonTerminalFirst(NonTerminal nonTerminal);
     void computeFirstSets();
     void computerFollowSets();

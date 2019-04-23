@@ -7,7 +7,7 @@
 #include "Terminal.h"
 #include "ParserContract.h"
 
-vector<Symbol> Production::getSymbols() {
+vector<Symbol*> Production::getSymbols() {
     return symbols;
 }
 

@@ -9,7 +9,7 @@
 #include "NonTerminal.h"
 
 
-#define MAX_SIZE 200
+#define MAX_SIZE 10
 
 class ParseTable {
 private:

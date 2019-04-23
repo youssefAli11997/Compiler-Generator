@@ -15,8 +15,8 @@ class Production {
 private:
 
 public:
-    vector<Symbol> symbols;
-    vector<Symbol> getSymbols();
+    vector<Symbol*> symbols;
+    vector<Symbol*> getSymbols();
     //set<Terminal> getFirstSet();
 };
 
