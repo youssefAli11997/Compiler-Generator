@@ -77,6 +77,22 @@ int main() {
     vector<Terminal> term = {ep, id, p1, p2, plus, ast};
     ParseTableBuilder pr;
     pr.getParseTable(e, non, term);
+    cout << "first --------------------" << "\n";
+    for(pair<Symbol,set<Terminal>> keyVal:pr.firstSets){
+        cout << "("+keyVal.first.getName() + "): {";
+        for(Terminal t :keyVal.second){
+            cout << t.getName() + " ";
+        }
+        cout <<"}\n";
+    }
+    cout << "follow --------------------" << "\n";
+    for(pair<NonTerminal,set<Terminal>> keyVal:pr.followSets){
+        cout << "("+keyVal.first.getName() + "): {";
+        for(Terminal t :keyVal.second){
+            cout << t.getName() + " ";
+        }
+        cout <<"}\n";
+    }
     return 0;
 }
 
