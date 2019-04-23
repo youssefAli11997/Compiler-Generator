@@ -74,29 +74,9 @@ int main() {
     t_.productions = {ft__, epp};
     f.productions = {e__, id_};
     vector<NonTerminal> non = {e, e_, t, t_, f};
-    set<NonTerminal> nonS;
-    for(NonTerminal n:non)
-        nonS.insert(n);
     vector<Terminal> term = {ep, id, p1, p2, plus, ast};
-    set<Terminal> terS;
-    for(Terminal t:term)
-        terS.insert(t);
     ParseTableBuilder pr;
-    pr.getParseTable(e, nonS, terS);
-    for(NonTerminal nontemo: nonS){
-        cout << "Fir (" + nontemo.getName() + "): ";
-        for(Terminal* temo: nontemo.getFirstSet()){
-            cout << temo->getName() + " ";
-        }
-        cout<< "\n";
-        for(Production prd:nontemo.productions){
-            for(Terminal t :prd.getFirstSet()){
-                cout << t.getName() + " ";
-            }
-            cout << "\n";
-        }
-        cout<< "\n";
-    }
+    pr.getParseTable(e, non, term);
     return 0;
 }
 

@@ -8,95 +8,150 @@
 
 ParseTableBuilder::ParseTableBuilder() {}
 
-ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, set<NonTerminal> nonTerminals,
-                                            set<Terminal> Terminals) {
-    //this->startSymbol = startSymbolPtr;
-    //this->nonTerminals = nonTerminals;
-    //this->Terminals = Terminals;
-    //extractAllSymbols();
-    //computeFirstSets();
-    //computerFollowSets();
+ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, vector<NonTerminal> nonTerminals,
+                                            vector<Terminal> terminals) {
+    this->startSymbol = startSymbolPtr;
+    this->nonTerminals = nonTerminals;
+    this->terminals = terminals;
+    getAllSymbols();
+    initiateAllSets();
+    computeFirstSets();
+    computerFollowSets();
     return buildParseTable();
+}
+
+void ParseTableBuilder::getAllSymbols() {
+    for(int i = 0 ; i < terminals.size() ; i ++){
+        allSymbols.push_back(terminals[i]);
+    }
+    for(int i = 0 ; i < nonTerminals.size() ; i ++){
+        allSymbols.push_back(nonTerminals[i]);
+    }
+}
+
+void ParseTableBuilder::initiateAllSets() {
+    for(int i = 0 ; i < allSymbols.size() ; i++){
+        set<Terminal> empty;
+        firstSets[allSymbols[i]] = empty;
+    }
+    for(int i = 0 ; i < nonTerminals.size() ; i++){
+        set<Terminal> empty;
+        followSets[nonTerminals[i]] = empty;
+    }
 }
 
 ParseTable ParseTableBuilder::buildParseTable() {
     return ParseTable() ;
 }
 
-
-/*void ParseTableBuilder::computeFirstSets() {
-    initComputedFlag();
-    for(Terminal ter :Terminals){
-        ter.addToFirstSet(&ter);
-        ter.firComputed = true;
-    }
-    for(NonTerminal nTer: nonTerminals){
-        if(!nTer.firComputed){
-            nTer.addToFirstSet(computeNonTerminalFirst(nTer));
-            nTer.firComputed = true;
+void ParseTableBuilder::computerFollowSets() {
+    // start symbol
+    for(int i = 0 ; i < nonTerminals.size() ; i++) {
+        if (nonTerminals[i].getName() == startSymbol.getName()) {
+            Terminal t = Terminal(to_string(END_MARKER));
+            followSets[nonTerminals[i]].insert(t);
         }
     }
 
-}
-
-void ParseTableBuilder::extractAllSymbols() {
-    for(NonTerminal nTer: nonTerminals){
-        for(Production prod : nTer.productions){
-            for(Symbol sym: prod.getSymbols()){
-                allSymbols.insert(sym);
+    for(NonTerminal nonTerminal: nonTerminals){
+        for(NonTerminal loop: nonTerminals) {
+            for (Production prod: loop.productions) {
+                for (int i = 0; i < prod.symbols.size(); i++) {
+                    if (prod.symbols[i].getName() == nonTerminal.getName()){
+                        if((i+1) < prod.symbols.size()){
+                            for(Terminal t:firstSets[prod.symbols[i+1]]){
+                                if(t.getName() == to_string(EPSILON)){
+                                    continue;
+                                }
+                                followSets[nonTerminal].insert(t);
+                            }
+                        }
+                    }
+                }
             }
         }
-        allSymbols.insert(nTer);
     }
-    for(Terminal ter: Terminals)
-        allSymbols.insert(ter);
+    for(NonTerminal nonTerminal: nonTerminals){
+        for(NonTerminal loop: nonTerminals) {
+            for (Production prod: loop.productions) {
+                for (int i = 0; i < prod.symbols.size(); i++) {
+                    if (prod.symbols[i].getName() == nonTerminal.getName()){
+                        if((i+1) == prod.symbols.size()){
+                            for(Terminal t:followSets[loop]){
+                                followSets[nonTerminal].insert(t);
+                            }
+                        }
+                        else if((i+1) < prod.symbols.size()){
+                            bool containEp = false;
+                            for(Terminal t : firstSets[prod.symbols[i+1]]){
+                                if(t.getName() == to_string(EPSILON)){
+                                    containEp = true;
+                                    break;
+                                }
+                            }
+                            if(containEp){
+                                for(Terminal t:followSets[loop]){
+                                    followSets[nonTerminal].insert(t);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-void ParseTableBuilder::initComputedFlag(){
-    for(Symbol sym: allSymbols){
-        sym.firComputed = false;
+void ParseTableBuilder::computeFirstSets() {
+    for(int i  = 0 ; i < terminals.size() ; i++){
+        firstSets[terminals[i]].insert(terminals[i]);
+    }
+    for(int i  = 0 ; i < nonTerminals.size() ; i++){
+        if(firstSets[nonTerminals[i]].empty()){
+            firstSets[nonTerminals[i]] = computeNonTerminalFirst(nonTerminals[i]);
+        }
     }
 }
 
-set<Terminal*> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTerminal){
-    set<Terminal*> first;
-    for(Production prd:nonTerminal.productions){
-        set<Terminal*> terRes;
-        for(Symbol sym:prd.getSymbols()){
-            Symbol * symbol = &sym;
+
+set<Terminal> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTerminal){
+    set<Terminal> first;
+    for(int i = 0 ; i < nonTerminal.productions.size() ; i ++){
+        set<Terminal> terRes;
+        for(int j = 0 ; j < nonTerminal.productions[i].symbols.size() ; j++){
+            Symbol * symbol = &nonTerminal.productions[i].symbols[j];
             if(dynamic_cast<NonTerminal*>(symbol) == nullptr){
                 Terminal* terPtr = dynamic_cast<Terminal*> (symbol);
-                terRes.insert(terPtr);
+                terRes.insert(*terPtr);
                 break;
             }
             else{
                 NonTerminal* nonTerPtr = dynamic_cast<NonTerminal*> (symbol);
                 NonTerminal nonTer = *nonTerPtr;
-                set<Terminal*> terminals;
-                if(!nonTer.firComputed) {
+                set<Terminal> terminals;
+                if(firstSets[nonTer].empty()) {
                     terminals = computeNonTerminalFirst(nonTer);
-                    nonTer.firComputed = true;
-                    nonTer.addToFirstSet(terminals);
+                    firstSets[nonTer] = terminals;
                 }
                 else{
-                    terminals = nonTer.getFirstSet();
+                    terminals = firstSets[nonTer];
                 }
                 if(terminals.size() == 1){
-                    vector<Terminal*> vt(terminals.begin(),terminals.end());
-                    if(vt[0]->getName() == to_string(EPSILON))
+                    vector<Terminal> vt(terminals.begin(),terminals.end());
+                    if(vt[0].getName() == to_string(EPSILON))
                         continue;
                 }
-                for(Terminal* t: terminals)
+                for(Terminal t: terminals)
                     terRes.insert(t);
                 break;
             }
         }
         if(terRes.size() ==  0){
             Terminal terminal = Terminal(to_string(EPSILON));
-            terRes.insert(&terminal);
+            terRes.insert(terminal);
         }
-        for(Terminal* terSym: terRes)
+        for(Terminal terSym: terRes)
             first.insert(terSym);
     }
     return first;
-}*/
+}

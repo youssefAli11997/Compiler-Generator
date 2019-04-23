@@ -13,14 +13,14 @@ vector<Symbol> Production::getSymbols() {
 
 set<Terminal> Production::getFirstSet() {
     set<Terminal> res;
-    for(Symbol symbol:symbols){
-        if(symbol.getFirstSet().size() == 1){
-            vector<Terminal*> vt(symbol.getFirstSet().begin(),symbol.getFirstSet().end());
+    for(int i = 0 ; i < symbols.size() ; i ++){
+        if(symbols[i].getFirstSet().size() == 1){
+            vector<Terminal*> vt(symbols[i].getFirstSet().begin(),symbols[i].getFirstSet().end());
             if(vt[0]->getName() == to_string(EPSILON)){
                 continue;
             }
         }
-        for(Terminal* t:symbol.getFirstSet()) {
+        for(Terminal* t:symbols[i].getFirstSet()) {
             Terminal tt = *t;
             res.insert(tt);
         }
