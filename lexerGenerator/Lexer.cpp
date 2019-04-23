@@ -111,7 +111,8 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
     return true;
 }
 
-void Lexer::runLexicalAnalysis(DFAGraph graph) {
+vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
+    vector<string> tokens;
     ofstream file_output ("../lexerGenerator/lexer_output");
     int lastAcceptedIndex = -1;
     Token* lastAcceptedToken;
@@ -131,9 +132,11 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
         if(currentState.end == true){
             Token token = currentState.getHighestPriorityToken();
             if(token.getPriority() == 0){
+                tokens.push_back(token.getName());
                 file_output<<token.getName()<<endl;
             }
             else{
+                tokens.push_back(token.getName());
                 file_output<<token.getName()<<endl;
                 if(token.getName() == "id")
                     SymbolTable::addIdentifier(lexemes[i]);
@@ -146,9 +149,11 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
                 string restString = getStringFromIndexXToEnd(lexemes[i], lastAcceptedIndex);
                 lexemes.insert(lexemes.begin() + i + 1, restString);
                 if(lastAcceptedToken->getPriority() == 0){
+                    tokens.push_back(lastAcceptedToken.getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                 }
                 else{
+                    tokens.push_back(lastAcceptedToken.getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                     if(lastAcceptedToken->getName() == "id")
                         SymbolTable::addIdentifier(lexemes[i].substr(0, lexemes[i].length() - restString.length()));
@@ -159,4 +164,6 @@ void Lexer::runLexicalAnalysis(DFAGraph graph) {
     }
 
     file_output.close();
+
+    return tokens;
 }

@@ -16,7 +16,7 @@ class Lexer {
 
 public:
     static void readFile(string path);
-    static void runLexicalAnalysis(DFAGraph graph);
+    static vector<string> runLexicalAnalysis(DFAGraph graph);
 
 private:
     static vector<string> lexemes;
