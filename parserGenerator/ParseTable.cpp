@@ -41,4 +41,5 @@ int ParseTable::getEntryType(NonTerminal x, Terminal y) {
 
 Production* ParseTable::getProduction(NonTerminal x, Terminal y) {
     // TODO
+    return nullptr;
 }
