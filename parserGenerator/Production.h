@@ -6,6 +6,7 @@
 #define COMPILERS_PRODUCTION_H
 
 #include <vector>
+#include <map>
 #include "Symbol.h"
 
 using namespace std;
@@ -17,7 +18,7 @@ private:
 public:
     vector<Symbol*> symbols;
     vector<Symbol*> getSymbols();
-    //set<Terminal> getFirstSet();
+    set<Terminal> getFirstSet(map<Symbol,set<Terminal>> firstSet);
 };
 
 

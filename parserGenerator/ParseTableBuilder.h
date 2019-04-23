@@ -23,7 +23,8 @@ private:
     void initiateAllSets();
     void getAllSymbols();
 public:
-    map<Symbol, set<Terminal>> firstSets;
+    map<Symbol, set<Terminal>> allFirstSets; // nonTerminals and terminals used to compute first of productions
+    map<Symbol, set<Terminal>> firstSets; // nonTerminal and production( a symbol representing the vector of symbols)
     map<NonTerminal, set<Terminal>> followSets;
     ParseTableBuilder();
     ParseTable getParseTable(NonTerminal startSymbolPtr, vector<NonTerminal> nonTerminals, vector<Terminal> terminals);

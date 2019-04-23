@@ -11,23 +11,23 @@ vector<Symbol*> Production::getSymbols() {
     return symbols;
 }
 
-/*
-set<Terminal> Production::getFirstSet() {
+
+set<Terminal> Production::getFirstSet(map <Symbol, set<Terminal>> firstSet) {
     set<Terminal> res;
     for(int i = 0 ; i < symbols.size() ; i ++){
-        if(symbols[i].getFirstSet().size() == 1){
-            vector<Terminal*> vt(symbols[i].getFirstSet().begin(),symbols[i].getFirstSet().end());
-            if(vt[0]->getName() == to_string(EPSILON)){
+        Symbol sym = *symbols[i];
+        if(firstSet[sym].size() == 1){
+            vector<Terminal> vt(firstSet[sym].begin(),firstSet[sym].end());
+            if(vt[0].getName() == to_string(EPSILON)){
                 continue;
             }
         }
-        for(Terminal* t:symbols[i].getFirstSet()) {
-            Terminal tt = *t;
-            res.insert(tt);
+        for(Terminal t:firstSet[sym]) {
+            res.insert(t);
         }
         break;
     }
     if(res.size() == 0)
         res.insert(Terminal(to_string(EPSILON)));
     return res;
-}*/
+}
