@@ -33,3 +33,7 @@ void Symbol::addToFirstSet(set<Terminal*> s) {
 string Symbol::toString() {
     return "Symbol: " + name;
 }
+
+void Symbol::setName(string nm) {
+    name = nm;
+}

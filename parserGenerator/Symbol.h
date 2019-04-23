@@ -24,6 +24,7 @@ public:
     Symbol();
     Symbol(string name);
     string getName();
+    void setName(string nm);
     set<Terminal*> getFirstSet();
     void addToFirstSet(Terminal* t);
     void addToFirstSet(set<Terminal*> s);

@@ -20,7 +20,7 @@ private:
 
 
 public:
-    vector<Production> productions;
+    vector<Production*> productions;
     NonTerminal(): Symbol(){};
     NonTerminal(string name): Symbol(name){};
     set<Terminal*> getFollowSet();

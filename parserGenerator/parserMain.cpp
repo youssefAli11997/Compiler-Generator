@@ -8,6 +8,7 @@
 #include "NonTerminal.h"
 #include "ParseTableBuilder.h"
 #include "ParserContract.h"
+#include "GrammarScanner.h"
 
 #define PARSER
 
@@ -43,7 +44,7 @@ int main() {
     }
 
     return 0;*/
-    NonTerminal e("E");
+    /*NonTerminal e("E");
     NonTerminal e_("E-");
     NonTerminal t("T");
     NonTerminal t_("T-");
@@ -76,7 +77,11 @@ int main() {
     vector<NonTerminal> non = {e, e_, t, t_, f};
     vector<Terminal> term = {ep, id, p1, p2, plus, ast};
     ParseTableBuilder pr;
-    pr.getParseTable(e, non, term);
+    pr.getParseTable(e, non, term);*/
+
+    cout<<"hereeeeee!!\n";
+    GrammarScanner::parseInput("../parserGenerator/parser_input");
+
     return 0;
 }
 
