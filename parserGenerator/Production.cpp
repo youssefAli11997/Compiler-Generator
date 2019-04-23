@@ -11,6 +11,7 @@ vector<Symbol> Production::getSymbols() {
     return symbols;
 }
 
+/*
 set<Terminal> Production::getFirstSet() {
     set<Terminal> res;
     for(int i = 0 ; i < symbols.size() ; i ++){
@@ -29,4 +30,4 @@ set<Terminal> Production::getFirstSet() {
     if(res.size() == 0)
         res.insert(Terminal(to_string(EPSILON)));
     return res;
-}
+}*/

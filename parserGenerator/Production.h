@@ -17,7 +17,7 @@ private:
 public:
     vector<Symbol> symbols;
     vector<Symbol> getSymbols();
-    set<Terminal> getFirstSet();
+    //set<Terminal> getFirstSet();
 };
 
 
