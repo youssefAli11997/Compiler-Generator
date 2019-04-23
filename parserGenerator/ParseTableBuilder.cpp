@@ -42,7 +42,30 @@ void ParseTableBuilder::initiateAllSets() {
 }
 
 ParseTable ParseTableBuilder::buildParseTable() {
-    return ParseTable() ;
+    ParseTable table;
+    for(NonTerminal nonTerminal:nonTerminals){
+        for(Production prd:nonTerminal.productions){
+            for(Terminal t:prd.getFirstSet(allFirstSets)){
+                table.addProductionEntry(nonTerminal,t,&prd);
+                if(t.getName() == to_string(EPSILON)){
+                    for(Terminal t :followSets[nonTerminal]){
+                        table.addProductionEntry(nonTerminal,t,&prd);
+                        if(t.getName() == to_string(END_MARKER)){
+                            table.addProductionEntry(nonTerminal,Terminal(to_string(END_MARKER)),&prd);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for(NonTerminal nonTerminal: nonTerminals){
+        for(Terminal t : followSets[nonTerminal]){
+            if(table.getEntryType(nonTerminal,t) == EMPTY_ENTRY){
+                table.addSyncEntry(nonTerminal,t);
+            }
+        }
+    }
+    return table;
 }
 
 void ParseTableBuilder::computerFollowSets() {

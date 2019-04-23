@@ -36,7 +36,7 @@ class ParseTable {
     };
 
 private:
-    map<Key, Entry> table;
+    map<Key, Entry> table; // should be a vector not a single entry
     NonTerminal* startSymbolPtr;
 
 public:
