@@ -119,6 +119,9 @@ void GrammarScanner::parseRule(NonTerminal *nonTerminal, vector<string> words) {
     for(int i=0; i<words.size(); i++){
         if(words[i][0] == '\''){
             string name = words[i].substr(1, words[i].size()-2);
+            if(name == "\\L"){
+                name = to_string(EPSILON);
+            }
             Terminal* terminal = new Terminal(name);
             Terminals.insert(terminal);
             production->symbols.push_back(terminal);

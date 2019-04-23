@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <lexerGenerator/DFA/DFAGraph.h>
+#include "LexicalContract.h"
 
 #ifndef COMPILERS_LEXER_H
 #define COMPILERS_LEXER_H

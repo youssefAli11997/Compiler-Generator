@@ -165,5 +165,6 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
 
     file_output.close();
 
+    tokens.push_back(to_string(END_MARKER));
     return tokens;
 }

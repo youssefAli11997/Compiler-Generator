@@ -7,6 +7,7 @@
 
 #include "Terminal.h"
 #include "NonTerminal.h"
+#include "ParserContract.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
