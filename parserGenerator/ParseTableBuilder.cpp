@@ -6,13 +6,15 @@
 #include "ParserContract.h"
 #include "Terminal.h"
 
+ParseTableBuilder::ParseTableBuilder() {}
+
 ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, set<NonTerminal> nonTerminals,
                                             set<Terminal> Terminals) {
-    this->startSymbol = startSymbolPtr;
-    this->nonTerminals = nonTerminals;
-    this->Terminals = Terminals;
-    extractAllSymbols();
-    computeFirstSets();
+    //this->startSymbol = startSymbolPtr;
+    //this->nonTerminals = nonTerminals;
+    //this->Terminals = Terminals;
+    //extractAllSymbols();
+    //computeFirstSets();
     //computerFollowSets();
     return buildParseTable();
 }
@@ -21,7 +23,8 @@ ParseTable ParseTableBuilder::buildParseTable() {
     return ParseTable() ;
 }
 
-void ParseTableBuilder::computeFirstSets() {
+
+/*void ParseTableBuilder::computeFirstSets() {
     initComputedFlag();
     for(Terminal ter :Terminals){
         ter.addToFirstSet(&ter);
@@ -96,4 +99,4 @@ set<Terminal*> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTermina
             first.insert(terSym);
     }
     return first;
-}
+}*/

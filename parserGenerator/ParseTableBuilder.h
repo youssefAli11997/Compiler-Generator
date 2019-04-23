@@ -6,13 +6,15 @@
 #define COMPILERS_PARSETABLEBUILDER_H
 
 #include "ParseTable.h"
+#include "Terminal.h"
+#include "NonTerminal.h"
 
 class ParseTableBuilder {
 private:
-    NonTerminal startSymbol;
-    set<NonTerminal> nonTerminals;
-    set<Terminal> Terminals;
-    set<Symbol> allSymbols;
+    //NonTerminal startSymbol;
+    //set<NonTerminal> nonTerminals;
+    //set<Terminal> Terminals;
+    //set<Symbol> allSymbols;
     void extractAllSymbols();
     void initComputedFlag();
     set<Terminal*> computeNonTerminalFirst(NonTerminal nonTerminal);
@@ -20,6 +22,7 @@ private:
     void computerFollowSets();
     ParseTable buildParseTable();
 public:
+    ParseTableBuilder();
     ParseTable getParseTable(NonTerminal startSymbolPtr, set<NonTerminal> nonTerminals, set<Terminal> Terminals);
 };
 
