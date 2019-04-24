@@ -8,7 +8,11 @@ InputBuffer::InputBuffer(vector<string> input) {
     this->buffer = input;
 }
 string InputBuffer::getNextToken() {
-    return buffer[nextIndex++];
+    return buffer[nextIndex];
+}
+
+void InputBuffer::matchCurrentToken() {
+    nextIndex++;
 }
 
 bool InputBuffer::hasNextToken() {

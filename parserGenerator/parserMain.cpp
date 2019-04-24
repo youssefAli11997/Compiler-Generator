@@ -9,6 +9,8 @@
 #include "ParseTableBuilder.h"
 #include "ParserContract.h"
 #include "GrammarScanner.h"
+#include "InputBuffer.h"
+#include "LL1Parser.h"
 
 #define PARSER
 
@@ -101,6 +103,11 @@ int main() {
     }
 
     table.printTable();
+    cout << endl;
+
+    InputBuffer input(vector<string>{"c","e","a","d","b",to_string(END_MARKER)});
+    LL1Parser parser(input, table);
+    parser.parseGrammar();
     return 0;
 }
 
