@@ -1,87 +1,47 @@
 METHOD_BODY --> STATEMENT_LIST
-STATEMENT_LIST --> STATEMENTSTATEMENT_LIST&
+STATEMENT_LIST --> STATEMENTSTATEMENT_LIST_LRdash
 STATEMENT --> DECLARATION
 DECLARATION --> PRIMITIVE_TYPEid;
 PRIMITIVE_TYPE --> int
 matching (int), with token (int).
 matching (id), with token (id).
 matching (;), with token (;).
-STATEMENT_LIST& --> STATEMENTSTATEMENT_LIST&
-STATEMENT --> WHILE
-WHILE --> while(EXPRESSION){STATEMENT}
-matching (while), with token (while).
-ERROR: missing token ((), inserted.
-ERROR: illegal (EXPRESSION), discard token (\().
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (relop).
-ERROR: illegal (EXPRESSION), discard token (num).
-ERROR: illegal (EXPRESSION), discard token (\)).
-ERROR: illegal (EXPRESSION), discard token ({).
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (assign).
-ERROR: illegal (EXPRESSION), discard token (id).
-EXPRESSION --> SIMPLE_EXPRESSIONEXPRESSION&
-SIMPLE_EXPRESSION --> SIMPLE_EXPRESSION&
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> num
-matching (num), with token (num).
-TERM& --> 27
-SIMPLE_EXPRESSION& --> 27
-EXPRESSION& --> 27
-ERROR: missing token ()), inserted.
-ERROR: missing token ({), inserted.
-ERROR: illegal (STATEMENT), discard token (;).
-matching (}), with token (}).
-STATEMENT_LIST& --> STATEMENTSTATEMENT_LIST&
-STATEMENT --> IF
-IF --> if(EXPRESSION){STATEMENT}else{STATEMENT}
-matching (if), with token (if).
-ERROR: missing token ((), inserted.
-ERROR: illegal (EXPRESSION), discard token (\().
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (relop).
-ERROR: illegal (EXPRESSION), discard token (num).
-ERROR: illegal (EXPRESSION), discard token (\)).
-ERROR: illegal (EXPRESSION), discard token ({).
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (assign).
-ERROR: illegal (EXPRESSION), discard token (id).
-EXPRESSION --> SIMPLE_EXPRESSIONEXPRESSION&
-SIMPLE_EXPRESSION --> SIMPLE_EXPRESSION&
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> num
-matching (num), with token (num).
-TERM& --> 27
-SIMPLE_EXPRESSION& --> 27
-EXPRESSION& --> 27
-ERROR: missing token ()), inserted.
-ERROR: missing token ({), inserted.
-ERROR: illegal (STATEMENT), discard token (;).
-matching (}), with token (}).
-matching (else), with token (else).
-matching ({), with token ({).
-STATEMENT --> ASSIGNMENT
-ASSIGNMENT --> id=EXPRESSION;
-matching (id), with token (id).
-ERROR: missing token (=), inserted.
-ERROR: illegal (EXPRESSION), discard token (assign).
-ERROR: illegal (EXPRESSION), discard token (id).
-EXPRESSION --> SIMPLE_EXPRESSIONEXPRESSION&
-SIMPLE_EXPRESSION --> SIMPLE_EXPRESSION&
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> id
-matching (id), with token (id).
-TERM& --> 27
-SIMPLE_EXPRESSION& --> 27
-EXPRESSION& --> 27
-matching (;), with token (;).
-matching (}), with token (}).
-STATEMENT_LIST& --> 27
-parsing completed.
-Number of errors: 29
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (while).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (\().
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (relop).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (num).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (\)).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token ({).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (assign).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (addop).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (num).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (;).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (}).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (if).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (\().
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (relop).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (num).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (\)).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token ({).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (assign).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (addop).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (num).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (;).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (}).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (else).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token ({).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (assign).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (addop).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (;).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (}).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (36).
+Number of errors: 38

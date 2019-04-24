@@ -1,5 +1,7 @@
 #include <DFA/NFAToDFAParser.h>
 #include <DFA/DFABuilder.h>
+#include <LRAndLFElimination/LeftFactoringEliminator.h>
+#include <LRAndLFElimination/LREliminator.h>
 #include "InputToRegexParser.h"
 #include "NFA/NFABuilder.h"
 #include "bits/stdc++.h"
@@ -97,6 +99,35 @@ int main() {
         nonTerminals.push_back(t);
     }
 
+    vector<NonTerminal>NotPointerVecotr,Results1, Result2;
+    for(NonTerminal* t: nonTerminals){
+        NotPointerVecotr.push_back(*t);
+    }
+
+    // Bouns Its output Not used.
+    vector<NonTerminal*>NOLRAndNoLF;
+    LREliminator lrEliminator;
+    lrEliminator.EliminateLR(NotPointerVecotr ,Results1, start);
+    LeftFactoringElimination leftFactoringElimination;
+    Result2 = leftFactoringElimination.EliminateLF(Results1, lrEliminator.Newstart);
+    for(NonTerminal t: Result2){
+        NOLRAndNoLF.push_back(&t);
+    }
+    cout<<"LR And LF Results!!!"<<endl;
+    for(int i = 0; i < Result2.size(); i++){
+        cout<<Result2[i].getName()<<" -> ";
+        for(int j = 0; j < Result2[i].productions.size(); j++){
+            for(int u = 0; u < Result2[i].productions[j]->symbols.size(); u++) {
+                Symbol* s =  Result2[i].productions[j]->symbols[u];
+                cout << Result2[i].productions[j]->symbols[u]->getName()<<" ";
+
+            }
+            if(j!=Result2[i].productions.size() - 1)
+                cout<<" | ";
+        }
+        cout<<endl;
+    }
+///////////////////////////////End of Bouns//////////////////////////////
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
     table.printTable();

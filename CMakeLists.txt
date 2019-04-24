@@ -8,6 +8,7 @@ include_directories(lexerGenerator/DFA)
 include_directories(lexerGenerator/NFA)
 include_directories(lexerGenerator/Utilities)
 include_directories(parserGenerator)
+include_directories(parserGenerator/LRAndLFElimination)
 
 add_executable(Compilers
         lexerGenerator/DFA/DFABuilder.cpp
@@ -44,6 +45,10 @@ add_executable(Compilers
         lexerGenerator/SymbolTable.h
         lexerGenerator/Token.cpp
         lexerGenerator/Token.h
+        parserGenerator/LRAndLFElimination/LeftFactoringEliminator.cpp
+        parserGenerator/LRAndLFElimination/LeftFactoringEliminator.h
+        parserGenerator/LRAndLFElimination/LREliminator.cpp
+        parserGenerator/LRAndLFElimination/LREliminator.h
         parserGenerator/GrammarScanner.cpp
         parserGenerator/GrammarScanner.h
         parserGenerator/InputBuffer.cpp
