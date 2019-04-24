@@ -149,11 +149,11 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                 string restString = getStringFromIndexXToEnd(lexemes[i], lastAcceptedIndex);
                 lexemes.insert(lexemes.begin() + i + 1, restString);
                 if(lastAcceptedToken->getPriority() == 0){
-                    tokens.push_back(lastAcceptedToken.getName());
+                    tokens.push_back(lastAcceptedToken->getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                 }
                 else{
-                    tokens.push_back(lastAcceptedToken.getName());
+                    tokens.push_back(lastAcceptedToken->getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                     if(lastAcceptedToken->getName() == "id")
                         SymbolTable::addIdentifier(lexemes[i].substr(0, lexemes[i].length() - restString.length()));

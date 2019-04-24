@@ -18,6 +18,7 @@ public:
     InputBuffer(vector<string> input);
     bool hasNextToken();
     string getNextToken();
+    void matchCurrentToken();
 };
 
 

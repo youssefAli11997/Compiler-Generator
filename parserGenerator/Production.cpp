@@ -31,3 +31,13 @@ set<Terminal> Production::getFirstSet(map <Symbol, set<Terminal>> firstSet) {
         res.insert(Terminal(to_string(EPSILON)));
     return res;
 }
+
+string Production::toString() {
+    string str;
+    for (int i = 0; i < symbols.size() ; ++i) {
+        str +=  symbols[i]->getName();
+    }
+    return str;
+}
+
+

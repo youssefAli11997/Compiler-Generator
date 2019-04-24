@@ -43,6 +43,7 @@ void ParseTableBuilder::initiateAllSets() {
 
 ParseTable ParseTableBuilder::buildParseTable() {
     ParseTable table;
+    table.setStartSymbolPtr(&startSymbol);
     for(NonTerminal nonTerminal:nonTerminals){
         for(Production *prd:nonTerminal.productions){
             for(Terminal t:prd->getFirstSet(allFirstSets)){
