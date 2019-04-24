@@ -1,4 +1,8 @@
-A --> idopidopB
-B --> num
-parsing completed.
-Number of errors: 0
+STATEMENT_LIST --> STATEMENTSTATEMENT_LIST_LRdash
+STATEMENT --> DECLARATION
+DECLARATION --> PRIMITIVE_TYPEid;
+PRIMITIVE_TYPE --> int
+matching (int), with token (int).
+matching (id), with token (id).
+matching (;), with token (;).
+ERROR: illegal (STATEMENT_LIST_LRdash), discard token (id).

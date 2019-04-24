@@ -30,6 +30,8 @@ void LL1Parser::parseGrammar() {
                     fout << "parsing completed."<< endl;
                     break;
                 }
+                cout << "matching (" << top->getName() << "), with token (" << token  << ")." << endl;
+                fout << "matching (" << top->getName() << "), with token (" << token  << ")." << endl;
                 inputBuffer.matchCurrentToken();
                 stack.pop();
             } else if(top->getName() == to_string(EPSILON)) {

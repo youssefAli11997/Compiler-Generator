@@ -34,6 +34,27 @@ mulop: \* | /
 
 
 
+# STATEMENT_LIST = STATEMENT STATEMENT_LIST_LRdash
+# STATEMENT_LIST_LRdash = STATEMENT STATEMENT_LIST_LRdash | '\E'
+# STATEMENT = DECLARATION
+| IF
+| WHILE
+| ASSIGNMENT
+# DECLARATION = PRIMITIVE_TYPE 'id' ';'
+# PRIMITIVE_TYPE = 'int' | 'float'
+# IF = 'if' '(' EXPRESSION ')' '{' STATEMENT '}' 'else' '{' STATEMENT '}'
+# WHILE = 'while' '(' EXPRESSION ')' '{' STATEMENT '}'
+# ASSIGNMENT = 'id' '=' EXPRESSION ';'
+# EXPRESSION = SIMPLE_EXPRESSION EXPRESSION_LFdash
+# EXPRESSION_LFdash = 'relop' SIMPLE_EXPRESSION | '\E'
+# SIMPLE_EXPRESSION = TERM SIMPLE_EXPRESSION_LRdash | SIGN TERM SIMPLE_EXPRESSION_LRdash
+# SIMPLE_EXPRESSION_LRdash = 'addop' TERM SIMPLE_EXPRESSION_LRdash | '\L'
+# TERM = FACTOR | TERM 'mulop' FACTOR
+# FACTOR = 'id' | 'num' | '(' EXPRESSION ')'
+# SIGN = '+' | '-'
+
+
+
 int sum , count , pass ,
 mnt; while (pass != 10)
 {

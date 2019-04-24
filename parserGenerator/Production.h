@@ -18,7 +18,7 @@ private:
 public:
     vector<Symbol*> symbols;
     vector<Symbol*> getSymbols();
-    set<Terminal> getFirstSet(map<Symbol,set<Terminal>> firstSet);
+    set<Terminal*> getFirstSet(map<Symbol*,set<Terminal*>> firstSet);
     string toString();
 };
 

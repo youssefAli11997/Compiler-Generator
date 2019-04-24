@@ -27,6 +27,7 @@ int main() {
 
     /************ Lexer *****************/
 
+    /*
     //input parsing and tokens identification code
     InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
@@ -70,10 +71,19 @@ int main() {
 
     Lexer::readFile("../lexerGenerator/lexer_input");
     vector<string> input = Lexer::runLexicalAnalysis(optimized);
-
+*/
 
     /************ Parser *****************/
 
+    vector<string> in{"int","id",",","id",",","id",",","id",";","while",
+        "(","id","relop","num",")","{","id","assign","id","addop","num",";","}","}",";",to_string(END_MARKER)};
+
+    vector<string> innn{"int","id",";","id","=","num",";","if","(","id",
+                      ">","num",")","id","assing","num","}",to_string(END_MARKER)};
+
+    //vector<string> vvv{"int","x",";","x","=","5",";","if","(","x",">",
+     //                  "2",")","{","x",'=',"0","}",to_string(END_MARKER)};
+    InputBuffer buff(innn);
 
     GrammarScanner::parseInput("../parserGenerator/parser_input");
     NonTerminal* start = GrammarScanner::getStartSymbolPtr();
@@ -90,28 +100,33 @@ int main() {
 
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
+    table.printTable();
+
+    /*
 
     cout << "first --------------------" << "\n";
-    for(pair<Symbol,set<Terminal>> keyVal:pr.firstSets){
-        cout << "("+keyVal.first.getName() + "): {";
-        for(Terminal t :keyVal.second){
-            cout << t.getName() + " ";
+    for(pair<Symbol*,set<Terminal*>> keyVal:pr.firstSets){
+        cout << "("+keyVal.first->getName() + "): {";
+        for(Terminal* t :keyVal.second){
+            cout << t->getName() + " ";
         }
         cout <<"}\n";
     }
     cout << "follow --------------------" << "\n";
-    for(pair<NonTerminal,set<Terminal>> keyVal:pr.followSets){
-        cout << "("+keyVal.first.getName() + "): {";
-        for(Terminal t :keyVal.second){
-            cout << t.getName() + " ";
+    for(pair<NonTerminal*,set<Terminal*>> keyVal:pr.followSets){
+        cout << "("+keyVal.first->getName() + "): {";
+        for(Terminal* t :keyVal.second){
+            cout << t->getName() + " ";
         }
         cout <<"}\n";
     }
+     */
 
-    table.printTable();
+
+    //table.printTable();
     cout << endl;
 
-    LL1Parser parser(input, table);
+    LL1Parser parser(buff, table);
     parser.parseGrammar();
 
 
