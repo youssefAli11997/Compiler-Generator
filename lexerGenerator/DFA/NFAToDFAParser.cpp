@@ -4,7 +4,7 @@
 #include "DFAState.h"
 #include "NFAToDFAParser.h"
 #include "bits/stdc++.h"
-#include "lexerGenerator/Utilities/LexicalContract.h"
+#include "Utilities/LexicalContract.h"
 using namespace std;
 map<DFAState, vector<pair<DFAState, char>> > newGraph;
 set<pair<DFAState, Token>> newEndStates;

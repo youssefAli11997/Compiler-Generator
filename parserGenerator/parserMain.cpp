@@ -1,13 +1,13 @@
-#include <lexerGenerator/DFA/NFAToDFAParser.h>
-#include <lexerGenerator/DFA/DFABuilder.h>
-#include "lexerGenerator/InputToRegexParser.h"
-#include "lexerGenerator/NFA/NFABuilder.h"
+#include <DFA/NFAToDFAParser.h>
+#include <DFA/DFABuilder.h>
+#include "InputToRegexParser.h"
+#include "NFA/NFABuilder.h"
 #include "bits/stdc++.h"
-#include "lexerGenerator/DFA/DFAState.h"
-#include "lexerGenerator/Utilities/InfixToPostfixConverter.h"
-#include "lexerGenerator/DFA/DFAGraph.h"
-#include "lexerGenerator/DFAOptimizer.h"
-#include "lexerGenerator/Lexer.h"
+#include "DFA/DFAState.h"
+#include "Utilities/InfixToPostfixConverter.h"
+#include "DFA/DFAGraph.h"
+#include "DFAOptimizer.h"
+#include "Lexer.h"
 
 #include "Terminal.h"
 #include "Symbol.h"
@@ -27,8 +27,9 @@ int main() {
 
     /************ Lexer *****************/
 
-    /*
-    //input parsing and tokens identification code
+
+     //input parsing and tokens identification code
+
     InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
 
@@ -71,19 +72,17 @@ int main() {
 
     Lexer::readFile("../lexerGenerator/lexer_input");
     vector<string> input = Lexer::runLexicalAnalysis(optimized);
-*/
+
 
     /************ Parser *****************/
 
-    vector<string> in{"int","id",",","id",",","id",",","id",";","while",
-        "(","id","relop","num",")","{","id","assign","id","addop","num",";","}","}",";",to_string(END_MARKER)};
+    //vector<string> in{"int","id",";","id","=","num",";","if","(","id",
+      // "=","num",")","{","id","=","num",";","}",to_string(END_MARKER)};
 
-    vector<string> innn{"int","id",";","id","=","num",";","if","(","id",
-                      ">","num",")","id","assing","num","}",to_string(END_MARKER)};
+    //vector<string> innn{"int","id",";","id","=","num",";","if","(","id",
+      //                ">","num",")","id","=","num","}",to_string(END_MARKER)};
 
-    //vector<string> vvv{"int","x",";","x","=","5",";","if","(","x",">",
-     //                  "2",")","{","x",'=',"0","}",to_string(END_MARKER)};
-    InputBuffer buff(innn);
+    InputBuffer buff(input);
 
     GrammarScanner::parseInput("../parserGenerator/parser_input");
     NonTerminal* start = GrammarScanner::getStartSymbolPtr();
@@ -102,10 +101,10 @@ int main() {
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
     table.printTable();
 
-    /*
+
 
     cout << "first --------------------" << "\n";
-    for(pair<Symbol*,set<Terminal*>> keyVal:pr.firstSets){
+    for(pair<Symbol*,set<Terminal*>> keyVal:pr.allFirstSets){
         cout << "("+keyVal.first->getName() + "): {";
         for(Terminal* t :keyVal.second){
             cout << t->getName() + " ";
@@ -120,7 +119,8 @@ int main() {
         }
         cout <<"}\n";
     }
-     */
+
+
 
 
     //table.printTable();

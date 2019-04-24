@@ -1,11 +1,11 @@
 #include <iostream>
-#include <lexerGenerator/DFA/NFAToDFAParser.h>
-#include <lexerGenerator/DFA/DFABuilder.h>
+#include <DFA/NFAToDFAParser.h>
+#include <DFA/DFABuilder.h>
 #include "InputToRegexParser.h"
-#include "lexerGenerator/NFA/NFABuilder.h"
+#include "NFA/NFABuilder.h"
 #include "bits/stdc++.h"
 #include "DFAState.h"
-#include "lexerGenerator/Utilities/InfixToPostfixConverter.h"
+#include "Utilities/InfixToPostfixConverter.h"
 #include "DFAGraph.h"
 #include "DFAOptimizer.h"
 #include "Lexer.h"

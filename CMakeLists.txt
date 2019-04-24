@@ -3,10 +3,11 @@ project(Compilers)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(.)
+include_directories(lexerGenerator)
 include_directories(lexerGenerator/DFA)
 include_directories(lexerGenerator/NFA)
 include_directories(lexerGenerator/Utilities)
+include_directories(parserGenerator)
 
 add_executable(Compilers
         lexerGenerator/DFA/DFABuilder.cpp
@@ -15,7 +16,6 @@ add_executable(Compilers
         lexerGenerator/DFA/DFAGraph.h
         lexerGenerator/DFA/DFAState.cpp
         lexerGenerator/DFA/DFAState.h
-        "lexerGenerator/DFA/NFA Example.txt"
         lexerGenerator/DFA/NFAToDFAParser.cpp
         lexerGenerator/DFA/NFAToDFAParser.h
         lexerGenerator/NFA/NFABuilder.cpp
@@ -43,4 +43,26 @@ add_executable(Compilers
         lexerGenerator/SymbolTable.cpp
         lexerGenerator/SymbolTable.h
         lexerGenerator/Token.cpp
-        lexerGenerator/Token.h parserGenerator/GrammarScanner.cpp parserGenerator/GrammarScanner.h parserGenerator/LL1Parser.cpp parserGenerator/LL1Parser.h parserGenerator/NonTerminal.cpp parserGenerator/NonTerminal.h parserGenerator/ParserContract.h parserGenerator/ParseTable.cpp parserGenerator/ParseTable.h parserGenerator/ParseTableBuilder.cpp parserGenerator/ParseTableBuilder.h parserGenerator/Production.cpp parserGenerator/Production.h parserGenerator/Symbol.cpp parserGenerator/Symbol.h parserGenerator/Terminal.cpp parserGenerator/Terminal.h parserGenerator/parserMain.cpp parserGenerator/InputBuffer.cpp parserGenerator/InputBuffer.h)
+        lexerGenerator/Token.h
+        parserGenerator/GrammarScanner.cpp
+        parserGenerator/GrammarScanner.h
+        parserGenerator/InputBuffer.cpp
+        parserGenerator/InputBuffer.h
+        parserGenerator/LL1Parser.cpp
+        parserGenerator/LL1Parser.h
+        parserGenerator/NonTerminal.cpp
+        parserGenerator/NonTerminal.h
+        parserGenerator/parser_input
+        parserGenerator/parser_output
+        parserGenerator/ParserContract.h
+        parserGenerator/parserMain.cpp
+        parserGenerator/ParseTable.cpp
+        parserGenerator/ParseTable.h
+        parserGenerator/ParseTableBuilder.cpp
+        parserGenerator/ParseTableBuilder.h
+        parserGenerator/Production.cpp
+        parserGenerator/Production.h
+        parserGenerator/Symbol.cpp
+        parserGenerator/Symbol.h
+        parserGenerator/Terminal.cpp
+        parserGenerator/Terminal.h)

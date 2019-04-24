@@ -133,8 +133,18 @@ void ParseTableBuilder::computeFirstSets() {
     }
     for(int i  = 0 ; i < nonTerminals.size() ; i++){
         if(allFirstSets[nonTerminals[i]].empty()){
-            allFirstSets[nonTerminals[i]] = computeNonTerminalFirst(*nonTerminals[i]);
+            allFirstSets[nonTerminals[i]] = computeNonTerminalFirst(nonTerminals[i]);
             firstSets[nonTerminals[i]] = allFirstSets[nonTerminals[i]];
+            /*
+            cout << "first --------------------" << "\n";
+            for(pair<Symbol*,set<Terminal*>> keyVal:allFirstSets){
+                cout << "("+keyVal.first->getName() + "): {";
+                for(Terminal* t :keyVal.second){
+                    cout << t->getName() + " ";
+                }
+                cout <<"}\n";
+            }
+             */
         }
     }
     for(NonTerminal* nonTerminal:nonTerminals){
@@ -150,26 +160,26 @@ void ParseTableBuilder::computeFirstSets() {
 }
 
 
-set<Terminal*> ParseTableBuilder::computeNonTerminalFirst(NonTerminal nonTerminal){
+set<Terminal*> ParseTableBuilder::computeNonTerminalFirst(NonTerminal* nonTerminal){
     set<Terminal*> first;
-    for(int i = 0 ; i < nonTerminal.productions.size() ; i ++){
+    for(int i = 0 ; i < nonTerminal->productions.size() ; i ++){
         set<Terminal*> terRes;
-        for(int j = 0 ; j < nonTerminal.productions[i]->symbols.size() ; j++){
-            Symbol * symbol = nonTerminal.productions[i]->symbols[j];
+        for(int j = 0 ; j < nonTerminal->productions[i]->symbols.size() ; j++){
+            Symbol * symbol = nonTerminal->productions[i]->symbols[j];
             if(Terminal* d = dynamic_cast<Terminal*>(symbol)){
                 terRes.insert(d);
                 break;
             }
             else if(NonTerminal* d = dynamic_cast<NonTerminal*>(symbol)){
-                NonTerminal nonTer = *d;
+                NonTerminal* nonTer = d;
                 set<Terminal*> terminals;
-                if(allFirstSets[&nonTer].empty()) {
+                if(allFirstSets[nonTer].empty()) {
                     terminals = computeNonTerminalFirst(nonTer);
-                    allFirstSets[&nonTer] = terminals;
-                    firstSets[&nonTer] = terminals;
+                    allFirstSets[nonTer] = terminals;
+                    firstSets[nonTer] = terminals;
                 }
                 else{
-                    terminals = allFirstSets[&nonTer];
+                    terminals = allFirstSets[nonTer];
                 }
                 if(terminals.size() == 1){
                     vector<Terminal*> vt(terminals.begin(),terminals.end());

@@ -16,7 +16,7 @@ private:
     vector<NonTerminal*> nonTerminals;
     vector<Terminal*> terminals;
     vector<Symbol*> allSymbols;
-    set<Terminal*> computeNonTerminalFirst(NonTerminal nonTerminal);
+    set<Terminal*> computeNonTerminalFirst(NonTerminal* nonTerminal);
     void computeFirstSets();
     void computerFollowSets();
     ParseTable buildParseTable();
