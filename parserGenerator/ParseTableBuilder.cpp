@@ -9,9 +9,9 @@
 
 ParseTableBuilder::ParseTableBuilder() {}
 
-ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, vector<NonTerminal> nonTerminals,
-                                            vector<Terminal> terminals) {
-    this->startSymbol = startSymbolPtr;
+ParseTable ParseTableBuilder::getParseTable(NonTerminal* startSymbolPtr, vector<NonTerminal*> nonTerminals,
+                                            vector<Terminal*> terminals) {
+    this->startSymbol = *startSymbolPtr;
     this->nonTerminals = nonTerminals;
     this->terminals = terminals;
     getAllSymbols();
@@ -23,10 +23,10 @@ ParseTable ParseTableBuilder::getParseTable(NonTerminal startSymbolPtr, vector<N
 
 void ParseTableBuilder::getAllSymbols() {
     for(int i = 0 ; i < terminals.size() ; i ++){
-        allSymbols.push_back(&terminals[i]);
+        allSymbols.push_back(terminals[i]);
     }
     for(int i = 0 ; i < nonTerminals.size() ; i ++){
-        allSymbols.push_back(&nonTerminals[i]);
+        allSymbols.push_back(nonTerminals[i]);
     }
 }
 
@@ -37,32 +37,32 @@ void ParseTableBuilder::initiateAllSets() {
     }
     for(int i = 0 ; i < nonTerminals.size() ; i++){
         set<Terminal> empty;
-        followSets[nonTerminals[i]] = empty;
+        followSets[*nonTerminals[i]] = empty;
     }
 }
 
 ParseTable ParseTableBuilder::buildParseTable() {
     ParseTable table;
     table.setStartSymbolPtr(&startSymbol);
-    for(NonTerminal nonTerminal:nonTerminals){
-        for(Production *prd:nonTerminal.productions){
+    for(NonTerminal* nonTerminal:nonTerminals){
+        for(Production *prd:nonTerminal->productions){
             for(Terminal t:prd->getFirstSet(allFirstSets)){
-                table.addProductionEntry(nonTerminal,t,prd);
+                table.addProductionEntry(*nonTerminal,t,prd);
                 if(t.getName() == to_string(EPSILON)){
-                    for(Terminal t :followSets[nonTerminal]){
-                        table.addProductionEntry(nonTerminal,t,prd);
+                    for(Terminal t :followSets[*nonTerminal]){
+                        table.addProductionEntry(*nonTerminal,t,prd);
                         if(t.getName() == to_string(END_MARKER)){
-                            table.addProductionEntry(nonTerminal,Terminal(to_string(END_MARKER)),prd);
+                            table.addProductionEntry(*nonTerminal,Terminal(to_string(END_MARKER)),prd);
                         }
                     }
                 }
             }
         }
     }
-    for(NonTerminal nonTerminal: nonTerminals){
-        for(Terminal t : followSets[nonTerminal]){
-            if(table.getEntryType(nonTerminal,t) == EMPTY_ENTRY){
-                table.addSyncEntry(nonTerminal,t);
+    for(NonTerminal* nonTerminal: nonTerminals){
+        for(Terminal t : followSets[*nonTerminal]){
+            if(table.getEntryType(*nonTerminal,t) == EMPTY_ENTRY){
+                table.addSyncEntry(*nonTerminal,t);
             }
         }
     }
@@ -72,23 +72,23 @@ ParseTable ParseTableBuilder::buildParseTable() {
 void ParseTableBuilder::computerFollowSets() {
     // start symbol
     for(int i = 0 ; i < nonTerminals.size() ; i++) {
-        if (nonTerminals[i].getName() == startSymbol.getName()) {
+        if (nonTerminals[i]->getName() == startSymbol.getName()) {
             Terminal t = Terminal(to_string(END_MARKER));
-            followSets[nonTerminals[i]].insert(t);
+            followSets[*nonTerminals[i]].insert(t);
         }
     }
 
-    for(NonTerminal nonTerminal: nonTerminals){
-        for(NonTerminal loop: nonTerminals) {
-            for (Production * prod: loop.productions) {
+    for(NonTerminal* nonTerminal: nonTerminals){
+        for(NonTerminal* loop: nonTerminals) {
+            for (Production * prod: loop->productions) {
                 for (int i = 0; i < prod->symbols.size(); i++) {
-                    if (prod->symbols[i]->getName() == nonTerminal.getName()){
+                    if (prod->symbols[i]->getName() == nonTerminal->getName()){
                         if((i+1) < prod->symbols.size()){
                             for(Terminal t:allFirstSets[*prod->symbols[i+1]]){
                                 if(t.getName() == to_string(EPSILON)){
                                     continue;
                                 }
-                                followSets[nonTerminal].insert(t);
+                                followSets[*nonTerminal].insert(t);
                             }
                         }
                     }
@@ -96,14 +96,14 @@ void ParseTableBuilder::computerFollowSets() {
             }
         }
     }
-    for(NonTerminal nonTerminal: nonTerminals){
-        for(NonTerminal loop: nonTerminals) {
-            for (Production * prod: loop.productions) {
+    for(NonTerminal* nonTerminal: nonTerminals){
+        for(NonTerminal* loop: nonTerminals) {
+            for (Production * prod: loop->productions) {
                 for (int i = 0; i < prod->symbols.size(); i++) {
-                    if (prod->symbols[i]->getName() == nonTerminal.getName()){
+                    if (prod->symbols[i]->getName() == nonTerminal->getName()){
                         if((i+1) == prod->symbols.size()){
-                            for(Terminal t:followSets[loop]){
-                                followSets[nonTerminal].insert(t);
+                            for(Terminal t:followSets[*loop]){
+                                followSets[*nonTerminal].insert(t);
                             }
                         }
                         else if((i+1) < prod->symbols.size()){
@@ -115,8 +115,8 @@ void ParseTableBuilder::computerFollowSets() {
                                 }
                             }
                             if(containEp){
-                                for(Terminal t:followSets[loop]){
-                                    followSets[nonTerminal].insert(t);
+                                for(Terminal t:followSets[*loop]){
+                                    followSets[*nonTerminal].insert(t);
                                 }
                             }
                         }
@@ -129,16 +129,16 @@ void ParseTableBuilder::computerFollowSets() {
 
 void ParseTableBuilder::computeFirstSets() {
     for(int i  = 0 ; i < terminals.size() ; i++){
-        allFirstSets[terminals[i]].insert(terminals[i]);
+        allFirstSets[*terminals[i]].insert(*terminals[i]);
     }
     for(int i  = 0 ; i < nonTerminals.size() ; i++){
-        if(allFirstSets[nonTerminals[i]].empty()){
-            allFirstSets[nonTerminals[i]] = computeNonTerminalFirst(nonTerminals[i]);
-            firstSets[nonTerminals[i]] = allFirstSets[nonTerminals[i]];
+        if(allFirstSets[*nonTerminals[i]].empty()){
+            allFirstSets[*nonTerminals[i]] = computeNonTerminalFirst(*nonTerminals[i]);
+            firstSets[*nonTerminals[i]] = allFirstSets[*nonTerminals[i]];
         }
     }
-    for(NonTerminal nonTerminal:nonTerminals){
-        for(Production * prd:nonTerminal.productions){
+    for(NonTerminal* nonTerminal:nonTerminals){
+        for(Production * prd:nonTerminal->productions){
             string name = "";
             for(Symbol* symbol:prd->symbols){
                 name += symbol->getName();

@@ -15,13 +15,13 @@
 class GrammarScanner {
 private:
     static NonTerminal* startSymbolPtr;
-    static set<NonTerminal *> nonTerminals;
-    static set<Terminal *> Terminals;
+    static set<NonTerminal* > nonTerminals;
+    static set<Terminal* > Terminals;
     static void parseIntoLines(string path);
 public:
     static NonTerminal* getStartSymbolPtr();
-    static set<NonTerminal *> getNonTerminals();
-    static set<Terminal *> getTerminals();
+    static set<NonTerminal* > getNonTerminals();
+    static set<Terminal* > getTerminals();
     static void parseInput(string path);
 
     static void parseIntoLineWords();

@@ -4,6 +4,7 @@
 
 #include <stack>
 #include <iostream>
+#include <fstream>
 #include "LL1Parser.h"
 #include "ParserContract.h"
 #include "Terminal.h"
@@ -11,6 +12,7 @@
 LL1Parser::LL1Parser(InputBuffer input, ParseTable table): inputBuffer(input), parseTable(table) {}
 
 void LL1Parser::parseGrammar() {
+    ofstream fout ("../parserGenerator/parser_output");
     int errorsCount = 0;
     stack<Symbol *> stack;
     stack.push(new Terminal(to_string(END_MARKER)));
@@ -25,6 +27,7 @@ void LL1Parser::parseGrammar() {
                 if (token == to_string(END_MARKER)) {
                     // completed successfully
                     cout << "parsing completed."<< endl;
+                    fout << "parsing completed."<< endl;
                     break;
                 }
                 inputBuffer.matchCurrentToken();
@@ -35,18 +38,21 @@ void LL1Parser::parseGrammar() {
                 stack.pop();
                 // error no matching
                 cout << "ERROR: missing token (" << top->getName() << "), inserted." << endl;
+                fout << "ERROR: missing token (" << top->getName() << "), inserted." << endl;
                 errorsCount++;
             }
         } else if (NonTerminal *d = dynamic_cast<NonTerminal *>(top)) {
             int entryType = parseTable.getEntryType(*d, Terminal(token));
             if (entryType == EMPTY_ENTRY) {
-                cout << "ERROR:illegal (" << top->getName() << "), discard token (" << token  << ")." << endl;
+                cout << "ERROR: illegal (" << top->getName() << "), discard token (" << token  << ")." << endl;
+                fout << "ERROR: illegal (" << top->getName() << "), discard token (" << token  << ")." << endl;
                 errorsCount++;
                 inputBuffer.matchCurrentToken();
             } else if (entryType == PRODUCTION_ENTRY) {
                 Production *prod = parseTable.getProduction(*d, Terminal(token));
                 stack.pop();
                 cout << d->getName() << " --> " << prod->toString() << endl;
+                fout << d->getName() << " --> " << prod->toString() << endl;
                 for (int i = prod->getSymbols().size() - 1; i >= 0; i--) {
                     stack.push(prod->getSymbols()[i]);
                 }
@@ -57,8 +63,12 @@ void LL1Parser::parseGrammar() {
             }
         }else{
             cout << "Can't cast in parseGrammar()" << endl;
+            fout << "Can't cast in parseGrammar()" << endl;
         }
     }
-    cout << "Number of erros: " << errorsCount << endl;
+    cout << "Number of errors: " << errorsCount << endl;
+    fout << "Number of errors: " << errorsCount << endl;
+
+    fout.close();
 
 }

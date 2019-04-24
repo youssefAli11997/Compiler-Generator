@@ -13,8 +13,8 @@
 class ParseTableBuilder {
 private:
     NonTerminal startSymbol;
-    vector<NonTerminal> nonTerminals;
-    vector<Terminal> terminals;
+    vector<NonTerminal*> nonTerminals;
+    vector<Terminal*> terminals;
     vector<Symbol*> allSymbols;
     set<Terminal> computeNonTerminalFirst(NonTerminal nonTerminal);
     void computeFirstSets();
@@ -27,7 +27,7 @@ public:
     map<Symbol, set<Terminal>> firstSets; // nonTerminal and production( a symbol representing the vector of symbols)
     map<NonTerminal, set<Terminal>> followSets;
     ParseTableBuilder();
-    ParseTable getParseTable(NonTerminal startSymbolPtr, vector<NonTerminal> nonTerminals, vector<Terminal> terminals);
+    ParseTable getParseTable(NonTerminal* startSymbolPtr, vector<NonTerminal*> nonTerminals, vector<Terminal*> terminals);
 };
 
 

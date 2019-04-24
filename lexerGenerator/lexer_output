@@ -1,4 +1,5 @@
-addop
-addop
-relop
-assign
+id
+op
+id
+op
+num
