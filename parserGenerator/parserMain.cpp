@@ -130,6 +130,7 @@ int main() {
 cout<<"///////////////////////////////End of Bouns//////////////////////////////"<<endl;
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
+    // To merge my bouns  make the previos line : ParseTable table = pr.getParseTable(leftFactoringElimination.Newstart, NOLRAndNoLF, terminals);
     table.printTable();
 
 
