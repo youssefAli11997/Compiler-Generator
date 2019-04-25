@@ -127,7 +127,7 @@ int main() {
         }
         cout<<endl;
     }
-///////////////////////////////End of Bouns//////////////////////////////
+cout<<"///////////////////////////////End of Bouns//////////////////////////////"<<endl;
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
     table.printTable();
