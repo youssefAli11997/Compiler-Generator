@@ -110,8 +110,8 @@ int main() {
     lrEliminator.EliminateLR(NotPointerVecotr ,Results1, start);
     LeftFactoringElimination leftFactoringElimination;
     Result2 = leftFactoringElimination.EliminateLF(Results1, lrEliminator.Newstart);
-    for(NonTerminal t: Result2){
-        NOLRAndNoLF.push_back(&t);
+    for(int i = 0; i < Result2.size(); i++){
+        NOLRAndNoLF.push_back(&Result2[i]);
     }
     cout<<"LR And LF Results!!!"<<endl;
     for(int i = 0; i < Result2.size(); i++){
