@@ -5,9 +5,9 @@ Popping (METHOD_BODY) from stack.
 Pushing (STATEMENT_LIST) to stack.
 Next token is (int).
 Top of stack token is (STATEMENT_LIST).
-STATEMENT_LIST --> STATEMENT STATEMENT_LIST& 
+STATEMENT_LIST --> STATEMENT STATEMENT_LIST_LRdash 
 Popping (STATEMENT_LIST) from stack.
-Pushing (STATEMENT_LIST&) to stack.
+Pushing (STATEMENT_LIST_LRdash) to stack.
 Pushing (STATEMENT) to stack.
 Next token is (int).
 Top of stack token is (STATEMENT).
@@ -38,210 +38,12 @@ Next token is (;).
 Top of stack token is (;).
 matching (;), with token (;).
 Popping (;) from stack.
-Next token is (while).
-Top of stack token is (STATEMENT_LIST&).
-STATEMENT_LIST& --> STATEMENT STATEMENT_LIST& 
-Popping (STATEMENT_LIST&) from stack.
-Pushing (STATEMENT_LIST&) to stack.
+Next token is (id).
+Top of stack token is (STATEMENT_LIST_LRdash).
+STATEMENT_LIST_LRdash --> STATEMENT STATEMENT_LIST_LRdash 
+Popping (STATEMENT_LIST_LRdash) from stack.
+Pushing (STATEMENT_LIST_LRdash) to stack.
 Pushing (STATEMENT) to stack.
-Next token is (while).
-Top of stack token is (STATEMENT).
-STATEMENT --> WHILE 
-Popping (STATEMENT) from stack.
-Pushing (WHILE) to stack.
-Next token is (while).
-Top of stack token is (WHILE).
-WHILE --> while ( EXPRESSION ) { STATEMENT } 
-Popping (WHILE) from stack.
-Pushing (}) to stack.
-Pushing (STATEMENT) to stack.
-Pushing ({) to stack.
-Pushing ()) to stack.
-Pushing (EXPRESSION) to stack.
-Pushing (() to stack.
-Pushing (while) to stack.
-Next token is (while).
-Top of stack token is (while).
-matching (while), with token (while).
-Popping (while) from stack.
-Next token is (().
-Top of stack token is (().
-matching ((), with token (().
-Popping (() from stack.
-Next token is (id).
-Top of stack token is (EXPRESSION).
-EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
-Popping (EXPRESSION) from stack.
-Pushing (EXPRESSION&) to stack.
-Pushing (SIMPLE_EXPRESSION) to stack.
-Next token is (id).
-Top of stack token is (SIMPLE_EXPRESSION).
-SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
-Popping (SIMPLE_EXPRESSION) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
-Pushing (TERM) to stack.
-Next token is (id).
-Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
-Popping (TERM) from stack.
-Pushing (TERM&) to stack.
-Pushing (FACTOR) to stack.
-Next token is (id).
-Top of stack token is (FACTOR).
-FACTOR --> id 
-Popping (FACTOR) from stack.
-Pushing (id) to stack.
-Next token is (id).
-Top of stack token is (id).
-matching (id), with token (id).
-Popping (id) from stack.
-Next token is (relop).
-Top of stack token is (TERM&).
-TERM& --> 27 
-Popping (TERM&) from stack.
-Pushing (27) to stack.
-Next token is (relop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (relop).
-Top of stack token is (SIMPLE_EXPRESSION&).
-SIMPLE_EXPRESSION& --> 27 
-Popping (SIMPLE_EXPRESSION&) from stack.
-Pushing (27) to stack.
-Next token is (relop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (relop).
-Top of stack token is (EXPRESSION&).
-EXPRESSION& --> relop SIMPLE_EXPRESSION 
-Popping (EXPRESSION&) from stack.
-Pushing (SIMPLE_EXPRESSION) to stack.
-Pushing (relop) to stack.
-Next token is (relop).
-Top of stack token is (relop).
-matching (relop), with token (relop).
-Popping (relop) from stack.
-Next token is (num).
-Top of stack token is (SIMPLE_EXPRESSION).
-SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
-Popping (SIMPLE_EXPRESSION) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
-Pushing (TERM) to stack.
-Next token is (num).
-Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
-Popping (TERM) from stack.
-Pushing (TERM&) to stack.
-Pushing (FACTOR) to stack.
-Next token is (num).
-Top of stack token is (FACTOR).
-FACTOR --> num 
-Popping (FACTOR) from stack.
-Pushing (num) to stack.
-Next token is (num).
-Top of stack token is (num).
-matching (num), with token (num).
-Popping (num) from stack.
-Next token is ()).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token ()).
-Next token is ({).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token ({).
-Next token is (id).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (id).
-Next token is (=).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (=).
-Next token is (id).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (id).
-Next token is (addop).
-Top of stack token is (TERM&).
-TERM& --> 27 
-Popping (TERM&) from stack.
-Pushing (27) to stack.
-Next token is (addop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (addop).
-Top of stack token is (SIMPLE_EXPRESSION&).
-SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
-Popping (SIMPLE_EXPRESSION&) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
-Pushing (TERM) to stack.
-Pushing (addop) to stack.
-Next token is (addop).
-Top of stack token is (addop).
-matching (addop), with token (addop).
-Popping (addop) from stack.
-Next token is (num).
-Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
-Popping (TERM) from stack.
-Pushing (TERM&) to stack.
-Pushing (FACTOR) to stack.
-Next token is (num).
-Top of stack token is (FACTOR).
-FACTOR --> num 
-Popping (FACTOR) from stack.
-Pushing (num) to stack.
-Next token is (num).
-Top of stack token is (num).
-matching (num), with token (num).
-Popping (num) from stack.
-Next token is (;).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (;).
-Next token is (}).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (}).
-Next token is (if).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (if).
-Next token is (().
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (().
-Next token is (id).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (id).
-Next token is (relop).
-Top of stack token is (TERM&).
-TERM& --> 27 
-Popping (TERM&) from stack.
-Pushing (27) to stack.
-Next token is (relop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (relop).
-Top of stack token is (SIMPLE_EXPRESSION&).
-SIMPLE_EXPRESSION& --> 27 
-Popping (SIMPLE_EXPRESSION&) from stack.
-Pushing (27) to stack.
-Next token is (relop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (relop).
-Top of stack token is ()).
-ERROR: missing token ()), inserted.
-Popping ()) from stack.
-Next token is (relop).
-Top of stack token is ({).
-ERROR: missing token ({), inserted.
-Popping ({) from stack.
-Next token is (relop).
-Top of stack token is (STATEMENT).
-ERROR: illegal (STATEMENT), discard token (relop).
-Next token is (num).
-Top of stack token is (STATEMENT).
-ERROR: illegal (STATEMENT), discard token (num).
-Next token is ()).
-Top of stack token is (STATEMENT).
-ERROR: illegal (STATEMENT), discard token ()).
-Next token is ({).
-Top of stack token is (STATEMENT).
-ERROR: illegal (STATEMENT), discard token ({).
 Next token is (id).
 Top of stack token is (STATEMENT).
 STATEMENT --> ASSIGNMENT 
@@ -263,57 +65,23 @@ Next token is (=).
 Top of stack token is (=).
 matching (=), with token (=).
 Popping (=) from stack.
-Next token is (id).
+Next token is (num).
 Top of stack token is (EXPRESSION).
-EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION_LFdash 
 Popping (EXPRESSION) from stack.
-Pushing (EXPRESSION&) to stack.
+Pushing (EXPRESSION_LFdash) to stack.
 Pushing (SIMPLE_EXPRESSION) to stack.
-Next token is (id).
+Next token is (num).
 Top of stack token is (SIMPLE_EXPRESSION).
-SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION_LRdash 
 Popping (SIMPLE_EXPRESSION) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
+Pushing (SIMPLE_EXPRESSION_LRdash) to stack.
 Pushing (TERM) to stack.
-Next token is (id).
-Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
-Popping (TERM) from stack.
-Pushing (TERM&) to stack.
-Pushing (FACTOR) to stack.
-Next token is (id).
-Top of stack token is (FACTOR).
-FACTOR --> id 
-Popping (FACTOR) from stack.
-Pushing (id) to stack.
-Next token is (id).
-Top of stack token is (id).
-matching (id), with token (id).
-Popping (id) from stack.
-Next token is (addop).
-Top of stack token is (TERM&).
-TERM& --> 27 
-Popping (TERM&) from stack.
-Pushing (27) to stack.
-Next token is (addop).
-Top of stack token is (27).
-Popping (EPSILON) from stack.
-Next token is (addop).
-Top of stack token is (SIMPLE_EXPRESSION&).
-SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
-Popping (SIMPLE_EXPRESSION&) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
-Pushing (TERM) to stack.
-Pushing (addop) to stack.
-Next token is (addop).
-Top of stack token is (addop).
-matching (addop), with token (addop).
-Popping (addop) from stack.
 Next token is (num).
 Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
+TERM --> FACTOR TERM_LRdash 
 Popping (TERM) from stack.
-Pushing (TERM&) to stack.
+Pushing (TERM_LRdash) to stack.
 Pushing (FACTOR) to stack.
 Next token is (num).
 Top of stack token is (FACTOR).
@@ -325,50 +93,80 @@ Top of stack token is (num).
 matching (num), with token (num).
 Popping (num) from stack.
 Next token is (;).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (;).
-Next token is (}).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (}).
-Next token is (else).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (else).
-Next token is ({).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token ({).
-Next token is (id).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (id).
-Next token is (=).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (=).
-Next token is (id).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (id).
-Next token is (addop).
-Top of stack token is (TERM&).
-TERM& --> 27 
-Popping (TERM&) from stack.
+Top of stack token is (TERM_LRdash).
+TERM_LRdash --> 27 
+Popping (TERM_LRdash) from stack.
 Pushing (27) to stack.
-Next token is (addop).
+Next token is (;).
 Top of stack token is (27).
 Popping (EPSILON) from stack.
-Next token is (addop).
-Top of stack token is (SIMPLE_EXPRESSION&).
-SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
-Popping (SIMPLE_EXPRESSION&) from stack.
-Pushing (SIMPLE_EXPRESSION&) to stack.
+Next token is (;).
+Top of stack token is (SIMPLE_EXPRESSION_LRdash).
+SIMPLE_EXPRESSION_LRdash --> 27 
+Popping (SIMPLE_EXPRESSION_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (;).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (;).
+Top of stack token is (EXPRESSION_LFdash).
+EXPRESSION_LFdash --> 27 
+Popping (EXPRESSION_LFdash) from stack.
+Pushing (27) to stack.
+Next token is (;).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (;).
+Top of stack token is (;).
+matching (;), with token (;).
+Popping (;) from stack.
+Next token is (if).
+Top of stack token is (STATEMENT_LIST_LRdash).
+STATEMENT_LIST_LRdash --> STATEMENT STATEMENT_LIST_LRdash 
+Popping (STATEMENT_LIST_LRdash) from stack.
+Pushing (STATEMENT_LIST_LRdash) to stack.
+Pushing (STATEMENT) to stack.
+Next token is (if).
+Top of stack token is (STATEMENT).
+STATEMENT --> IF 
+Popping (STATEMENT) from stack.
+Pushing (IF) to stack.
+Next token is (if).
+Top of stack token is (IF).
+IF --> if ( EXPRESSION ) { STATEMENT } 
+Popping (IF) from stack.
+Pushing (}) to stack.
+Pushing (STATEMENT) to stack.
+Pushing ({) to stack.
+Pushing ()) to stack.
+Pushing (EXPRESSION) to stack.
+Pushing (() to stack.
+Pushing (if) to stack.
+Next token is (if).
+Top of stack token is (if).
+matching (if), with token (if).
+Popping (if) from stack.
+Next token is (().
+Top of stack token is (().
+matching ((), with token (().
+Popping (() from stack.
+Next token is (id).
+Top of stack token is (EXPRESSION).
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION_LFdash 
+Popping (EXPRESSION) from stack.
+Pushing (EXPRESSION_LFdash) to stack.
+Pushing (SIMPLE_EXPRESSION) to stack.
+Next token is (id).
+Top of stack token is (SIMPLE_EXPRESSION).
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION_LRdash 
+Popping (SIMPLE_EXPRESSION) from stack.
+Pushing (SIMPLE_EXPRESSION_LRdash) to stack.
 Pushing (TERM) to stack.
-Pushing (addop) to stack.
-Next token is (addop).
-Top of stack token is (addop).
-matching (addop), with token (addop).
-Popping (addop) from stack.
 Next token is (id).
 Top of stack token is (TERM).
-TERM --> FACTOR TERM& 
+TERM --> FACTOR TERM_LRdash 
 Popping (TERM) from stack.
-Pushing (TERM&) to stack.
+Pushing (TERM_LRdash) to stack.
 Pushing (FACTOR) to stack.
 Next token is (id).
 Top of stack token is (FACTOR).
@@ -379,13 +177,167 @@ Next token is (id).
 Top of stack token is (id).
 matching (id), with token (id).
 Popping (id) from stack.
+Next token is (relop).
+Top of stack token is (TERM_LRdash).
+TERM_LRdash --> 27 
+Popping (TERM_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (relop).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (relop).
+Top of stack token is (SIMPLE_EXPRESSION_LRdash).
+SIMPLE_EXPRESSION_LRdash --> 27 
+Popping (SIMPLE_EXPRESSION_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (relop).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (relop).
+Top of stack token is (EXPRESSION_LFdash).
+EXPRESSION_LFdash --> relop SIMPLE_EXPRESSION 
+Popping (EXPRESSION_LFdash) from stack.
+Pushing (SIMPLE_EXPRESSION) to stack.
+Pushing (relop) to stack.
+Next token is (relop).
+Top of stack token is (relop).
+matching (relop), with token (relop).
+Popping (relop) from stack.
+Next token is (num).
+Top of stack token is (SIMPLE_EXPRESSION).
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION_LRdash 
+Popping (SIMPLE_EXPRESSION) from stack.
+Pushing (SIMPLE_EXPRESSION_LRdash) to stack.
+Pushing (TERM) to stack.
+Next token is (num).
+Top of stack token is (TERM).
+TERM --> FACTOR TERM_LRdash 
+Popping (TERM) from stack.
+Pushing (TERM_LRdash) to stack.
+Pushing (FACTOR) to stack.
+Next token is (num).
+Top of stack token is (FACTOR).
+FACTOR --> num 
+Popping (FACTOR) from stack.
+Pushing (num) to stack.
+Next token is (num).
+Top of stack token is (num).
+matching (num), with token (num).
+Popping (num) from stack.
+Next token is ()).
+Top of stack token is (TERM_LRdash).
+TERM_LRdash --> 27 
+Popping (TERM_LRdash) from stack.
+Pushing (27) to stack.
+Next token is ()).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is ()).
+Top of stack token is (SIMPLE_EXPRESSION_LRdash).
+SIMPLE_EXPRESSION_LRdash --> 27 
+Popping (SIMPLE_EXPRESSION_LRdash) from stack.
+Pushing (27) to stack.
+Next token is ()).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is ()).
+Top of stack token is ()).
+matching ()), with token ()).
+Popping ()) from stack.
+Next token is ({).
+Top of stack token is ({).
+matching ({), with token ({).
+Popping ({) from stack.
+Next token is (id).
+Top of stack token is (STATEMENT).
+STATEMENT --> ASSIGNMENT 
+Popping (STATEMENT) from stack.
+Pushing (ASSIGNMENT) to stack.
+Next token is (id).
+Top of stack token is (ASSIGNMENT).
+ASSIGNMENT --> id = EXPRESSION ; 
+Popping (ASSIGNMENT) from stack.
+Pushing (;) to stack.
+Pushing (EXPRESSION) to stack.
+Pushing (=) to stack.
+Pushing (id) to stack.
+Next token is (id).
+Top of stack token is (id).
+matching (id), with token (id).
+Popping (id) from stack.
+Next token is (=).
+Top of stack token is (=).
+matching (=), with token (=).
+Popping (=) from stack.
+Next token is (num).
+Top of stack token is (EXPRESSION).
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION_LFdash 
+Popping (EXPRESSION) from stack.
+Pushing (EXPRESSION_LFdash) to stack.
+Pushing (SIMPLE_EXPRESSION) to stack.
+Next token is (num).
+Top of stack token is (SIMPLE_EXPRESSION).
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION_LRdash 
+Popping (SIMPLE_EXPRESSION) from stack.
+Pushing (SIMPLE_EXPRESSION_LRdash) to stack.
+Pushing (TERM) to stack.
+Next token is (num).
+Top of stack token is (TERM).
+TERM --> FACTOR TERM_LRdash 
+Popping (TERM) from stack.
+Pushing (TERM_LRdash) to stack.
+Pushing (FACTOR) to stack.
+Next token is (num).
+Top of stack token is (FACTOR).
+FACTOR --> num 
+Popping (FACTOR) from stack.
+Pushing (num) to stack.
+Next token is (num).
+Top of stack token is (num).
+matching (num), with token (num).
+Popping (num) from stack.
 Next token is (;).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (;).
+Top of stack token is (TERM_LRdash).
+TERM_LRdash --> 27 
+Popping (TERM_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (;).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (;).
+Top of stack token is (SIMPLE_EXPRESSION_LRdash).
+SIMPLE_EXPRESSION_LRdash --> 27 
+Popping (SIMPLE_EXPRESSION_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (;).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (;).
+Top of stack token is (EXPRESSION_LFdash).
+EXPRESSION_LFdash --> 27 
+Popping (EXPRESSION_LFdash) from stack.
+Pushing (27) to stack.
+Next token is (;).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (;).
+Top of stack token is (;).
+matching (;), with token (;).
+Popping (;) from stack.
 Next token is (}).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (}).
+Top of stack token is (}).
+matching (}), with token (}).
+Popping (}) from stack.
 Next token is (36).
-Top of stack token is (TERM&).
-ERROR: illegal (TERM&), discard token (36).
-Number of errors: 26
+Top of stack token is (STATEMENT_LIST_LRdash).
+STATEMENT_LIST_LRdash --> 27 
+Popping (STATEMENT_LIST_LRdash) from stack.
+Pushing (27) to stack.
+Next token is (36).
+Top of stack token is (27).
+Popping (EPSILON) from stack.
+Next token is (36).
+Top of stack token is (36).
+matching (36), with token (36).
+parsing completed.
+Number of errors: 0

@@ -113,7 +113,6 @@ bool Lexer::lexemeHasNoPunctuation(string lexeme) {
 
 vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
     vector<string> tokens;
-    ofstream file_output ("../lexerGenerator/lexer_output");
     int lastAcceptedIndex = -1;
     Token* lastAcceptedToken;
     for(int i=0; i<lexemes.size(); i++){
@@ -140,7 +139,6 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                 }
                 tokens.push_back(modified);
                 //tokens.push_back(token.getName());
-                file_output<<token.getName()<<endl;
             }
             else{
                 string modified = "";
@@ -151,14 +149,13 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                 }
                 tokens.push_back(modified);
                 //tokens.push_back(token.getName());
-                file_output<<token.getName()<<endl;
                 if(token.getName() == "id")
                     SymbolTable::addIdentifier(lexemes[i]);
             }
         }
         else{
             if(lastAcceptedIndex == -1)
-                file_output<<"ERROR("<<lexemes[i]<<" cannot be matched with any token)"<<endl;
+                continue;
             else{
                 string restString = getStringFromIndexXToEnd(lexemes[i], lastAcceptedIndex);
                 lexemes.insert(lexemes.begin() + i + 1, restString);
@@ -171,7 +168,6 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                     }
                     //tokens.push_back(modified);
                     tokens.push_back(lastAcceptedToken->getName());
-                    file_output<<lastAcceptedToken->getName()<<endl;
                 }
                 else{
                     string modified = "";
@@ -182,7 +178,6 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                     }
                     tokens.push_back(modified);
                     //tokens.push_back(lastAcceptedToken->getName());
-                    file_output<<lastAcceptedToken->getName()<<endl;
                     if(lastAcceptedToken->getName() == "id")
                         SymbolTable::addIdentifier(lexemes[i].substr(0, lexemes[i].length() - restString.length()));
                 }
@@ -191,8 +186,11 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
         }
     }
 
-    file_output.close();
 
-    //tokens.push_back(to_string(END_MARKER));
+    ofstream file_output ("../lexerGenerator/lexer_output");
+    for (string s : tokens){
+        file_output << s << endl;
+    }
+    file_output.close();
     return tokens;
 }

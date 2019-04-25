@@ -12,10 +12,10 @@ using namespace std;
 
 class LL1Parser {
 private:
-    ParseTable parseTable;
-    InputBuffer inputBuffer;
+    ParseTable& parseTable;
+    InputBuffer& inputBuffer;
 public:
-    LL1Parser(InputBuffer input, ParseTable table);
+    LL1Parser(InputBuffer& input, ParseTable& table);
     void parseGrammar();
 };
 

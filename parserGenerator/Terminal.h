@@ -16,8 +16,10 @@ public:
     Terminal(string name): Symbol(name){};
     string toString();
 
+
+
 };
 
 
 
-#endif //COMPILERS_TERMINAL_H
+#endif //COMPILERS_TERMINAL_Hg

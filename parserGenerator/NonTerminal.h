@@ -27,6 +27,17 @@ public:
     void addToFollowSet(Terminal* t);
     void addToFollowSet(set<Terminal*> s);
     string toString();
+    bool operator ==(const NonTerminal & obj) const
+    {
+        if (name == obj.name)
+            return true;
+        else
+            return false;
+    }
+    bool operator< (const NonTerminal & obj) const
+    {
+        return (name < obj.name);
+    }
 };
 
 

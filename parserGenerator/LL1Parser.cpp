@@ -9,17 +9,20 @@
 #include "ParserContract.h"
 #include "Terminal.h"
 
-LL1Parser::LL1Parser(InputBuffer input, ParseTable table): inputBuffer(input), parseTable(table) {}
+LL1Parser::LL1Parser(InputBuffer& input, ParseTable& table): inputBuffer(input), parseTable(table) {}
 
 void LL1Parser::parseGrammar() {
+
     ofstream fout ("../parserGenerator/parser_output");
     ofstream fdout ("../parserGenerator/parser_debugging");
+
     int errorsCount = 0;
     stack<Symbol *> stack;
     stack.push(new Terminal(to_string(END_MARKER)));
     stack.push(parseTable.getStartSymbolPtr());
     Symbol *top;
     string token;
+
     while (inputBuffer.hasNextToken()) {
         token = inputBuffer.getNextToken();
         fdout << "Next token is (" << token  << ")." << endl;

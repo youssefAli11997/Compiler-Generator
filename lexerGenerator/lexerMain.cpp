@@ -17,81 +17,37 @@ inline bool operator<(DFAState a, DFAState b)
     return a.id > b.id;
 }
 
-//#define LEXER
+#include "../Driver.h"
 
 #ifdef LEXER
 
 int main() {
 
-/*
-   InputToRegexParser::readFile("../simple_lexical_input");
-   InputToRegexParser::finalizeTokens();
-   vector<Token> tokens = InputToRegexParser::getTokens();
-   cout<<"begin\n";
-   NFABuilder builder;
-   NFAState nfaStartState = builder.build(tokens);
-   cout<<"end\n";
-   cout << nfaStartState.getID() << endl;
-*/
-
-/*
-   InfixToPostfixConverter::convert("\\(");
-   InfixToPostfixConverter::convert("\\)");
-   cout << endl;
-*/
-    /*
-   InfixToPostfixConverter::convert("\\=\\=");
-   cout << endl;
-*/
-
-
-
-    //input parsing and tokens identification code
+    cout << "Reading lexer rules ..." << endl;
     InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
 
-    cout<<"begin!!! tarek\n";
+    cout<<"Begin building NFA ..\n";
     vector<Token> tokens = InputToRegexParser::getTokens();
     NFABuilder builder;
     NFAState nfaStartState = builder.build(tokens);
-    cout<<"end!!! tarek\n";
+    cout<<"Finish Building NFA\n";
 
-    cout<<"tokens list: \n";
-    for(int i=0; i<tokens.size(); i++){
-        cout<<tokens[i].toString()<<endl;
-    }
-
-    cout<<"begin!!! shazly\n";
+    cout<<"Begin Building DFA ..\n";
     DFABuilder dfaBuilder(nfaStartState);
     DFAGraph dfaGraph = dfaBuilder.buildDFA();
-    cout << "Graph ------------------------------\n";
-    for(pair<DFAState, vector<pair<DFAState, char>>> entry: dfaGraph.graph){
-        cout << "State: " << entry.first.id << "\n";
-        for(pair<DFAState, char> trans: entry.second){
-            cout << "   Next :" << trans.first.id << " on: " << trans.second << "\n";
-        }
-    }
-    cout << "-------------------------------";
-    cout<<"end!!! shazly\n";
+    cout<<"Finish Building DFA\n";
 
-    cout<<"begin!!! mashaal\n";
+    cout<<"Begin optimizing DFA ..\n";
     DFAOptimizer optimizer;
     DFAGraph optimized = optimizer.getOptimizedGraph(dfaGraph);
-    cout << "Optimized Graph ------------------------------\n";
-    for(pair<DFAState, vector<pair<DFAState, char>>> entry: optimized.graph){
-        cout << "State: " << entry.first.id << "\n";
-        for(pair<DFAState, char> trans: entry.second){
-            cout << "   Next :" << trans.first.id << " on: " << trans.second << "\n";
-        }
-    }
-    cout << "-------------------------------";
-    cout<<"end!!! mashaal\n";
+    cout<<"Finish optimizing DFA\n";
 
+    cout << "Running lexical analysis ..." << endl;
     Lexer::readFile("../lexerGenerator/lexer_input");
     Lexer::runLexicalAnalysis(optimized);
 
     return 0;
-
 }
 
 #endif
