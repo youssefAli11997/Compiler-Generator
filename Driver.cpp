@@ -27,7 +27,6 @@
 
 int main(){
 
-
     cout << "Reading lexer rules ..." << endl;
     InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
@@ -65,33 +64,13 @@ int main(){
 
 /*
     cout << "\n----------- BEGIN of lexer output tokens ------" << endl;
-    // temporarily editing the backslash
-    // for pdf_ex
-    //input[8] = "(";
-    //input[12] = ")";
-    // for prog1
-    //input[4] = "(";
-    //input[8] = ")";
-    //input[18] = "(";
-    //input[22] = ")";
-    // for prog2
-    input[4] = "(";
-    input[8] = ")";
-    input[17] = "(";
-    input[21] = ")";
-    input[22] = ")";
-
     for(int i=0;i<input.size();i++){
         cout << i << ": " << input[i] << endl;
     }
     cout << "----------- END of lexer output tokens ------\n" << endl;
 */
-
-    input[4] = "(";
-    input[8] = ")";
-    input[18] = "(";
-    input[22] = ")";
     input.push_back(to_string(END_MARKER));
+
     InputBuffer buff(input);
 
     GrammarScanner::parseInput("../parserGenerator/parser_input");
@@ -110,9 +89,9 @@ int main(){
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
     // To merge my bouns  make the previos line : ParseTable table = pr.getParseTable(leftFactoringElimination.Newstart, NOLRAndNoLF, terminals);
-    //table.printTable();
+    table.printTable();
 
-    /*
+
     cout << "first --------------------" << "\n";
     for(pair<Symbol*,set<Terminal*>> keyVal:pr.allFirstSets){
         cout << "("+keyVal.first->getName() + "): {";
@@ -130,7 +109,7 @@ int main(){
         cout <<"}\n";
     }
 
-     */
+
 
     cout << endl;
 

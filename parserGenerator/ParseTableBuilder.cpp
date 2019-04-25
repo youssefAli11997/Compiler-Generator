@@ -46,12 +46,12 @@ ParseTable ParseTableBuilder::buildParseTable() {
     table.setStartSymbolPtr(startSymbol);
     for(NonTerminal* nonTerminal:nonTerminals){
         for(Production* prd:nonTerminal->productions){
-            for(Terminal* t:prd->getFirstSet(allFirstSets)){
-                table.addProductionEntry(*nonTerminal,*t,prd);
-                if(t->getName() == to_string(EPSILON)){
-                    for(Terminal* t :followSets[nonTerminal]){
-                        table.addProductionEntry(*nonTerminal,*t,prd);
-                        if(t->getName() == to_string(END_MARKER)){
+            for(Terminal* first_t:prd->getFirstSet(allFirstSets)){
+                table.addProductionEntry(*nonTerminal,*first_t,prd);
+                if(first_t->getName() == to_string(EPSILON)){
+                    for(Terminal* follow_t :followSets[nonTerminal]){
+                        table.addProductionEntry(*nonTerminal,*follow_t,prd);
+                        if(follow_t->getName() == to_string(END_MARKER)){
                             table.addProductionEntry(*nonTerminal,Terminal(to_string(END_MARKER)),prd);
                         }
                     }
