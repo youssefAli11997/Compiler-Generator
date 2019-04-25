@@ -21,16 +21,16 @@
 #include "InputBuffer.h"
 #include "LL1Parser.h"
 
-#define PARSER
+//#define PARSER
 
 #ifdef PARSER
 
 int main() {
 
     /************ Lexer *****************/
-
-
+/*
      //input parsing and tokens identification code
+
 
     InputToRegexParser::readFile("../lexerGenerator/rules_input");
     InputToRegexParser::finalizeTokens();
@@ -74,17 +74,47 @@ int main() {
 
     Lexer::readFile("../lexerGenerator/lexer_input");
     vector<string> input = Lexer::runLexicalAnalysis(optimized);
+*/
 
 
     /************ Parser *****************/
 
-    //vector<string> in{"int","id",";","id","=","num",";","if","(","id",
-      // "=","num",")","{","id","=","num",";","}",to_string(END_MARKER)};
+    vector<string> pdf_ex{"int","id",";","id","=","num",";","if","(","id",
+       "relop","num",")","{","id","=","num",";","}",to_string(END_MARKER)};
 
-    //vector<string> innn{"int","id",";","id","=","num",";","if","(","id",
-      //                ">","num",")","id","=","num","}",to_string(END_MARKER)};
+    vector<string> prog1{"int","id",";","while","(","id","relop","num",")","{","id","=","id","addop","num",";",
+                         "}","if","(","id","relop","num",")","{","id","=","id","addop","num",";","}","else",
+                         "{","id","=","id","addop","id",";","}",to_string(END_MARKER)};
 
-    InputBuffer buff(input);
+    vector<string> prog2{"int","id",";","while","(","id","relop","num",")","{","id","=","id","addop","num",";",
+                         "if","(","id","relop","num",")",")","{","id","=","id","addop","num",";","}","else",
+                         "{","id","=","id","addop","id",";","}",to_string(END_MARKER)};
+
+/*
+    cout << "\n----------- BEGIN of lexer output tokens ------" << endl;
+    // temporarily editing the backslash
+    // for pdf_ex
+    //input[8] = "(";
+    //input[12] = ")";
+    // for prog1
+    //input[4] = "(";
+    //input[8] = ")";
+    //input[18] = "(";
+    //input[22] = ")";
+    // for prog2
+    input[4] = "(";
+    input[8] = ")";
+    input[17] = "(";
+    input[21] = ")";
+    input[22] = ")";
+
+    for(int i=0;i<input.size();i++){
+        cout << i << ": " << input[i] << endl;
+    }
+    cout << "----------- END of lexer output tokens ------\n" << endl;
+*/
+
+    InputBuffer buff(prog2);
 
     GrammarScanner::parseInput("../parserGenerator/parser_input");
     NonTerminal* start = GrammarScanner::getStartSymbolPtr();
@@ -99,6 +129,7 @@ int main() {
         nonTerminals.push_back(t);
     }
 
+    /*
     vector<NonTerminal>NotPointerVecotr,Results1, Result2;
     for(NonTerminal* t: nonTerminals){
         NotPointerVecotr.push_back(*t);
@@ -114,20 +145,34 @@ int main() {
         NOLRAndNoLF.push_back(&Result2[i]);
     }
     cout<<"LR And LF Results!!!"<<endl;
+    ofstream fout("../parserGenerator/eliminator_output");
     for(int i = 0; i < Result2.size(); i++){
-        cout<<Result2[i].getName()<<" -> ";
+        cout << "# " << Result2[i].getName() << " = ";
+        fout << "# " << Result2[i].getName() << " = ";
         for(int j = 0; j < Result2[i].productions.size(); j++){
             for(int u = 0; u < Result2[i].productions[j]->symbols.size(); u++) {
                 Symbol* s =  Result2[i].productions[j]->symbols[u];
-                cout << Result2[i].productions[j]->symbols[u]->getName()<<" ";
-
+                string symbolName = Result2[i].productions[j]->symbols[u]->getName();
+                if(symbolName == to_string(EPSILON)){
+                    cout << "'\\L' " << endl;
+                    fout << "'\\L' " << endl;
+                }else{
+                    cout << "'" << symbolName << "' ";
+                    fout << "'" << symbolName << "' ";
+                }
             }
-            if(j!=Result2[i].productions.size() - 1)
+            if(j!=Result2[i].productions.size() - 1){
                 cout<<" | ";
+                fout<<" | ";
+            }
         }
         cout<<endl;
+        fout<<endl;
     }
+    fout.close();
 cout<<"///////////////////////////////End of Bouns//////////////////////////////"<<endl;
+*/
+
     ParseTableBuilder pr;
     ParseTable table = pr.getParseTable(start, nonTerminals, terminals);
     // To merge my bouns  make the previos line : ParseTable table = pr.getParseTable(leftFactoringElimination.Newstart, NOLRAndNoLF, terminals);
@@ -160,6 +205,7 @@ cout<<"///////////////////////////////End of Bouns//////////////////////////////
 
     LL1Parser parser(buff, table);
     parser.parseGrammar();
+
 
 
     /*

@@ -1,0 +1,21 @@
+# SIMPLE_EXPRESSION = 'TERM' 'SIMPLE_EXPRESSION&'  | 'SIGN' 'TERM' 'SIMPLE_EXPRESSION&' 
+# STATEMENT = 'DECLARATION'  | 'IF'  | 'WHILE'  | 'ASSIGNMENT' 
+# EXPRESSION = 'SIMPLE_EXPRESSION' 'EXPRESSION&' 
+# DECLARATION = 'PRIMITIVE_TYPE' 'id' ';' 
+# IF = 'if' '(' 'EXPRESSION' ')' '{' 'STATEMENT' '}' 'else' '{' 'STATEMENT' '}' 
+# WHILE = 'while' '(' 'EXPRESSION' ')' '{' 'STATEMENT' '}' 
+# SIMPLE_EXPRESSION& = 'addop' 'TERM' 'SIMPLE_EXPRESSION&'  | '\L' 
+
+# TERM& = 'mulop' 'FACTOR' 'TERM&'  | '\L' 
+
+# STATEMENT_LIST& = 'STATEMENT' 'STATEMENT_LIST&'  | '\L' 
+
+# FACTOR = 'id'  | 'num'  | '(' 'EXPRESSION' ')' 
+# PRIMITIVE_TYPE = 'int'  | 'float' 
+# STATEMENT_LIST = 'STATEMENT' 'STATEMENT_LIST&' 
+# EXPRESSION& = 'relop' 'SIMPLE_EXPRESSION'  | '\L' 
+
+# SIGN = '+'  | '-' 
+# TERM = 'FACTOR' 'TERM&' 
+# ASSIGNMENT = 'id' '=' 'EXPRESSION' ';' 
+# METHOD_BODY = 'STATEMENT_LIST' 

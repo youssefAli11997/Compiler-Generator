@@ -1,3 +1,5 @@
+Lexical Rules
+=============
 letter = a-z | A-Z
 digit = 0 - 9
 id: letter (letter|digit)*
@@ -12,51 +14,49 @@ addop: \+ | -
 mulop: \* | /
 
 
-
+Grammar
+=======
 # METHOD_BODY = STATEMENT_LIST
 # STATEMENT_LIST = STATEMENT | STATEMENT_LIST STATEMENT
-# STATEMENT = DECLARATION
-| IF
-| WHILE
-| ASSIGNMENT
+# STATEMENT = DECLARATION | IF | WHILE | ASSIGNMENT
 # DECLARATION = PRIMITIVE_TYPE 'id' ';'
 # PRIMITIVE_TYPE = 'int' | 'float'
-# IF = 'if' '(' EXPRESSION ')' '{' STATEMENT '}' 'else' '{' STATEMENT '}'
+# IF = 'if' '(' EXPRESSION ')' '{' STATEMENT '}'
 # WHILE = 'while' '(' EXPRESSION ')' '{' STATEMENT '}'
 # ASSIGNMENT = 'id' '=' EXPRESSION ';'
-# EXPRESSION = SIMPLE_EXPRESSION
-| SIMPLE_EXPRESSION 'relop' SIMPLE_EXPRESSION
+# EXPRESSION = SIMPLE_EXPRESSION | SIMPLE_EXPRESSION 'relop' SIMPLE_EXPRESSION
 # SIMPLE_EXPRESSION = TERM | SIGN TERM | SIMPLE_EXPRESSION 'addop' TERM
 # TERM = FACTOR | TERM 'mulop' FACTOR
 # FACTOR = 'id' | 'num' | '(' EXPRESSION ')'
 # SIGN = '+' | '-'
 
 
-
-
+Modified Grammar
+================
+# METHOD_BODY = STATEMENT_LIST
 # STATEMENT_LIST = STATEMENT STATEMENT_LIST_LRdash
-# STATEMENT_LIST_LRdash = STATEMENT STATEMENT_LIST_LRdash | '\E'
-# STATEMENT = DECLARATION
-| IF
-| WHILE
-| ASSIGNMENT
+# STATEMENT_LIST_LRdash = STATEMENT STATEMENT_LIST_LRdash  | '\L'
+# STATEMENT = DECLARATION  | IF  | WHILE  | ASSIGNMENT
 # DECLARATION = PRIMITIVE_TYPE 'id' ';'
-# PRIMITIVE_TYPE = 'int' | 'float'
-# IF = 'if' '(' EXPRESSION ')' '{' STATEMENT '}' 'else' '{' STATEMENT '}'
+# PRIMITIVE_TYPE = 'int'  | 'float'
+# IF = 'if' '(' EXPRESSION ')' '{' STATEMENT '}'
 # WHILE = 'while' '(' EXPRESSION ')' '{' STATEMENT '}'
 # ASSIGNMENT = 'id' '=' EXPRESSION ';'
 # EXPRESSION = SIMPLE_EXPRESSION EXPRESSION_LFdash
-# EXPRESSION_LFdash = 'relop' SIMPLE_EXPRESSION | '\E'
-# SIMPLE_EXPRESSION = TERM SIMPLE_EXPRESSION_LRdash | SIGN TERM SIMPLE_EXPRESSION_LRdash
-# SIMPLE_EXPRESSION_LRdash = 'addop' TERM SIMPLE_EXPRESSION_LRdash | '\L'
-# TERM = FACTOR | TERM 'mulop' FACTOR
-# FACTOR = 'id' | 'num' | '(' EXPRESSION ')'
-# SIGN = '+' | '-'
+# EXPRESSION_LFdash = 'relop' SIMPLE_EXPRESSION  | '\L'
+# SIMPLE_EXPRESSION = TERM SIMPLE_EXPRESSION_LRdash  | SIGN TERM SIMPLE_EXPRESSION_LRdash
+# SIMPLE_EXPRESSION_LRdash = 'addop' TERM SIMPLE_EXPRESSION_LRdash  | '\L'
+# TERM = FACTOR TERM_LRdash
+# TERM_LRdash = 'mulop' FACTOR TERM_LRdash  | '\L'
+# FACTOR = 'id'  | 'num'  | '(' EXPRESSION ')'
+# SIGN = '+'  | '-'
 
 
-
-int sum , count , pass ,
-mnt; while (pass != 10)
+Program
+=======
+int x;
+x = 5;
+if (x > 2)
 {
-pass = pass + 1 ;
+x = 0;
 }

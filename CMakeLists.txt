@@ -70,4 +70,4 @@ add_executable(Compilers
         parserGenerator/Symbol.cpp
         parserGenerator/Symbol.h
         parserGenerator/Terminal.cpp
-        parserGenerator/Terminal.h)
+        parserGenerator/Terminal.h Driver.cpp)

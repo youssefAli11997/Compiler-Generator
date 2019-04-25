@@ -1,64 +1,117 @@
-METHOD_BODY --> STATEMENT_LIST
-STATEMENT_LIST --> STATEMENTSTATEMENT_LIST&
-STATEMENT --> DECLARATION
-DECLARATION --> PRIMITIVE_TYPEid;
-PRIMITIVE_TYPE --> int
+METHOD_BODY --> STATEMENT_LIST 
+STATEMENT_LIST --> STATEMENT STATEMENT_LIST& 
+STATEMENT --> DECLARATION 
+DECLARATION --> PRIMITIVE_TYPE id ; 
+PRIMITIVE_TYPE --> int 
 matching (int), with token (int).
 matching (id), with token (id).
 matching (;), with token (;).
-STATEMENT_LIST& --> STATEMENTSTATEMENT_LIST&
-STATEMENT --> WHILE
-WHILE --> while(EXPRESSION){STATEMENT}
+STATEMENT_LIST& --> STATEMENT STATEMENT_LIST& 
+STATEMENT --> WHILE 
+WHILE --> while ( EXPRESSION ) { STATEMENT } 
 matching (while), with token (while).
-ERROR: missing token ((), inserted.
-ERROR: illegal (EXPRESSION), discard token (\().
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (relop).
-ERROR: illegal (EXPRESSION), discard token (num).
-ERROR: illegal (EXPRESSION), discard token (\)).
-ERROR: illegal (EXPRESSION), discard token ({).
-ERROR: illegal (EXPRESSION), discard token (id).
-ERROR: illegal (EXPRESSION), discard token (assign).
-ERROR: illegal (EXPRESSION), discard token (id).
-EXPRESSION --> SIMPLE_EXPRESSIONEXPRESSION&
-SIMPLE_EXPRESSION --> SIMPLE_EXPRESSION&
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> num
-matching (num), with token (num).
-ERROR: illegal (TERM&), discard token (;).
-ERROR: illegal (TERM&), discard token (}).
-ERROR: illegal (TERM&), discard token (if).
-ERROR: illegal (TERM&), discard token (\().
-ERROR: illegal (TERM&), discard token (id).
-ERROR: illegal (TERM&), discard token (relop).
-ERROR: illegal (TERM&), discard token (num).
-ERROR: illegal (TERM&), discard token (\)).
-ERROR: illegal (TERM&), discard token ({).
-ERROR: illegal (TERM&), discard token (id).
-ERROR: illegal (TERM&), discard token (assign).
-ERROR: illegal (TERM&), discard token (id).
-TERM& --> 27
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> num
-matching (num), with token (num).
-ERROR: illegal (TERM&), discard token (;).
-ERROR: illegal (TERM&), discard token (}).
-ERROR: illegal (TERM&), discard token (else).
-ERROR: illegal (TERM&), discard token ({).
-ERROR: illegal (TERM&), discard token (id).
-ERROR: illegal (TERM&), discard token (assign).
-ERROR: illegal (TERM&), discard token (id).
-TERM& --> 27
-SIMPLE_EXPRESSION& --> addopTERMSIMPLE_EXPRESSION&
-matching (addop), with token (addop).
-TERM --> FACTORTERM&
-FACTOR --> id
+matching ((), with token (().
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> id 
 matching (id), with token (id).
-ERROR: illegal (TERM&), discard token (;).
-ERROR: illegal (TERM&), discard token (}).
-ERROR: illegal (TERM&), discard token (36).
-Number of errors: 32
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+EXPRESSION& --> relop SIMPLE_EXPRESSION 
+matching (relop), with token (relop).
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> num 
+matching (num), with token (num).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+matching ()), with token ()).
+matching ({), with token ({).
+STATEMENT --> ASSIGNMENT 
+ASSIGNMENT --> id = EXPRESSION ; 
+matching (id), with token (id).
+matching (=), with token (=).
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> id 
+matching (id), with token (id).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
+matching (addop), with token (addop).
+TERM --> FACTOR TERM& 
+FACTOR --> num 
+matching (num), with token (num).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+EXPRESSION& --> 27 
+matching (;), with token (;).
+matching (}), with token (}).
+STATEMENT_LIST& --> STATEMENT STATEMENT_LIST& 
+STATEMENT --> IF 
+IF --> if ( EXPRESSION ) { STATEMENT } else { STATEMENT } 
+matching (if), with token (if).
+matching ((), with token (().
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> id 
+matching (id), with token (id).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+EXPRESSION& --> relop SIMPLE_EXPRESSION 
+matching (relop), with token (relop).
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> num 
+matching (num), with token (num).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+matching ()), with token ()).
+matching ({), with token ({).
+STATEMENT --> ASSIGNMENT 
+ASSIGNMENT --> id = EXPRESSION ; 
+matching (id), with token (id).
+matching (=), with token (=).
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> id 
+matching (id), with token (id).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
+matching (addop), with token (addop).
+TERM --> FACTOR TERM& 
+FACTOR --> num 
+matching (num), with token (num).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+EXPRESSION& --> 27 
+matching (;), with token (;).
+matching (}), with token (}).
+matching (else), with token (else).
+matching ({), with token ({).
+STATEMENT --> ASSIGNMENT 
+ASSIGNMENT --> id = EXPRESSION ; 
+matching (id), with token (id).
+matching (=), with token (=).
+EXPRESSION --> SIMPLE_EXPRESSION EXPRESSION& 
+SIMPLE_EXPRESSION --> TERM SIMPLE_EXPRESSION& 
+TERM --> FACTOR TERM& 
+FACTOR --> id 
+matching (id), with token (id).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> addop TERM SIMPLE_EXPRESSION& 
+matching (addop), with token (addop).
+TERM --> FACTOR TERM& 
+FACTOR --> id 
+matching (id), with token (id).
+TERM& --> 27 
+SIMPLE_EXPRESSION& --> 27 
+EXPRESSION& --> 27 
+matching (;), with token (;).
+matching (}), with token (}).
+STATEMENT_LIST& --> 27 
+parsing completed.
+Number of errors: 0

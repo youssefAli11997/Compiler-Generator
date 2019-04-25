@@ -5,7 +5,7 @@ digits = digit+
 {boolean int float}
 num: digit+ | digit+ . digits ( \L | E digits)
 relop: \=\= | !\= | > | >\= | < | <\=
-assign: =
+=: =
 { if else while }
 [ , ; \( \) { }]
 addop: \+ | -
