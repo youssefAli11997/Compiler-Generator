@@ -132,25 +132,25 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
         if(currentState.end == true){
             Token token = currentState.getHighestPriorityToken();
             if(token.getPriority() == 0){
-                /*string modified = "";
+                string modified = "";
                 for(int j=0; j<token.getName().length(); j++){
                     if(token.getName()[j] == '\\')
                         continue;
                     modified += token.getName()[j];
                 }
-                tokens.push_back(modified);*/
-                tokens.push_back(token.getName());
+                tokens.push_back(modified);
+                //tokens.push_back(token.getName());
                 file_output<<token.getName()<<endl;
             }
             else{
-                /*string modified = "";
+                string modified = "";
                 for(int j=0; j<token.getName().length(); j++){
                     if(token.getName()[j] == '\\')
                         continue;
                     modified += token.getName()[j];
                 }
-                tokens.push_back(modified);*/
-                tokens.push_back(token.getName());
+                tokens.push_back(modified);
+                //tokens.push_back(token.getName());
                 file_output<<token.getName()<<endl;
                 if(token.getName() == "id")
                     SymbolTable::addIdentifier(lexemes[i]);
@@ -163,25 +163,25 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
                 string restString = getStringFromIndexXToEnd(lexemes[i], lastAcceptedIndex);
                 lexemes.insert(lexemes.begin() + i + 1, restString);
                 if(lastAcceptedToken->getPriority() == 0){
-                    /*string modified = "";
+                    string modified = "";
                     for(int j=0; j<lastAcceptedToken->getName().length(); j++){
                         if(lastAcceptedToken->getName()[j] == '\\')
                             continue;
                         modified += lastAcceptedToken->getName()[j];
                     }
-                    tokens.push_back(modified);*/
+                    //tokens.push_back(modified);
                     tokens.push_back(lastAcceptedToken->getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                 }
                 else{
-                    /*string modified = "";
+                    string modified = "";
                     for(int j=0; j<lastAcceptedToken->getName().length(); j++){
                         if(lastAcceptedToken->getName()[j] == '\\')
                             continue;
                         modified += lastAcceptedToken->getName()[j];
                     }
-                    tokens.push_back(modified);*/
-                    tokens.push_back(lastAcceptedToken->getName());
+                    tokens.push_back(modified);
+                    //tokens.push_back(lastAcceptedToken->getName());
                     file_output<<lastAcceptedToken->getName()<<endl;
                     if(lastAcceptedToken->getName() == "id")
                         SymbolTable::addIdentifier(lexemes[i].substr(0, lexemes[i].length() - restString.length()));
@@ -193,6 +193,6 @@ vector<string> Lexer::runLexicalAnalysis(DFAGraph graph) {
 
     file_output.close();
 
-    //tokens.push_back(to_string(END_MARKER));
+    tokens.push_back(to_string(END_MARKER));
     return tokens;
 }
